@@ -26,4 +26,8 @@ O controle é fica a critério de cada MEI, sendo controle individual. O SEBRAE 
 
 <img src="https://i.ibb.co/Wn6PzcV/Capturar.png" alt="Planilha" style="zoom: 50%;" />
 
-A ideia é fazer um Web App que integre essas funções e controle diário de cada usuário MEI de forma individual. A validação seria por meio do Google. No final do mês ou ano o usuário poderia gerar um relatório sobre os faturamentos. Isso auxiliaria ele a fazer suas declarações e ter um controle maior dos rendimentos.
+A ideia é fazer um Web App que integre essas funções e controle diário de cada usuário MEI de forma individual. A validação seria por meio do Google. 
+
+No final do mês ou ano o usuário poderia gerar um relatório sobre os faturamentos. Isso auxiliaria ele a fazer suas declarações e ter um controle maior dos rendimentos.
+
+Será feio uma faze de prototipação antes do desenvolvimento para melhor organização das interfaces web, tanto desktop quanto Mobile.
