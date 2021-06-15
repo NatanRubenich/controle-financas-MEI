@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import PaginaLogin from './components/PaginaLogin/PaginaLogin';
 import TelaInicial from './components/TelaInicial/TelaInicial';
 
