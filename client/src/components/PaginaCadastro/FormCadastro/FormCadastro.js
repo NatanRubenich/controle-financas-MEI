@@ -41,7 +41,6 @@ const FormCadastro = () => {
         <input type="password" class="form-control" id="senha2"/>
       </div>
       
-      
       <div class="col-0 p-4">
         <div className="row">
           <button className="btn btn-primary btn-block py-3">Cadastrar</button>

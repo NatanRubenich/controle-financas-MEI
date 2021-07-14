@@ -2,6 +2,20 @@
   border: 1px solid black;
 }
 
+.blind, .blind-hero {
+  background-color: white;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.z-index2 {
+  z-index: 2;
+}
+
 .ui.menu.header-menu {
   position: relative;
   background-color: white;
@@ -33,23 +47,33 @@
   justify-content: center;
 }
 
-.blind {
-  background-color: rgba(255, 255, 255, 0.65);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 0;
-}
-
-.z-index2 {
-  z-index: 2;
-}
-
 .hero-button {
   max-width: 9em;
 }
 
+.blind-hero {
+  opacity: 0.6;
+}
+
 .card-login {
   width: 22em;
+}
+
+.tabela-imagem {
+  background-image: url(../img/calculo.jpg);
+  background-size: cover;
+}
+
+td {
+  padding: 1em 1em;
+  vertical-align: middle;
+}
+
+th {
+  padding: 0.8em 1em;
+  vertical-align: middle;
+}
+
+.td-acoes {
+  width: 10%;
 }/*# sourceMappingURL=main.css.map */

@@ -9,7 +9,7 @@ const TelaInicial = () => {
     <div>
       <Header></Header>
       <div className="row m-0 min-vh-100 hero-image align-items-center position-relative">
-        <div className="blind"></div>
+        <div className="blind-hero"></div>
         <div className="col-1 d-none d-md-flex"></div>
         <div className="col-9 col-md-5 mx-auto mx-md-1 text-center text-md-start z-index2">
           <h1 className="my-4 display-3">Controle MEI</h1>
