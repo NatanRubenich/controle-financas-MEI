@@ -12,7 +12,7 @@ const Header = () => {
 
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light position-relative">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow position-relative z-index2">
       <div className="container-fluid">
         <a className="navbar-brand ms-2" href="#"><img className="logo" src={logo} /></a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSandwich" aria-controls="navbarSandwich" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@ const Header = () => {
         <div className="collapse navbar-collapse flex-row-reverse me-lg-2" id="navbarSandwich">
           <div className="navbar-nav">
             <a className="nav-link" aria-current="page" href="/login">Login</a>
-            <a className="nav-link" href="#">Cadastro</a>
+            <a className="nav-link" href="/cadastro">Cadastro</a>
           </div>
         </div>
       </div>

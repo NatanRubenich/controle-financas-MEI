@@ -24,19 +24,19 @@ const FormCadastro = () => {
         <input type="text" class="form-control" id="cnpj"/>
       </div>
 
-      <div class="col-7">
+      <div class="col-0 col-md-7">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email"/>
       </div>
-      <div class="col-5">
+      <div class="col-0 col-md-5">
         <label for="telefone" class="form-label">Telefone</label>
         <input type="text" class="form-control" id="telefone"/>
       </div>
-      <div class="col-6">
+      <div class="col-0 col-md-6">
         <label for="senha" class="form-label">Senha</label>
         <input type="password" class="form-control" id="senha"/>
       </div>
-      <div class="col-6">
+      <div class="col-0 col-md-6">
         <label for="senha2" class="form-label">Confirme a Senha</label>
         <input type="password" class="form-control" id="senha2"/>
       </div>

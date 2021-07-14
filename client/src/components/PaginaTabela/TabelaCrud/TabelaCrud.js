@@ -1,42 +1,48 @@
 import React from 'react';
+import ItemCrud from './ItemCrud/ItemCrud';
 
 const PaginaTabela = () => {
 
 
   return (
     <div className="row">
-      <table className="table table-striped">
-      <colgroup>
-        <col/>
-        <col/>
-        <col/>
-        <col/>
-        <col className="td-acoes"/>
-      </colgroup>
-        <thead className="pe-2 bg-primary">
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">CPF</th>
-            <th scope="col">Valor</th>
-            <th scope="col">Data</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Marcos</td>
-            <td>065963852-14</td>
-            <td>R$250,00</td>
-            <td>25/02/2021</td>
-            <td className="p-0">
-              <div className="d-flex"> 
-                <button className="btn btn-success m-1"><i className="fas fa-pencil-alt"></i></button> 
-                <button className="btn btn-danger m-1"><i className="fas fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="d-flex flex-row-reverse px-2 pb-2">
+        <button className="btn btn-success m-1 d-flex align-items-center">
+          <i className="fas fa-plus"></i>
+          <span className="ps-2">Adicionar Registro</span>
+        </button> 
+        <button className="btn btn-warning m-1 d-flex align-items-center">
+          <i className="fas fa-calculator"></i>
+          <span className="ps-2">Gerar Extrato Mensal</span>
+        </button> 
+      </div>
+
+      <div className="col-0">
+        <table className="table table-striped">
+          <thead className="bg-success text-white">
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Data</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+            <ItemCrud/>
+          </tbody>
+        </table>
+      </div>
+
+      
     </div>
   );
 
