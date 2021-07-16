@@ -20,6 +20,10 @@
   z-index: 2;
 }
 
+a {
+  text-decoration: none;
+}
+
 .ui.menu.header-menu {
   position: relative;
   background-color: white;
@@ -85,4 +89,12 @@ th {
 
 .td-registros .acoes {
   width: 10%;
+}
+
+.modal-blind {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  top: 0;
 }/*# sourceMappingURL=main.css.map */

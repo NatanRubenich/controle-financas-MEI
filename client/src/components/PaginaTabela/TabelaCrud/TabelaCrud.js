@@ -7,7 +7,9 @@ const PaginaTabela = () => {
   return (
     <div className="row">
       <div className="d-flex flex-row-reverse px-2 pb-2">
-        <button className="btn btn-success m-1 d-flex align-items-center">
+        <button 
+          className="btn btn-success m-1 d-flex align-items-center" 
+        >
           <i className="fas fa-plus"></i>
           <span className="ps-2">Adicionar Registro</span>
         </button> 
@@ -40,9 +42,7 @@ const PaginaTabela = () => {
             <ItemCrud/>
           </tbody>
         </table>
-      </div>
-
-      
+      </div>      
     </div>
   );
 
