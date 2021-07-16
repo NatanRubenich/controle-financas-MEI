@@ -1,12 +1,12 @@
 import React from 'react';
 
 import PagPadrao from '../PagPadrao/PagPadrao';
-import FormCadastro from './FormCadastro/FormCadastro';
+import FormCadastro from '../PaginaCadastro/FormCadastro/FormCadastro';
 
 const PaginaLogin = () => {
 
   return (
-    <PagPadrao titulo="Cadastro" background="login-imagem">
+    <PagPadrao titulo="Minha Conta" background="login-imagem">
       <FormCadastro/>
     </PagPadrao>
   );

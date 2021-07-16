@@ -6,8 +6,7 @@ import PaginaLogin from './components/PaginaLogin/PaginaLogin';
 import TelaInicial from './components/TelaInicial/TelaInicial';
 import PaginaCadastro from './components/PaginaCadastro/PaginaCadastro';
 import PaginaTabela from './components/PaginaTabela/PaginaTabela';
-import TabelaCrud from './components/PaginaTabela/TabelaCrud/TabelaCrud';
-import AdicionarRegistro from './components/PaginaTabela/AdicionarRegistro/AdicionarRegistro';
+import MinhaConta from './components/MinhaConta/MinhaConta';
 
 const App = () => {
   return (
@@ -32,6 +31,11 @@ const App = () => {
           <Route path="/registros">
             <Header />
             <PaginaTabela />
+          </Route>
+
+          <Route path="/minha-conta">
+            <Header />
+            <MinhaConta />
           </Route>
 
         </div>
