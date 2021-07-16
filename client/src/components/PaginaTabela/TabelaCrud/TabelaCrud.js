@@ -12,12 +12,12 @@ const PaginaTabela = () => {
     <div className="container p-0">
       <div className="row">
         <div className="d-flex flex-row-reverse px-2 pb-2">
-          <button 
-            className="btn btn-success m-1 d-flex align-items-center" 
-          >
-            <i className="fas fa-plus"></i>
-            <Link to="/registros/novo"><span className="ps-2 text-white">Adicionar Registro</span></Link>
-          </button> 
+          <Link to="/registros/novo">
+            <button className="btn btn-success m-1 d-flex align-items-center">
+              <i className="fas fa-plus"></i>
+              <span className="ps-2 text-white">Adicionar Registro</span>
+            </button>
+          </Link> 
           <button className="btn btn-warning m-1 d-flex align-items-center">
             <i className="fas fa-calculator"></i>
             <span className="ps-2">Gerar Extrato Mensal</span>

@@ -16,8 +16,6 @@ const PaginaTabela = () => {
     </WrapperTabela>
   );
 
-
-
 }
 
 export default PaginaTabela;

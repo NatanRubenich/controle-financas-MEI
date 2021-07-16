@@ -20,14 +20,17 @@ const App = () => {
           </Route>
 
           <Route path="/login" exact>
+            <Header />
             <PaginaLogin />
           </Route>
 
           <Route path="/cadastro" exact>
+            <Header />
             <PaginaCadastro />
           </Route>
 
           <Route path="/registros">
+            <Header />
             <PaginaTabela />
           </Route>
 

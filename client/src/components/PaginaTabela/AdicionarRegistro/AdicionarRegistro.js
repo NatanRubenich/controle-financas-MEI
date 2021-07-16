@@ -51,7 +51,7 @@ const AdicionarRegistro = () => {
               
               <div class="col-0 p-4">
                 <div className="row">
-                  <button className="btn btn-primary btn-block py-3">Cadastrar</button>
+                  <button className="btn btn-primary btn-block py-3">Adicionar</button>
                 </div>
               </div>
 

@@ -3,7 +3,7 @@ import React from 'react';
 const FormCadastro = () => {
 
   return (            
-    <form class="row g-3">
+    <form class="row g-">
       <div class="col-md-6">
         <label for="nome" class="form-label">Primeiro Nome</label>
         <input type="text" class="form-control" id="nome"/>

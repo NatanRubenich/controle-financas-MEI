@@ -3,9 +3,10 @@ import React from 'react';
 const PaginaLogin = () => {
 
   return (
-    <div className="row bg-secondary min-vh-100 m-0">
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="card p-3">
+    <div className="row bg-secondary min-vh-100 m-0 login-imagem position-relative">
+      <div className="blind"></div>
+      <div className="d-flex justify-content-center align-items-center z-index2">
+        <div className="card p-3 shadow-lg">
           <div className="card-body card-login">
             <h4 className="card-title mb-5">Login</h4>
             
