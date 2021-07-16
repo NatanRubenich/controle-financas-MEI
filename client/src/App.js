@@ -6,6 +6,8 @@ import PaginaLogin from './components/PaginaLogin/PaginaLogin';
 import TelaInicial from './components/TelaInicial/TelaInicial';
 import PaginaCadastro from './components/PaginaCadastro/PaginaCadastro';
 import PaginaTabela from './components/PaginaTabela/PaginaTabela';
+import TabelaCrud from './components/PaginaTabela/TabelaCrud/TabelaCrud';
+import AdicionarRegistro from './components/PaginaTabela/AdicionarRegistro/AdicionarRegistro';
 
 const App = () => {
   return (
@@ -13,12 +15,22 @@ const App = () => {
       <BrowserRouter>
         <div>
           <Route path="/" exact>
-            <Header/>
-            <TelaInicial/>
+            <Header />
+            <TelaInicial />
           </Route>
-          <Route path="/login" exact component={PaginaLogin} />
-          <Route path="/cadastro" exact component={PaginaCadastro} />
-          <Route path="/registros" exact component={PaginaTabela} />
+
+          <Route path="/login" exact>
+            <PaginaLogin />
+          </Route>
+
+          <Route path="/cadastro" exact>
+            <PaginaCadastro />
+          </Route>
+
+          <Route path="/registros">
+            <PaginaTabela />
+          </Route>
+
         </div>
       </BrowserRouter>
     </div>
