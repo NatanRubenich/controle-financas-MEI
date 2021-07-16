@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PaginaLogin = () => {
 
@@ -33,7 +34,7 @@ const PaginaLogin = () => {
               </div>
 
 								<div class="mt-4 text-center">
-									Não tem uma conta? <a href="registro.html">Cadastre-se</a>
+									Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link>
 								</div>
 
             </form>

@@ -9,7 +9,7 @@ const PaginaLogin = () => {
       <div className="blind"></div>
       <div className="col-11 col-md-8 m-auto bg-light rounded justify-content-center align-items-center z-index2 shadow-lg">
         <div className="container p-0 p-md-2">
-          <h4 className="text-center mt-4">Cadastro</h4>
+          <h4 className="text-center mt-4 mb-3">Cadastro</h4>
           <div className="container p-2 p-md-2 px-lg-4">
             <FormCadastro/>
           </div>
