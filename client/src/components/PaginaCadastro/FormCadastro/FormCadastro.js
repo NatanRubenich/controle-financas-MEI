@@ -10,7 +10,7 @@ const elementos = [
   {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-7", erro: "Insira um nome de empresa válido"},
   {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-5", erro: "Insira um CNPJ válido"},
   {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
-  {nome: "telefone", titulo: "Telefone", tipo: "number", classe: "col-md-5", erro: "Insira um telefone válido"},
+  {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-5", erro: "Insira um telefone válido"},
   {nome: "senha", titulo: "Senha", tipo: "password", classe: "col-md-6", erro: "Insira uma senha válida"},
   {nome: "senhaConf", titulo: "Confirme a Senha", tipo: "password", classe: "col-md-6", erro: "Senhas não correspondem"}
 ];

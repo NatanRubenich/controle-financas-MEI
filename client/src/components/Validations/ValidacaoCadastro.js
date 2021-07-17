@@ -16,7 +16,11 @@ export const usuarioSchema = yup.object().shape({
   cnpj: yup
     .string()
     .required("Campo incompleto")
-    .matches(/^[0-9]{14}$/, "Insira um CNPJ de 14 números"),
+    .test('tamanho-cnpj', function (value) {
+      const valorNovo = value.replace(/\D/g,'');
+      console.log(valorNovo, valorNovo.length === 14);
+      return valorNovo.length === 14;
+    }),
 
   email: yup
     .string()
@@ -26,18 +30,23 @@ export const usuarioSchema = yup.object().shape({
   telefone: yup
     .string()
     .required("Campo incompleto")
-    .matches(/^[0-9]{10,}$/, "Adicione o DDD"),
+    .test('tamanho-telefone', function (value) {
+      const valorNovo = value.replace(/\D/g,'');
+      console.log(valorNovo, valorNovo.length >= 10);
+      return valorNovo.length > 10;
+    }),
 
   senha: yup
     .string()
+    .required("Campo incompleto")
     .min(6, "Senha muito curta")
-    .max(40)
-    .required("Campo incompleto"),
+    .max(40),
+
 
   senhaConf: yup
     .string()
     .required("Campo incompleto")
-    .oneOf([yup.ref('senha'), null], 'Passwords must match')
+    .oneOf([yup.ref('senha'), null], 'Senhas não correspondem')
 
 })
 
