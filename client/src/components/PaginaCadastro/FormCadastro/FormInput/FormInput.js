@@ -3,9 +3,7 @@ import React from 'react';
 const FormInput = ({nome, titulo, tipo, classe, form, setForm}) => {
 
   const handleChange = (e) => {
-    setForm({
-      ...form, [nome]: e
-    })
+    setForm({ ...form, [nome]: e })
   }
 
 

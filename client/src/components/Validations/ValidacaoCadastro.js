@@ -1,12 +1,43 @@
 import * as yup from 'yup';
 
 export const usuarioSchema = yup.object().shape({
-  nome: yup.string().required(),
-  sobrenome: yup.string().required(),
-  nomeEmpresa: yup.string().required(),
-  cnpj: yup.number().required().min(14).max(14),
-  email: yup.string().email().required(),
-  telefone: yup.number().min(10).required(),
-  senha: yup.string().min(6).max(40).required(),
-  senhaConf: yup.string().min(6).max(40).required(),
-});
+  nome: yup
+    .string()
+    .required("Campo incompleto"),
+
+  sobrenome: yup
+    .string()
+    .required("Campo incompleto"),
+
+  nomeEmpresa: yup
+    .string()
+    .required("Campo incompleto"),
+
+  cnpj: yup
+    .string()
+    .required("Campo incompleto")
+    .matches(/^[0-9]{14}$/, "Insira um CNPJ de 14 números"),
+
+  email: yup
+    .string()
+    .email()
+    .required("Campo incompleto"),
+
+  telefone: yup
+    .string()
+    .required("Campo incompleto")
+    .matches(/^[0-9]{10,}$/, "Adicione o DDD"),
+
+  senha: yup
+    .string()
+    .min(6, "Senha muito curta")
+    .max(40)
+    .required("Campo incompleto"),
+
+  senhaConf: yup
+    .string()
+    .required("Campo incompleto")
+    .oneOf([yup.ref('senha'), null], 'Passwords must match')
+
+})
+

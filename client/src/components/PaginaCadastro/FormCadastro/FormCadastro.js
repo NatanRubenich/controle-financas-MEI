@@ -1,49 +1,60 @@
-import React, { useState } from 'react';
-import FormInput from './FormInput/FormInput';
-import * as yup from 'yup';
+import React from 'react';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { usuarioSchema } from '../../Validations/ValidacaoCadastro';
 
+const elementos = [
+  {nome: "nome", titulo: "Nome", tipo: "text", classe: "col-md-6", erro: "Insira um nome válido"},
+  {nome: "sobrenome", titulo: "Sobrenome", tipo: "text", classe: "col-md-6", erro: "Insira um sobrenome válido"},
+  {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-7", erro: "Insira um nome de empresa válido"},
+  {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-5", erro: "Insira um CNPJ válido"},
+  {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
+  {nome: "telefone", titulo: "Telefone", tipo: "number", classe: "col-md-5", erro: "Insira um telefone válido"},
+  {nome: "senha", titulo: "Senha", tipo: "password", classe: "col-md-6", erro: "Insira uma senha válida"},
+  {nome: "senhaConf", titulo: "Confirme a Senha", tipo: "password", classe: "col-md-6", erro: "Senhas não correspondem"}
+];
+
 const FormCadastro = () => {
 
-  const [ form, setForm ] = useState({
-    nome: "",
-    sobrenome: "",
-    nomeEmpresa: "",
-    cnpj: "",
-    email: "",
-    telefone: "",
-    senha: "",
-    senhaConf: ""
+  // React hook form
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(usuarioSchema)
   });
-
-  const [ erros, setErros ] = useState({})
-
-  const validacaoYup = async () => {
-    const isValid = await usuarioSchema.isValid(form);
-    return isValid;
+  
+  const gerarElementosInput = () => {
+    const resultadoElementos = elementos.map((item) => {
+      return (
+        <div className={item.classe}>
+          <label htmlFor={item.nome} class="form-label mt-2">{item.titulo}</label>
+          <input 
+            type={item.tipo} 
+            className="form-control" 
+            id={item.nome} 
+            {...register(item.nome)}
+          />
+          <span className="text-danger">{errors[item.nome] && `${errors[item.nome].message}`}</span>
+        </div>
+      )
+    });
+    return resultadoElementos;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(form);
-    if(form.senha != form.senhaConf) {
-      setErros({...erros, senha: "As senhas não correspondem"});
-    }
-    await validacaoYup();
+  if(errors) {
+    console.log(errors)
   }
+
+  const final = (d) => {
+    console.log(d)
+  }
+
+
 
   return (            
-    <form class="row" onSubmit={handleSubmit}>
+    <form class="row" onSubmit={handleSubmit((d) => final(d))}>
 
-      <FormInput nome="nome" titulo="Nome" tipo="text" classe="col-md-6" form={form} setForm={setForm}/>
-      <FormInput nome="sobrenome" titulo="Sobrenome" tipo="text" classe="col-md-6" form={form} setForm={setForm}/>
-      <FormInput nome="nomeEmpresa" titulo="Nome da Empresa" tipo="text" classe="col-md-7"  form={form} setForm={setForm}/>
-      <FormInput nome="cnpj" titulo="CNPJ" tipo="text" classe="col-md-5"  form={form} setForm={setForm}/>
-      <FormInput nome="email" titulo="Email" tipo="text" classe="col-md-7"  form={form} setForm={setForm}/>
-      <FormInput nome="telefone" titulo="Telefone" tipo="text" classe="col-md-5"  form={form} setForm={setForm}/>
-      <FormInput nome="senha" titulo="Senha" tipo="password" classe="col-md-6"  form={form} setForm={setForm}/>
-      <FormInput nome="senhaConf" titulo="Confirme a Senha" tipo="password" classe="col-md-6"  form={form} setForm={setForm}/>
-      
+      {gerarElementosInput()}
+
       <div class="col-0 p-4">
         <div className="row">
           <button className="btn btn-primary btn-block py-3">Cadastrar</button>
