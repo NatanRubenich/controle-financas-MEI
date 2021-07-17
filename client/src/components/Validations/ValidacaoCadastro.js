@@ -18,7 +18,6 @@ export const usuarioSchema = yup.object().shape({
     .required("Campo incompleto")
     .test('tamanho-cnpj', function (value) {
       const valorNovo = value.replace(/\D/g,'');
-      console.log(valorNovo, valorNovo.length === 14);
       return valorNovo.length === 14;
     }),
 
@@ -32,8 +31,7 @@ export const usuarioSchema = yup.object().shape({
     .required("Campo incompleto")
     .test('tamanho-telefone', function (value) {
       const valorNovo = value.replace(/\D/g,'');
-      console.log(valorNovo, valorNovo.length >= 10);
-      return valorNovo.length > 10;
+      return valorNovo.length >= 10;
     }),
 
   senha: yup

@@ -15,6 +15,13 @@ const elementos = [
   {nome: "senhaConf", titulo: "Confirme a Senha", tipo: "password", classe: "col-md-6", erro: "Senhas não correspondem"}
 ];
 
+
+// LIMPADOR DE SÍMBOLOS
+const limparSimbolos = (valor) => {
+  const valorNovo = valor.replace(/\D/g,'');
+  return valorNovo;
+}
+
 const FormCadastro = () => {
 
   // React hook form
@@ -40,21 +47,23 @@ const FormCadastro = () => {
     return resultadoElementos;
   }
 
-  if(errors) {
-    console.log(errors)
-  }
 
-  const final = (d) => {
-    console.log(d)
+  // Dados já validados
+  // Retirar qualquer símbolo
+  const filtroDadosValidados = (form) => {
+    const formFiltrado = {
+      ...form, 
+      telefone: limparSimbolos(form.telefone),
+      cnpj: limparSimbolos(form.cnpj)
+    }
+    console.log(formFiltrado);
   }
 
 
 
   return (            
-    <form class="row" onSubmit={handleSubmit((d) => final(d))}>
-
+    <form class="row" onSubmit={handleSubmit((form) => filtroDadosValidados(form))}>
       {gerarElementosInput()}
-
       <div class="col-0 p-4">
         <div className="row">
           <button className="btn btn-primary btn-block py-3">Cadastrar</button>
