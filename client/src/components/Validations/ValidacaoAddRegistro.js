@@ -11,6 +11,7 @@ export const addRegistroSchema = yup.object().shape({
 
   dataVenda: yup
     .date()
+    .typeError('Escolha uma data válida')
     .required("Campo incompleto"),
 
   descricao: yup
@@ -19,16 +20,19 @@ export const addRegistroSchema = yup.object().shape({
 
   quantidade: yup
     .number()
+    .typeError("Insira um número")
     .min(1)
     .required("Campo incompleto"),
 
   valorUnitario: yup
     .number()
+    .typeError("Insira um número")
     .min(1)
     .required("Campo incompleto"),
 
   desconto: yup
     .number()
+    .typeError("Insira um número")
     .required("Campo incompleto"),
 
   notaFiscal: yup

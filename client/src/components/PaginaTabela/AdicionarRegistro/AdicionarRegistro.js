@@ -28,7 +28,7 @@ const AdicionarRegistro = () => {
           <div className="row">
             <div className="col-0">
 
-            <form class="row g-3" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
+            <form className="row g-3" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
 
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
@@ -44,7 +44,7 @@ const AdicionarRegistro = () => {
 
 
             <div className="col-6 col-md-4">
-              <label htmlFor="tipoVenda" class="form-label mt-2">Tipo de Venda</label>
+              <label htmlFor="tipoVenda" className="form-label mt-2">Tipo de Venda</label>
               <select 
                 className="form-select"
                 name="tipoVenda"
@@ -87,7 +87,7 @@ const AdicionarRegistro = () => {
             <div className="col-6 col-md-4">
               <label htmlFor="valorUnitario" class="form-label mt-2">Valor Unitário</label>
               <input 
-                type="text" 
+                type="number" 
                 name="valorUnitario"
                 className="form-control" 
                 id="valorUnitario"
@@ -119,23 +119,23 @@ const AdicionarRegistro = () => {
                   id="desconto"
                   {...register("desconto")}
                 />
-                <span class="input-group-text">%</span>
+                <span className="input-group-text">%</span>
               </div>
               <span className="text-danger">{errors.desconto && `${errors.desconto.message}`}</span>
             </div>
 
 
             <div className="col-6 col-md-4 ms-md-5">
-            <label htmlFor="radioNotaFiscal" class="form-label mt-2">Nota Fiscal emitida?</label>
-            <div class="form-check" name="radioNotaFiscal">
-              <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal1" value="true" onChange={() => setNotaFiscal(true)} {...register("notaFiscal")} defaultChecked/>
-              <label class="form-check-label" for="notaFiscal1">
+            <label htmlFor="radioNotaFiscal" className="form-label mt-2">Nota Fiscal emitida?</label>
+            <div className="form-check" name="radioNotaFiscal">
+              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal1" value="true" onChange={() => setNotaFiscal(true)} {...register("notaFiscal")} defaultChecked/>
+              <label className="form-check-label" for="notaFiscal1">
                 Sim
               </label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value="false" onChange={() => setNotaFiscal(false)} {...register("notaFiscal")}/>
-              <label class="form-check-label" for="notaFiscal2">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value="false" onChange={() => setNotaFiscal(false)} {...register("notaFiscal")}/>
+              <label className="form-check-label" for="notaFiscal2">
                 Não
               </label>
             </div>
@@ -143,7 +143,7 @@ const AdicionarRegistro = () => {
             
 
 
-              <div class="col-0 p-4">
+              <div className="col-0 p-4">
                 <div className="row">
                   <button className="btn btn-primary btn-block py-3">Cadastrar</button>
                 </div>
