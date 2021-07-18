@@ -7,48 +7,33 @@ export const addRegistroSchema = yup.object().shape({
 
   tipoVenda: yup
     .string()
-    .required("Campo incompleto"),
+    .required("Escolha um tipo de venda"),
 
   dataVenda: yup
-    .string()
+    .date()
     .required("Campo incompleto"),
 
   descricao: yup
     .string()
-    .required("Campo incompleto")
-    .test('tamanho-cnpj', function (value) {
-      const valorNovo = value.replace(/\D/g,'');
-      return valorNovo.length === 14;
-    }),
+    .required("Campo incompleto"),
 
   quantidade: yup
-    .string()
-    .email()
+    .number()
+    .min(1)
     .required("Campo incompleto"),
 
   valorUnitario: yup
-    .string()
-    .required("Campo incompleto")
-    .test('tamanho-telefone', function (value) {
-      const valorNovo = value.replace(/\D/g,'');
-      return valorNovo.length >= 10;
-    }),
-
-  formaPagamento: yup
-    .string()
-    .required("Campo incompleto")
-    .min(6, "Senha muito curta")
-    .max(40),
+    .number()
+    .min(1)
+    .required("Campo incompleto"),
 
   desconto: yup
-    .string()
-    .required("Campo incompleto")
-    .oneOf([yup.ref('senha'), null], 'Senhas não correspondem'),
+    .number()
+    .required("Campo incompleto"),
 
   notaFiscal: yup
     .string()
     .required("Campo incompleto")
-    .oneOf([yup.ref('senha'), null], 'Senhas não correspondem')
 
 })
 

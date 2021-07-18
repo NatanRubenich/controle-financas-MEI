@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -10,7 +10,14 @@ const AdicionarRegistro = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(addRegistroSchema)
   });
+
+  // Nota fiscal radio
+  const [notaFiscal, setNotaFiscal] = useState(true);
   
+  // Dados após validação
+  const handleDadosValidados = (dados) => {
+    console.log('mandar ao backend', dados);
+  }
 
   // JSX
   return (
@@ -21,7 +28,7 @@ const AdicionarRegistro = () => {
           <div className="row">
             <div className="col-0">
 
-            <form class="row g-3" onSubmit={handleSubmit((e) => console.log(e))}>
+            <form class="row g-3" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
 
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
@@ -45,7 +52,7 @@ const AdicionarRegistro = () => {
                 id="tipoVenda"
                 {...register("tipoVenda")}
               >
-                <option value="produto" selected>Produto</option>
+                <option value="produto" defaultValue>Produto</option>
                 <option value="servico">Serviço</option>
               </select>
               <span className="text-danger">{errors.tipoVenda && `${errors.tipoVenda.message}`}</span>
@@ -119,19 +126,19 @@ const AdicionarRegistro = () => {
 
 
             <div className="col-6 col-md-4 ms-md-5">
-              <label htmlFor="notaFiscalRadio" class="form-label mt-2">Nota Fiscal emitida?</label>
-              <div class="form-check" name="notaFiscalRadio">
-                <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal" value={true}  {...register("notaFiscal")} checked/>
-                <label class="form-check-label" for="notaFiscal">
-                  Sim
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value={false} {...register("notaFiscal")}/>
-                <label class="form-check-label" for="notaFiscal2">
-                  Não
-                </label>
-              </div>
+            <label htmlFor="radioNotaFiscal" class="form-label mt-2">Nota Fiscal emitida?</label>
+            <div class="form-check" name="radioNotaFiscal">
+              <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal1" value="true" onChange={() => setNotaFiscal(true)} {...register("notaFiscal")} defaultChecked/>
+              <label class="form-check-label" for="notaFiscal1">
+                Sim
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value="false" onChange={() => setNotaFiscal(false)} {...register("notaFiscal")}/>
+              <label class="form-check-label" for="notaFiscal2">
+                Não
+              </label>
+            </div>
             </div>
             
 
