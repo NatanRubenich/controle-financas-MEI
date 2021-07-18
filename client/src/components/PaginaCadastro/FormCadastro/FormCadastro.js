@@ -61,6 +61,7 @@ const FormCadastro = () => {
 
 
 
+  // JSX
   return (            
     <form class="row" onSubmit={handleSubmit((form) => filtroDadosValidados(form))}>
       {gerarElementosInput()}

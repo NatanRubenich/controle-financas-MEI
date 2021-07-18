@@ -1,65 +1,152 @@
 import React from 'react';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
+import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
 
 const AdicionarRegistro = () => {
 
+  // React hook form
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(addRegistroSchema)
+  });
+  
 
-
+  // JSX
   return (
-    <>
-      <h4 className="text-center mt-4 mb-4 titulo">Novo Registro</h4>
-      <div className="container p-0">
-        <div className="row">
-          <div className="col-0">
-            <form class="row g-3">
-              <div class="col-md-6">
-                <label for="nome" class="form-label">Primeiro Nome</label>
-                <input type="text" class="form-control" id="nome"/>
-              </div>
+    <div className="col-11 col-md-10 col-lg-6 mx-auto m-5 bg-light rounded justify-content-center align-items-center position-relative shadow-lg z-index2">
+      <div className="container p-0 p-md-4">
+        <h4 className="text-center mt-4 mb-4 titulo">Novo Registro</h4>
+        <div className="container p-0">
+          <div className="row">
+            <div className="col-0">
 
-              <div class="col-md-6">
-                <label for="sobrenome" class="form-label">Sobrenome</label>
-                <input type="text" class="form-control" id="sobrenome"/>
-              </div>
+            <form class="row g-3" onSubmit={handleSubmit((e) => console.log(e))}>
 
-              <div class="col-md-7">
-                <label for="nome-empresa" class="form-label">Nome da Empresa</label>
-                <input type="text" class="form-control" id="nome-empresa"/>
-              </div>
+            <div className="col-md-8">
+              <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
+              <input 
+                type="text" 
+                name="nomeCliente"
+                className="form-control" 
+                id="nomeCliente"
+                {...register("nomeCliente")}
+              />
+              <span className="text-danger">{errors.nomeCliente && `${errors.nomeCliente.message}`}</span>
+            </div>
 
-              <div class="col-md-5">
-                <label for="cnpj" class="form-label">CNPJ</label>
-                <input type="text" class="form-control" id="cnpj"/>
-              </div>
 
-              <div class="col-0 col-md-7">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email"/>
+            <div className="col-6 col-md-4">
+              <label htmlFor="tipoVenda" class="form-label mt-2">Tipo de Venda</label>
+              <select 
+                className="form-select"
+                name="tipoVenda"
+                className="form-control" 
+                id="tipoVenda"
+                {...register("tipoVenda")}
+              >
+                <option value="produto" selected>Produto</option>
+                <option value="servico">Serviço</option>
+              </select>
+              <span className="text-danger">{errors.tipoVenda && `${errors.tipoVenda.message}`}</span>
+            </div>
+
+
+            <div className="col-6 col-md-4">
+              <label htmlFor="dataVenda" class="form-label mt-2">Data da Venda</label>
+              <input 
+                type="date" 
+                name="dataVenda"
+                className="form-control" 
+                id="dataVenda"
+                {...register("dataVenda")}
+              />
+              <span className="text-danger">{errors.dataVenda && `${errors.dataVenda.message}`}</span>
+            </div>
+
+
+            <div className="col-6 col-md-4">
+              <label htmlFor="quantidade" class="form-label mt-2">Quantidade</label>
+              <input 
+                type="text" 
+                name="quantidade"
+                className="form-control" 
+                id="quantidade"
+                {...register("quantidade")}
+              />
+              <span className="text-danger">{errors.quantidade && `${errors.quantidade.message}`}</span>
+            </div>
+
+            <div className="col-6 col-md-4">
+              <label htmlFor="valorUnitario" class="form-label mt-2">Valor Unitário</label>
+              <input 
+                type="text" 
+                name="valorUnitario"
+                className="form-control" 
+                id="valorUnitario"
+                {...register("valorUnitario")}
+              />
+              <span className="text-danger">{errors.valorUnitario && `${errors.valorUnitario.message}`}</span>
+            </div>
+
+            <div className="col-md-0">
+              <label htmlFor="descricao" class="form-label mt-2">Descrição</label>
+              <textarea
+                type="text" 
+                name="descricao"
+                className="form-control" 
+                id="descricao"
+                {...register("descricao")}
+              />
+              <span className="text-danger">{errors.descricao && `${errors.descricao.message}`}</span>
+            </div>
+
+
+            <div className="col-6 col-md-3">
+              <label htmlFor="desconto" class="form-label mt-2">Desconto</label>
+              <div class="input-group mb-2">
+                <input 
+                  type="text" 
+                  name="desconto"
+                  className="form-control" 
+                  id="desconto"
+                  {...register("desconto")}
+                />
+                <span class="input-group-text">%</span>
               </div>
-              <div class="col-0 col-md-5">
-                <label for="telefone" class="form-label">Telefone</label>
-                <input type="text" class="form-control" id="telefone"/>
+              <span className="text-danger">{errors.desconto && `${errors.desconto.message}`}</span>
+            </div>
+
+
+            <div className="col-6 col-md-4 ms-md-5">
+              <label htmlFor="notaFiscalRadio" class="form-label mt-2">Nota Fiscal emitida?</label>
+              <div class="form-check" name="notaFiscalRadio">
+                <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal" value={true}  {...register("notaFiscal")} checked/>
+                <label class="form-check-label" for="notaFiscal">
+                  Sim
+                </label>
               </div>
-              <div class="col-0 col-md-6">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="senha"/>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value={false} {...register("notaFiscal")}/>
+                <label class="form-check-label" for="notaFiscal2">
+                  Não
+                </label>
               </div>
-              <div class="col-0 col-md-6">
-                <label for="senha2" class="form-label">Confirme a Senha</label>
-                <input type="password" class="form-control" id="senha2"/>
-              </div>
-              
+            </div>
+            
+
+
               <div class="col-0 p-4">
                 <div className="row">
-                  <button className="btn btn-primary btn-block py-3">Adicionar</button>
+                  <button className="btn btn-primary btn-block py-3">Cadastrar</button>
                 </div>
               </div>
-
             </form>
-          </div>      
+            </div>      
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 
 }
