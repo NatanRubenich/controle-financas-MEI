@@ -18,9 +18,21 @@ const elementos = [
 
 
 // LIMPADOR DE SÍMBOLOS
-const limparSimbolos = (valor) => {
-  const valorNovo = valor.replace(/\D/g,'');
-  return valorNovo;
+const limparSimbolos = (form) => {
+  const filtro = (valor) => {
+    return valor.replace(/\D/g,'');
+  }
+
+  // Limpando símbolos
+  const formFiltrado = {
+    ...form, 
+    telefone: filtro(form.telefone),
+    cnpj: filtro(form.cnpj)
+  }
+  // Removendo a confirmação de senha
+  delete formFiltrado.senhaConf;
+
+  return formFiltrado;
 }
 
 const FormCadastro = () => {
@@ -54,34 +66,33 @@ const FormCadastro = () => {
 
   // POST REQUEST
   const requisicaoPost = (form) => {
+    setErrosCadastro([]);
     axios({
       method: 'post',
       url: '/registro/enviar',
       data: form
     })
     .then((res) => {
-      console.log(res);
+      if(res.data.novoUsuario) {
+        console.log('USUARIO', res.data.novoUsuario);
+      }
+      if(res.data.erros) {
+        console.log('ERROS', res.data.erros);
+        setErrosCadastro(res.data.erros);
+      }
     })
-    .catch((err) => console.log(err)); 
+    .catch((err) => {
+      console.log(err)
+    }); 
   }
   
 
-  // Dados já validados
-  // Retirar qualquer símbolo
+  // DADOS PÓS VALIDAÇÃO DO YUP
   const handleDadosValidados = (form) => {
-    // Limpando símbolos
-    const formFiltrado = {
-      ...form, 
-      telefone: limparSimbolos(form.telefone),
-      cnpj: limparSimbolos(form.cnpj)
-    }
-    // Removendo a confirmação de senha
-    delete formFiltrado.senhaConf;
-    
-  
+    const formFiltrado = limparSimbolos(form);
     requisicaoPost(formFiltrado);
-   
   }
+
 
 
 
@@ -91,7 +102,10 @@ const FormCadastro = () => {
       {gerarElementosInput()}
       <div class="col-0 p-4">
         <div className="row">
-          <button className="btn btn-primary btn-block py-3">Cadastrar</button>
+
+          {errosCadastro.map( e => <span className="text-danger">{e}</span>)}
+
+          <button className="btn btn-primary btn-block py-3 mt-2">Cadastrar</button>
         </div>
       </div>
 

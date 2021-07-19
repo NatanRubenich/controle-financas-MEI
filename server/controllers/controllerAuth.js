@@ -10,15 +10,28 @@ export const registroController = async (req, res) => {
 
     try {
       // Procurando informações preexistentes
-      if (await Usuario.findOne({ email })) {
-        erros.push("Email já cadastrado");
+      const resultadoEmail = async () => {
+        if (await Usuario.findOne({ email })) {
+          erros.push("Email já cadastrado");
+          return true;
+        }
       }
-      if (await Usuario.findOne({ cnpj })) {
-        erros.push("CNPJ já cadastrado");
+      const resultadoCNPJ = async () => {
+        if (await Usuario.findOne({ cnpj })) {
+          erros.push("CNPJ já cadastrado");
+          return true;
+        }
       }
 
-      if(erros.length > 0) {
-        return res.send({ erros });
+      const checarExistentes = async () => {
+        await resultadoEmail();
+        await resultadoCNPJ();
+        return erros.length > 0;
+      }
+
+    
+      if(await checarExistentes()) {
+        return res.send({ erros: erros });
       } else {
         // Enviando schema ao servidor
         const novoUsuario = await Usuario.create(req.body);
