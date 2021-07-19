@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { homeController } from '../controllers/crud.js';
+import { homeController } from '../controllers/controllers.js';
 
 
 const router = express.Router();

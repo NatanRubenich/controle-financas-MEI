@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import Home from './routes/crud.js';
+import Home from './routes/routes.js';
 
 // ENV
 const dotenvResultado = dotenv.config();
@@ -19,6 +19,18 @@ app.use(express.urlencoded({ extended: true}))
 app.use(cors());
 
 
-app.use('/', Home); 
+// Mongoose
+const CONNECTION_URL = `mongodb+srv://admincontrolemei:${process.env.SENHADB}@cluster0.ah6c5.mongodb.net/ControleMEI?retryWrites=true&w=majority`;
+const PORT = process.env.PORT || 5000;
 
-app.listen(process.env.ROTA, () => console.log('Server rodando na porta', process.env.ROTA))
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
+  .then((res) => {
+    console.log(res)
+    app.listen(PORT, () => console.log('Server running on port', PORT));
+  })
+  .catch((err) => console.log(err.message));
+
+mongoose.set('useFindAndModify', false);
+
+
+app.use('/', Home); 
