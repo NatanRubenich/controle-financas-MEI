@@ -14,9 +14,17 @@ const AdicionarRegistro = () => {
   // Nota fiscal radio
   const [notaFiscal, setNotaFiscal] = useState(true);
   
+
+  // Lógica - valor total, desconto...
+  const calcularValorFinal = (dadosForm) => {
+    const valorTotal = dadosForm.quantidade * dadosForm.valorUnitario;
+    const valorFinal = valorTotal * ( 1 - (dadosForm.desconto / 100));
+    return Math.round(valorFinal * 100) / 100;
+  }
+
   // Dados após validação
   const handleDadosValidados = (dados) => {
-    console.log('mandar ao backend', dados);
+    const formComValorFinal = {...dados, valorFinal: calcularValorFinal(dados) };
   }
 
   // JSX
@@ -87,7 +95,7 @@ const AdicionarRegistro = () => {
             <div className="col-6 col-md-4">
               <label htmlFor="valorUnitario" class="form-label mt-2">Valor Unitário</label>
               <input 
-                type="number" 
+                type="text" 
                 name="valorUnitario"
                 className="form-control" 
                 id="valorUnitario"
@@ -117,6 +125,7 @@ const AdicionarRegistro = () => {
                   name="desconto"
                   className="form-control" 
                   id="desconto"
+                  defaultValue={0}
                   {...register("desconto")}
                 />
                 <span className="input-group-text">%</span>

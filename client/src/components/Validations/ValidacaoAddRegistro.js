@@ -27,7 +27,7 @@ export const addRegistroSchema = yup.object().shape({
   valorUnitario: yup
     .number()
     .typeError("Insira um número")
-    .min(1)
+    .min(0.1)
     .required("Campo incompleto"),
 
   desconto: yup
