@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import session from 'express-session';
 
 import Home from './routes/routes.js';
 
@@ -28,8 +27,7 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
   .then((res) => {
     console.log(res)
     app.listen(PORT, () => console.log('Server running on port', PORT));
-  })
-  .catch((err) => console.log(err.message));
+  });
 
 mongoose.set('useFindAndModify', false);
 

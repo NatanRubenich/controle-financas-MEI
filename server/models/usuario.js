@@ -16,7 +16,8 @@ const UsuarioSchema = new mongoose.Schema({
   },
   cnpj: {
     type: String,
-    require: true
+    require: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -40,6 +41,8 @@ UsuarioSchema.pre('save', async function (next) {
   const hash = await bcrypt.hash(this.senha, 10);
   this.senha = hash;
   next();
-})
+});
 
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
+
+export default Usuario;

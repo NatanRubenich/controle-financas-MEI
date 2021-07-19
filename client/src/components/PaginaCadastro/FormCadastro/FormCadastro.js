@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from '../../../axios/axios';
 
 import { usuarioSchema } from '../../Validations/ValidacaoCadastro';
 
@@ -23,6 +24,9 @@ const limparSimbolos = (valor) => {
 }
 
 const FormCadastro = () => {
+
+  // Erros
+  const [ errosCadastro, setErrosCadastro ] = useState([]);
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -48,22 +52,42 @@ const FormCadastro = () => {
   }
 
 
+  // POST REQUEST
+  const requisicaoPost = (form) => {
+    axios({
+      method: 'post',
+      url: '/registro/enviar',
+      data: form
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err)); 
+  }
+  
+
   // Dados já validados
   // Retirar qualquer símbolo
-  const filtroDadosValidados = (form) => {
+  const handleDadosValidados = (form) => {
+    // Limpando símbolos
     const formFiltrado = {
       ...form, 
       telefone: limparSimbolos(form.telefone),
       cnpj: limparSimbolos(form.cnpj)
     }
-    console.log(formFiltrado);
+    // Removendo a confirmação de senha
+    delete formFiltrado.senhaConf;
+    
+  
+    requisicaoPost(formFiltrado);
+   
   }
 
 
 
   // JSX
   return (            
-    <form class="row" onSubmit={handleSubmit((form) => filtroDadosValidados(form))}>
+    <form class="row" onSubmit={handleSubmit((form) => handleDadosValidados(form))}>
       {gerarElementosInput()}
       <div class="col-0 p-4">
         <div className="row">
