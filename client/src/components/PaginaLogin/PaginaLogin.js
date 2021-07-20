@@ -32,9 +32,10 @@ const PaginaLogin = () => {
       data: form
     })
     .then((res) => {
-      if(res.data.usuario) {
+      if(res.data.usuario && res.data.token) {
         console.log('USUARIO', res.data);
         setSucesso(true);
+        localStorage.setItem("token", res.data.token);
       }
       if(res.data.erro) {
         console.log('ERROS', res.data.erro);

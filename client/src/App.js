@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import RotaPrivada from './components/RotaPrivada/RotaPrivada';
 
 import Header from './components/Header/Header';
 import PaginaLogin from './components/PaginaLogin/PaginaLogin';
@@ -28,10 +29,10 @@ const App = () => {
             <PaginaCadastro />
           </Route>
 
-          <Route path="/registros">
+          <RotaPrivada path="/registros">
             <Header />
             <PaginaTabela />
-          </Route>
+          </RotaPrivada>
 
           <Route path="/minha-conta">
             <Header />

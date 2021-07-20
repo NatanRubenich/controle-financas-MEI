@@ -13,7 +13,11 @@ export const authMiddleware = async (req, res, next) => {
       const token = tokenRaw[1];
       const resultado = await verificarJWT(token);
       const usuarioAtual = await Usuario.findById(resultado.userId);
-      res.send({usuarioAtual});
+      if(!usuarioAtual) {
+        return res.send({ erro: "Usuário não existe" });
+        
+      }
+      res.send({ usuarioAtual, token });
 
       next();
 
