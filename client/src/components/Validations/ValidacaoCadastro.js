@@ -23,7 +23,7 @@ export const usuarioSchema = yup.object().shape({
 
   email: yup
     .string()
-    .email()
+    .email("Insira um email válido")
     .required("Campo incompleto"),
 
   telefone: yup

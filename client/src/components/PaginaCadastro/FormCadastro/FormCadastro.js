@@ -19,7 +19,7 @@ const elementos = [
 ];
 
 
-// LIMPADOR DE SÍMBOLOS
+// HELPER - LIMPADOR DE SÍMBOLOS
 const limparSimbolos = (form) => {
   const filtro = (valor) => {
     return valor.replace(/\D/g,'');
@@ -33,7 +33,6 @@ const limparSimbolos = (form) => {
   }
   // Removendo a confirmação de senha
   delete formFiltrado.senhaConf;
-
   return formFiltrado;
 }
 
@@ -42,32 +41,20 @@ const FormCadastro = () => {
   // Erros
   const [ errosCadastro, setErrosCadastro ] = useState([]);
 
-  // Sucesso
+  // Sucesso 
   const [ sucesso, setSucesso ] = useState(false);
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(usuarioSchema)
   });
-  
-  const gerarElementosInput = () => {
-    const resultadoElementos = elementos.map((item) => {
-      return (
-        <div className={item.classe}>
-          <label htmlFor={item.nome} class="form-label mt-2">{item.titulo}</label>
-          <input 
-            type={item.tipo} 
-            className="form-control" 
-            id={item.nome} 
-            {...register(item.nome)}
-          />
-          <span className="text-danger">{errors[item.nome] && `${errors[item.nome].message}`}</span>
-        </div>
-      )
-    });
-    return resultadoElementos;
-  }
 
+
+  // DADOS PÓS VALIDAÇÃO DO YUP
+  const handleDadosValidados = (form) => {
+    const formFiltrado = limparSimbolos(form);
+    requisicaoPost(formFiltrado);
+  }
 
   // POST REQUEST
   const requisicaoPost = (form) => {
@@ -91,16 +78,25 @@ const FormCadastro = () => {
       console.log(err)
     }); 
   }
-  
 
-  // DADOS PÓS VALIDAÇÃO DO YUP
-  const handleDadosValidados = (form) => {
-    const formFiltrado = limparSimbolos(form);
-    requisicaoPost(formFiltrado);
+  // Gerar elementos JSX
+  const gerarElementosInput = () => {
+    const resultadoElementos = elementos.map((item) => {
+      return (
+        <div className={item.classe}>
+          <label htmlFor={item.nome} class="form-label mt-2">{item.titulo}</label>
+          <input 
+            type={item.tipo} 
+            className="form-control" 
+            id={item.nome} 
+            {...register(item.nome)}
+          />
+          <span className="text-danger">{errors[item.nome] && `${errors[item.nome].message}`}</span>
+        </div>
+      )
+    });
+    return resultadoElementos;
   }
-
-
-
 
   // JSX
   return (            
@@ -108,7 +104,6 @@ const FormCadastro = () => {
       {gerarElementosInput()}
       <div class="col-0 p-4">
         <div className="row">
-
           { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
           { sucesso ? <ModalSucesso/> : null }
           <button className="btn btn-primary btn-block py-3 mt-2">Cadastrar</button>

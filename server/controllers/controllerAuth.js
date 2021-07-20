@@ -1,9 +1,10 @@
 import express from 'express';
 import Usuario from '../models/usuario.js';
-import jwt from 'jsonwebtoken';
 
+import { loginJWT } from '../jwt/jwt.js'
 
-//// LÓGICA DE CADASTRO
+//////////////////////////////////////////////////////////
+//////////        LÓGICA DE CADASTRO           //////////
 export const registroController = async (req, res) => {
   try {
     console.log(req.body);
@@ -42,9 +43,7 @@ export const registroController = async (req, res) => {
         novoUsuario.senha = undefined;
 
         // Gerando JWT 
-        const token = jwt.sign({ userId: novoUsuario.id }, process.env.SECRET_JWT, {
-          expiresIn: 86400
-        })
+        const token = loginJWT(novoUsuario.id);
 
         //Retornando o usuário + jwt
         return res.send({ novoUsuario, token });
@@ -60,3 +59,18 @@ export const registroController = async (req, res) => {
     return res.status(400).send({ erro: "Registro falhou" });
   }
 }
+
+
+//////////////////////////////////////////////////////////
+//////////          LÓGICA DE LOGIN            //////////
+
+
+
+
+
+
+
+
+
+
+

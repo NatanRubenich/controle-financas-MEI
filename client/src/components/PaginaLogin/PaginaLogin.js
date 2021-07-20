@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { usuarioSchema } from '../Validations/ValidacaoLogin';
+
 const PaginaLogin = () => {
+
+  // React hook form
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(usuarioSchema)
+  });
+
+  // Dados pós validação do YUP 
+  const handleDadosValidados = (dados) => {
+    console.log(dados);
+  }
+
+  
 
   return (
     <div className="row bg-secondary min-vh-100 m-0 login-imagem position-relative">
@@ -11,10 +28,11 @@ const PaginaLogin = () => {
           <div className="card-body card-login">
             <h4 className="card-title mb-5">Login</h4>
             
-            <form>
+            <form onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
               <div className="mb-3">
                 <label for="email" className="form-label">Email</label>
-                <input type="email" className="form-control" id="email" aria-describedby="email"/>
+                <input type="text" id="name" className="form-control" id="email" {...register("email")}/>
+                <span className="text-danger">{errors.email && `${errors.email.message}`}</span>
               </div>
               <div className="mb-3">
                 <div className="row">
@@ -22,12 +40,13 @@ const PaginaLogin = () => {
                     <label for="senha" className="form-label d-flex">Senha</label>
                   </div>
                   <div className="col">
-                    <a href="recuperar_senha.html">
+                    <a href="#">
                       Esqueceu a senha?
                     </a>
                   </div>
                 </div>
-                <input type="password" className="form-control" id="senha"/>
+                <input type="password" name="senha" className="form-control" id="senha" {...register("senha")}/>
+                <span className="text-danger">{errors.senha && `${errors.senha.message}`}</span>
               </div>
               <div className="row mt-4">
                 <button className="btn btn-primary btn-block py-3">Login</button>
