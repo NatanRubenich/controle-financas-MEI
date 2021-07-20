@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from '../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { usuarioSchema } from '../Validations/ValidacaoLogin';
 
+import ModalSucesso from '../ModalSucesso/ModalSucesso';
+
+
 const PaginaLogin = () => {
+
+  const [ errosLogin, setErrosLogin ] = useState([]);
+  const [ sucesso, setSucesso ] = useState(false);
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -14,11 +19,34 @@ const PaginaLogin = () => {
   });
 
   // Dados pós validação do YUP 
-  const handleDadosValidados = (dados) => {
-    console.log(dados);
+  const handleDadosValidados = (form) => {
+    requisicaoLogin(form);
   }
 
-  
+  // Request
+  const requisicaoLogin = (form) => {
+    setErrosLogin([]);
+    axios({
+      method: 'post',
+      url: '/login/enviar',
+      data: form
+    })
+    .then((res) => {
+      if(res.data.usuario) {
+        console.log('USUARIO', res.data);
+        setSucesso(true);
+      }
+      if(res.data.erro) {
+        console.log('ERROS', res.data.erro);
+        setErrosLogin(res.data.erro);
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    }); 
+  }
+
+
 
   return (
     <div className="row bg-secondary min-vh-100 m-0 login-imagem position-relative">
@@ -48,16 +76,16 @@ const PaginaLogin = () => {
                 <input type="password" name="senha" className="form-control" id="senha" {...register("senha")}/>
                 <span className="text-danger">{errors.senha && `${errors.senha.message}`}</span>
               </div>
-              <div className="row mt-4">
+              <div className="row">
+                <span className="text-danger my-2">{errosLogin}</span>
                 <button className="btn btn-primary btn-block py-3">Login</button>
               </div>
-
 								<div class="mt-4 text-center">
 									Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link>
 								</div>
-
             </form>
           </div>
+          {sucesso? <ModalSucesso titulo="Login realizado com sucesso!" /> : null }
         </div>
       </div>
     </div>

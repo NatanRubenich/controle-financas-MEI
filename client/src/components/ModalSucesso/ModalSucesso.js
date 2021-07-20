@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 
 
-const ModalSucesso = () => {
+const ModalSucesso = ({titulo}) => {
   let historico = useHistory();
 
   const redirecionarParaHomepage = () => {
@@ -22,7 +22,7 @@ const ModalSucesso = () => {
         keyboard={false}
       >
         <Modal.Header>
-          <h3 className="mx-auto">Cadastro realizado com sucesso!</h3>
+          <h3 className="mx-auto">{titulo}</h3>
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center">
