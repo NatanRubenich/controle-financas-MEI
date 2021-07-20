@@ -5,6 +5,8 @@ import axios from '../../../axios/axios';
 
 import { usuarioSchema } from '../../Validations/ValidacaoCadastro';
 
+import ModalSucesso from './ModalSucesso/ModalSucesso';
+
 const elementos = [
   {nome: "nome", titulo: "Nome", tipo: "text", classe: "col-md-6", erro: "Insira um nome válido"},
   {nome: "sobrenome", titulo: "Sobrenome", tipo: "text", classe: "col-md-6", erro: "Insira um sobrenome válido"},
@@ -39,6 +41,9 @@ const FormCadastro = () => {
 
   // Erros
   const [ errosCadastro, setErrosCadastro ] = useState([]);
+
+  // Sucesso
+  const [ sucesso, setSucesso ] = useState(false);
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -75,6 +80,7 @@ const FormCadastro = () => {
     .then((res) => {
       if(res.data.novoUsuario) {
         console.log('USUARIO', res.data);
+        setSucesso(true);
       }
       if(res.data.erros) {
         console.log('ERROS', res.data.erros);
@@ -103,8 +109,8 @@ const FormCadastro = () => {
       <div class="col-0 p-4">
         <div className="row">
 
-          {errosCadastro.map( e => <span className="text-danger">{e}</span>)}
-
+          { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
+          { sucesso ? <ModalSucesso/> : null }
           <button className="btn btn-primary btn-block py-3 mt-2">Cadastrar</button>
         </div>
       </div>
