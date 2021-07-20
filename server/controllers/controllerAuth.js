@@ -85,7 +85,7 @@ export const loginController = async (req, res) => {
       usuario.senha = undefined;
 
       // Gerando JWT 
-      const token = loginJWT(novoUsuario.id);
+      const token = await loginJWT(usuario.id);
 
       res.send({ usuario, token });
 
@@ -99,8 +99,6 @@ export const loginController = async (req, res) => {
     return res.status(400).send({ erro: "Registro falhou" });
   }
 }
-
-
 
 
 
