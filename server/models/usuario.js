@@ -4,15 +4,18 @@ import bcrypt from 'bcrypt';
 const UsuarioSchema = new mongoose.Schema({
   nome: {
     type: String,
-    require: true
+    require: true,
+    trim: true
   }, 
   sobrenome: {
     type: String,
-    require: true
+    require: true,
+    trim: true
   },
   nomeEmpresa: {
     type: String,
-    require: true
+    require: true,
+    trim: true
   },
   cnpj: {
     type: String,
@@ -22,11 +25,12 @@ const UsuarioSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    require: true
+    require: true,
+    trim: true
   },
   telefone: {
     type: Number,
-    require: true
+    require: true,
   },
   senha: {
     type: String,

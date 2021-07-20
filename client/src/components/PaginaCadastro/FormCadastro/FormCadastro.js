@@ -74,7 +74,7 @@ const FormCadastro = () => {
     })
     .then((res) => {
       if(res.data.novoUsuario) {
-        console.log('USUARIO', res.data.novoUsuario);
+        console.log('USUARIO', res.data);
       }
       if(res.data.erros) {
         console.log('ERROS', res.data.erros);
