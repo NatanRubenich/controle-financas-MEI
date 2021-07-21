@@ -4,6 +4,7 @@ import { useLogin } from "../../../Context/LoginContext";
 
 const TesteContext = () => {
   const { logado, setLogado } = useLogin();
+  console.log(localStorage.getItem("usuario"));
 
   let nomeUsuario = null;
   if(logado) {

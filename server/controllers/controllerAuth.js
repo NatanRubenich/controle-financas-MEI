@@ -6,7 +6,7 @@ import { loginJWT } from '../jwt/jwt.js'
 
 //////////////////////////////////////////////////////////
 //////////        LÓGICA DE CADASTRO           //////////
-export const registroController = async (req, res) => {
+export const cadastroController = async (req, res) => {
   try {
     const { email, cnpj } = req.body;
     const erros = [];

@@ -66,7 +66,7 @@ const FormCadastro = () => {
     setErrosCadastro([]);
     axios({
       method: 'post',
-      url: '/registro/enviar',
+      url: '/cadastro/enviar',
       data: form
     })
     .then((res) => {

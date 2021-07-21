@@ -1,7 +1,7 @@
 import express from 'express';
 import { homeController } from '../controllers/controllers.js';
 import { 
-  registroController, 
+  cadastroController, 
   loginController,
 
 } from '../controllers/controllerAuth.js';
@@ -15,9 +15,9 @@ router.get('/', (req, res) => {
   homeController(req, res);
 });
 
-// Rotas de registro
-router.post('/registro/enviar', async (req, res) => {
-  registroController(req, res);
+// Rotas de cadastro
+router.post('/cadastro/enviar', async (req, res) => {
+  cadastroController(req, res);
 });
 
 // Login
@@ -27,6 +27,13 @@ router.post('/login/enviar', async (req, res) => {
 
 // Verificando se está logado
 router.get('/auth', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+
+////////////////////////////
+/////     CRUD      ////////
+router.get('/registros', async (req, res, next) => {
   authMiddleware(req, res, next);
 });
 

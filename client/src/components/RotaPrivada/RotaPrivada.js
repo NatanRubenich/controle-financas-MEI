@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, useHistory } from 'react-router-dom';
 import verificarAuth from '../../auth/verificarAuth';
-import Pagina404 from '../Pagina404/Pagina404';
 
 
 const RotaPrivada = ({url, component, exact}) => {
