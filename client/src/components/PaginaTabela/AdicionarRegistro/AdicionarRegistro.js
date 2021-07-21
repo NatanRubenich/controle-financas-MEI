@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-
+ 
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
 
 const AdicionarRegistro = () => {
@@ -25,6 +25,7 @@ const AdicionarRegistro = () => {
   // Dados após validação
   const handleDadosValidados = (dados) => {
     const formComValorFinal = {...dados, valorFinal: calcularValorFinal(dados) };
+    console.log(formComValorFinal);
   }
 
   // JSX

@@ -36,7 +36,11 @@ const UsuarioSchema = new mongoose.Schema({
     type: String,
     require: true,
     select: false
-  }
+  },
+  tabela: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tabela'
+  }]
 }, {
   timestamps: true
 });
