@@ -7,7 +7,7 @@ import { verificarJWT } from '../jwt/jwt.js'
 
 export const authMiddleware = async (req, res, next) => {
   const tokenRaw = req.headers.authorization.toString().split(' ');
-
+ 
   try {
     if(tokenRaw.length === 2) {
       const token = tokenRaw[1];

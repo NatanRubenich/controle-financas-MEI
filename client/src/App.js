@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RotaPrivada from './components/RotaPrivada/RotaPrivada';
 
 import Header from './components/Header/Header';
@@ -13,33 +13,14 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <div>
-          <Route path="/" exact>
-            <Header />
-            <TelaInicial />
-          </Route>
-
-          <Route path="/login" exact>
-            <Header />
-            <PaginaLogin />
-          </Route>
-
-          <Route path="/cadastro" exact>
-            <Header />
-            <PaginaCadastro />
-          </Route>
-
-          <RotaPrivada path="/registros">
-            <Header />
-            <PaginaTabela />
-          </RotaPrivada>
-
-          <Route path="/minha-conta">
-            <Header />
-            <MinhaConta />
-          </Route>
-
-        </div>
+        <Header/>
+        <Switch>
+          <Route path="/" component={TelaInicial} exact/>
+          <Route path="/login" component={PaginaLogin} exact/>
+          <Route path="/cadastro" component={PaginaCadastro} exact/>
+          <RotaPrivada path="/registros" component={PaginaTabela}/>
+          <RotaPrivada path="/minhaconta" component={MinhaConta}/>
+        </Switch>
       </BrowserRouter>
     </div>
   );

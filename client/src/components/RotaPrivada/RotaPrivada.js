@@ -4,13 +4,13 @@ import verificarAuth from '../../auth/verificarAuth';
 import Pagina404 from '../Pagina404/Pagina404';
 
 
-const RotaPrivada = ({url, children}) => {
+const RotaPrivada = ({url, component, exact}) => {
   let historico = useHistory();
 
   return (
-    <Route path={url} exact>
-      {verificarAuth() ? children : historico.redirect('/login')}
-    </Route>
+    <>
+      {verificarAuth() ? <Route path={url} component={component} exact={exact ? true : false}/> : historico.redirect('/login') }
+    </>
   )
 }
 
