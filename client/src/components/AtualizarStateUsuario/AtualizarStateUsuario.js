@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
-import { useCliente } from '../../Context/ClienteContext';
+import { useLogin } from '../../Context/LoginContext';
 
-const AtualizarStateUsuario = () => {
-  const { usuario, setUsuario } = useCliente();
+const AtualizarStateLogin = () => {
+  const { logado, setLogado } = useLogin();
 
   useEffect(() => {
-    if(localStorage.getItem("usuario")) {
-      console.log('LOCAL', localStorage.getItem("usuario"));
-      setUsuario(true);
+    if(localStorage.getItem("token")) {
+      setLogado(true);
+      console.log('logado', true)
     }
-  }, [usuario]);
+  }, [logado]);
 
   return null;
 }
 
-export default AtualizarStateUsuario;
+export default AtualizarStateLogin;

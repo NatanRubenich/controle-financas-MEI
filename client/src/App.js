@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RotaPrivada from './components/RotaPrivada/RotaPrivada';
-import ClienteProvider from './Context/ClienteContext';
+import LoginProvider from './Context/LoginContext';
 import AtualizarStateUsuario from './components/AtualizarStateUsuario/AtualizarStateUsuario';
 
 import Header from './components/Header/Header';
@@ -14,7 +14,7 @@ import MinhaConta from './components/MinhaConta/MinhaConta';
 const App = () => {
 
   return (
-    <ClienteProvider>
+    <LoginProvider>
       <div>
         <BrowserRouter>
           <AtualizarStateUsuario />
@@ -28,7 +28,7 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </div>
-    </ClienteProvider>
+    </LoginProvider>
   );
 }
 

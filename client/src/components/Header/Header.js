@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from '../../img/logo.png';
 import { NavLink } from 'react-router-dom';
-import verificarAuth from '../../auth/verificarAuth';
+import { useLogin } from "../../Context/LoginContext";
 
 import BemVindo from './BemVindo/BemVindo';
+import Sair from './Sair/Sair';
 
 const Header = () => {
-
+  const { logado, setLogado } = useLogin();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow z-index2">
@@ -21,11 +22,10 @@ const Header = () => {
             <NavLink to="/"><div className="nav-link">Página Inicial</div></NavLink>
 
             {
-              verificarAuth() ?
+              logado ?
               <>  
-                <span></span>
                 <NavLink to="/registros"><div className="nav-link">Meus Registros</div></NavLink>
-                <div className="nav-link">Sair</div>
+                <Sair />
               </> 
               : 
               <>

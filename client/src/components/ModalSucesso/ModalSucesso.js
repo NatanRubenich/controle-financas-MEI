@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 
 
@@ -10,7 +9,7 @@ const ModalSucesso = ({titulo}) => {
   const redirecionarParaHomepage = () => {
     setTimeout(() => {
       historico.push('/');
-    }, 4000);
+    }, 2000);
   }
 
 

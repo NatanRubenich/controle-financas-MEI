@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { useCliente } from "../../../Context/ClienteContext";
+import { useLogin } from "../../../Context/LoginContext";
 
 const TesteContext = () => {
-  const { usuario, setUsuario } = useCliente();
+  const { logado, setLogado } = useLogin();
 
   let nomeUsuario = null;
-  if(usuario) {
+  if(logado) {
     nomeUsuario = <span className="text">Bem vindo, {localStorage.getItem("usuario")}</span>
   }
 

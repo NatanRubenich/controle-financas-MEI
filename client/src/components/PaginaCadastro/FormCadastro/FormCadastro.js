@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLogin } from "../../../Context/LoginContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from '../../../axios/axios';
+
 
 import { usuarioSchema } from '../../Validations/ValidacaoCadastro';
 
@@ -44,6 +46,9 @@ const FormCadastro = () => {
   // Sucesso 
   const [ sucesso, setSucesso ] = useState(false);
 
+  // Hook de login global
+  const { logado, setLogado } = useLogin();
+
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(usuarioSchema)
@@ -66,7 +71,9 @@ const FormCadastro = () => {
     })
     .then((res) => {
       if(res.data.novoUsuario) {
-        console.log('USUARIO', res.data);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("usuario", res.data.novoUsuario.nome);
+        setLogado(true);
         setSucesso(true);
       }
       if(res.data.erros) {
