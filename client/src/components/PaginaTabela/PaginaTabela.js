@@ -9,6 +9,7 @@ import AdicionarRegistro from './AdicionarRegistro/AdicionarRegistro';
 
 const PaginaTabela = () => {
 
+
   return (
     <WrapperTabela>
       <Route path="/registros" exact component={TabelaCrud}></Route>

@@ -1,9 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from '../../../axios/axios';
 
 import ItemCrud from './ItemCrud/ItemCrud';
 
 const PaginaTabela = () => {
+
+  const requisitarRegistros = () => {
+    if(localStorage.getItem("token")) {
+      axios({
+        method: 'get',
+        url: '/registros',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      console.log('não tem token');
+    }
+  }
+
+  requisitarRegistros();
 
 
   return (

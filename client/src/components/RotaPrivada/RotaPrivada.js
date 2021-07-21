@@ -8,7 +8,7 @@ const RotaPrivada = ({url, component, exact}) => {
 
   return (
     <>
-      {verificarAuth() ? <Route path={url} component={component} exact={exact ? true : false}/> : historico.redirect('/login') }
+      {verificarAuth() ? <Route path={url} component={component} exact={exact ? true : false}/> : historico.push('/login') }
     </>
   )
 }

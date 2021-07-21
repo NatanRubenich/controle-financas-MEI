@@ -7,7 +7,7 @@ import { verificarJWT } from '../jwt/jwt.js'
 
 export const authMiddleware = async (req, res, next) => {
   const tokenRaw = req.headers.authorization.toString().split(' ');
- 
+   
   try {
     if(tokenRaw.length === 2) {
       const token = tokenRaw[1];
@@ -15,11 +15,10 @@ export const authMiddleware = async (req, res, next) => {
       const usuarioAtual = await Usuario.findById(resultado.userId);
       if(!usuarioAtual) {
         return res.send({ erro: "Usuário não existe" });
-        
       }
       res.send({ usuarioAtual, token });
 
-      next();
+      //next();
 
     } else {
       res.send({erro: "Token mal formatado"});
