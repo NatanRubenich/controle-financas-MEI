@@ -43,7 +43,7 @@ export const registroController = async (req, res) => {
         novoUsuario.senha = undefined;
 
         // Gerando JWT 
-        const token = loginJWT(novoUsuario.id);
+        const token = await loginJWT(novoUsuario.id);
 
         //Retornando o usuário + jwt
         return res.send({ novoUsuario, token });

@@ -4,14 +4,17 @@ import axios from '../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { usuarioSchema } from '../Validations/ValidacaoLogin';
+import { useCliente } from "../../Context/ClienteContext";
 
 import ModalSucesso from '../ModalSucesso/ModalSucesso';
 
 
 const PaginaLogin = () => {
-
   const [ errosLogin, setErrosLogin ] = useState([]);
   const [ sucesso, setSucesso ] = useState(false);
+
+  // Hook para definir o usuário atual globalmente 
+  const { usuario, setUsuario } = useCliente();
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -35,6 +38,8 @@ const PaginaLogin = () => {
       if(res.data.usuario && res.data.token) {
         setSucesso(true);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("usuario", res.data.usuario);
+        setUsuario(true)
       }
       if(res.data.erro) {
         setErrosLogin(res.data.erro);
