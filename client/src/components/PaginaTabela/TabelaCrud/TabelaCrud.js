@@ -6,9 +6,9 @@ import ItemCrud from './ItemCrud/ItemCrud';
 
 const PaginaTabela = () => {
 
-  const requisitarRegistros = () => {
+  const requisitarRegistros = async () => {
     if(localStorage.getItem("token")) {
-      axios({
+      await axios({
         method: 'get',
         url: '/registros',
         headers: {

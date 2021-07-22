@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Usuario from './usuario.js';
 
 const TabelaSchema = new mongoose.Schema({
   nomeCliente: {
@@ -51,4 +52,4 @@ const TabelaSchema = new mongoose.Schema({
 
 const Tabela = mongoose.model('Tabela', TabelaSchema);
 
-export default Usuario;
+export default Tabela;

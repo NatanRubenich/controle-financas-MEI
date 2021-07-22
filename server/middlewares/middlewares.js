@@ -16,9 +16,11 @@ export const authMiddleware = async (req, res, next) => {
       if(!usuarioAtual) {
         return res.send({ erro: "Usuário não existe" });
       }
-      res.send({ usuarioAtual, token });
 
-      //next();
+      // Passando o User para a próxima função
+      res.locals.usuario = usuarioAtual;
+
+      next();
 
     } else {
       res.send({erro: "Token mal formatado"});

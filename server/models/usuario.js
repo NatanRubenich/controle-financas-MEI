@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import Tabela from './usuario.js';
 
 const UsuarioSchema = new mongoose.Schema({
   nome: {

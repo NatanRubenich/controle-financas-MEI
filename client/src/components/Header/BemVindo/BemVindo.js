@@ -12,7 +12,7 @@ const TesteContext = () => {
   }
 
   return (
-    <div className="d-none d-md-flex flex-row-reverse position-relative w-50">
+    <div className="d-none d-md-flex flex-row-reverse position-relative w-25">
       {nomeUsuario}
     </div>
   );
