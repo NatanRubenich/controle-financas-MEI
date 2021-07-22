@@ -5,7 +5,8 @@ import {
 } from '../controllers/controllerAuth.js';
 
 import { 
-  getTabelaController
+  getTabelaController,
+  postTabelaController
 } from '../controllers/controllerTabela.js';
 
 import { authMiddleware } from '../middlewares/middlewares.js';
@@ -41,7 +42,7 @@ router.get('/registros', async (req, res, next) => {
   authMiddleware(req, res, next);
 });
 
-router.get('/registros', async (req, res, next) => {
+router.get('/registros', async (req, res) => {
   getTabelaController(req, res);
 });
 
@@ -50,7 +51,10 @@ router.get('/registros', async (req, res, next) => {
 // Criando registro
 router.post('/registros/novo/enviar', async (req, res, next) => {
   authMiddleware(req, res, next);
-  getTabelaController(req, res);
+});
+
+router.post('/registros/novo/enviar', async (req, res) => {
+  postTabelaController(req, res);
 });
 
 

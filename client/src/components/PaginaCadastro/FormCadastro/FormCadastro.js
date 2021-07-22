@@ -75,6 +75,7 @@ const FormCadastro = () => {
         localStorage.setItem("usuario", res.data.novoUsuario.nome);
         setLogado(true);
         setSucesso(true);
+        console.log(res.data.novoUsuario);
       }
       if(res.data.erros) {
         console.log('ERROS', res.data.erros);
@@ -82,7 +83,7 @@ const FormCadastro = () => {
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log("Erro ao cadastrar")
     }); 
   }
 

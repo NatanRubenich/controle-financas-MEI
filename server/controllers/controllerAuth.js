@@ -1,5 +1,6 @@
 import express from 'express';
 import Usuario from '../models/usuario.js';
+import GrupoTabela from '../models/grupotabela.js';
 import bcrypt from 'bcrypt';
 
 import { loginJWT } from '../jwt/jwt.js'
@@ -38,13 +39,17 @@ export const cadastroController = async (req, res) => {
       } else {
         // Enviando schema ao servidor
         const novoUsuario = await Usuario.create(req.body);
+        const novoGrupoTabela = await GrupoTabela.create({ usuario: novoUsuario._id });
+        
+      
+        await novoUsuario.set({ grupoTabela: novoGrupoTabela });
+        await novoUsuario.save();
 
         // Apagando senha do schema
         novoUsuario.senha = undefined;
 
         // Gerando JWT 
         const token = await loginJWT(novoUsuario.id);
-
         //Retornando o usuário + jwt
         return res.send({ novoUsuario, token });
       }

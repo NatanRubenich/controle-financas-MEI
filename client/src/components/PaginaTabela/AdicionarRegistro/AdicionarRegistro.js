@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import axios from '../../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
- 
+
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
 
 const AdicionarRegistro = () => {
@@ -18,14 +19,38 @@ const AdicionarRegistro = () => {
   // Lógica - valor total, desconto...
   const calcularValorFinal = (dadosForm) => {
     const valorTotal = dadosForm.quantidade * dadosForm.valorUnitario;
-    const valorFinal = valorTotal * ( 1 - (dadosForm.desconto / 100));
-    return Math.round(valorFinal * 100) / 100;
+    const valorComDesconto = valorTotal * ( 1 - (dadosForm.desconto / 100));
+    const valorFinal = Math.round(valorComDesconto  * 100) / 100;
+    const formComValorFinal = {...dadosForm, valorFinal };
+    
+    return formComValorFinal
   }
 
   // Dados após validação
-  const handleDadosValidados = (dados) => {
-    const formComValorFinal = {...dados, valorFinal: calcularValorFinal(dados) };
-    console.log(formComValorFinal);
+  // Enviando ao server
+  const handleDadosValidados = async (dados) => {
+    const formFinal = calcularValorFinal(dados);
+    console.log(formFinal, 'feito');
+
+    if(localStorage.getItem("token")) {
+      await axios({
+        method: 'post',
+        url: '/registros/novo/enviar',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
+        data: formFinal
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      console.log('Erro ao criar um novo registro');
+    }
+
   }
 
   // JSX

@@ -38,10 +38,10 @@ const UsuarioSchema = new mongoose.Schema({
     require: true,
     select: false
   },
-  tabela: [{
+  grupoTabela: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tabela'
-  }]
+    ref: 'GrupoTabela'
+  }
 }, {
   timestamps: true
 });
