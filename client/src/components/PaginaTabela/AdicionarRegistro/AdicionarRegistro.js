@@ -45,6 +45,7 @@ const AdicionarRegistro = () => {
       .then(response => {
         console.log(response);
         setSucesso(true);
+        document.getElementById("formRegistro").reset();
       })
       .catch(err => {
         console.log(err);
