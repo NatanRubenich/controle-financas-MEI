@@ -2,7 +2,7 @@ import Usuario from '../models/usuario.js';
 import GrupoTabela from '../models/grupotabela.js';
 import ItemTabela from '../models/itemtabela.js';
 
-
+//////////    LISTAR REGISTROS DO USUARIO        //////////
 export const getTabelaController = async (req, res) => {
   if(res.locals.usuario) {
     try {
@@ -21,6 +21,7 @@ export const getTabelaController = async (req, res) => {
 };
 
 
+//////////        CRIAR NOVA ENTRADA           //////////
 export const postTabelaController = async (req, res) => {
   if(res.locals.usuario) {
     const objUsuario = res.locals.usuario;
@@ -49,3 +50,5 @@ export const postTabelaController = async (req, res) => {
     return res.send({ usuarioReq: objUsuario, body: req.body });
   }
 };
+
+//////////        DELETAR ITEM           //////////

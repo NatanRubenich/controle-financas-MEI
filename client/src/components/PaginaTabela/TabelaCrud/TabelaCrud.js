@@ -31,6 +31,8 @@ const PaginaTabela = () => {
     }
   }
 
+  // Deletar Entrada
+
   // Use Effect
   useEffect(() => {
     requisitarRegistros();

@@ -20,10 +20,12 @@ const AdicionarRegistro = () => {
 
   // Lógica - valor total, desconto...
   const calcularValorFinal = (dadosForm) => {
+
     const valorTotal = dadosForm.quantidade * dadosForm.valorUnitario;
     const valorComDesconto = valorTotal * ( 1 - (dadosForm.desconto / 100));
-    const valorFinal = Math.round(valorComDesconto  * 100) / 100;
+    const valorFinal = valorComDesconto;
     const formComValorFinal = {...dadosForm, valorFinal };
+    console.log(dadosForm.quantidade, dadosForm.valorUnitario, 'valor total', valorTotal, 'valorComDesconto', valorComDesconto, 'valorFinal', valorFinal)
     
     return formComValorFinal
   }
@@ -53,7 +55,6 @@ const AdicionarRegistro = () => {
     } else {
       console.log('Erro ao criar um novo registro');
     }
-
   }
 
   // JSX
