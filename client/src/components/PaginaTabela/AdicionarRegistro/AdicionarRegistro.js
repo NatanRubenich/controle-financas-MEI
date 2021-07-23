@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import axios from '../../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
+
+import ModalSucesso from '../../ModalSucesso/ModalSucesso';
+
 
 const AdicionarRegistro = () => {
 
@@ -12,8 +14,8 @@ const AdicionarRegistro = () => {
     resolver: yupResolver(addRegistroSchema)
   });
 
-  // Nota fiscal radio
-  const [notaFiscal, setNotaFiscal] = useState(true);
+  // Sucesso 
+  const [ sucesso, setSucesso ] = useState(false);
   
 
   // Lógica - valor total, desconto...
@@ -30,7 +32,6 @@ const AdicionarRegistro = () => {
   // Enviando ao server
   const handleDadosValidados = async (dados) => {
     const formFinal = calcularValorFinal(dados);
-    console.log(formFinal, 'feito');
 
     if(localStorage.getItem("token")) {
       await axios({
@@ -43,6 +44,7 @@ const AdicionarRegistro = () => {
       })
       .then(response => {
         console.log(response);
+        setSucesso(true);
       })
       .catch(err => {
         console.log(err);
@@ -62,7 +64,7 @@ const AdicionarRegistro = () => {
           <div className="row">
             <div className="col-0">
 
-            <form className="row g-3" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
+            <form className="row g-3" id="formRegistro" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
 
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
@@ -163,21 +165,18 @@ const AdicionarRegistro = () => {
             <div className="col-6 col-md-4 ms-md-5">
             <label htmlFor="radioNotaFiscal" className="form-label mt-2">Nota Fiscal emitida?</label>
             <div className="form-check" name="radioNotaFiscal">
-              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal1" value="true" onChange={() => setNotaFiscal(true)} {...register("notaFiscal")} defaultChecked/>
+              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal1" value="true" {...register("notaFiscal")} defaultChecked/>
               <label className="form-check-label" for="notaFiscal1">
                 Sim
               </label>
             </div>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value="false" onChange={() => setNotaFiscal(false)} {...register("notaFiscal")}/>
+              <input className="form-check-input" type="radio" name="notaFiscal" id="notaFiscal2" value="false" {...register("notaFiscal")}/>
               <label className="form-check-label" for="notaFiscal2">
                 Não
               </label>
             </div>
             </div>
-            
-
-
               <div className="col-0 p-4">
                 <div className="row">
                   <button className="btn btn-primary btn-block py-3">Cadastrar</button>
@@ -188,6 +187,13 @@ const AdicionarRegistro = () => {
           </div>
         </div>
       </div>
+      { sucesso ? <ModalSucesso 
+        titulo="" 
+        texto="Registro adicionado com sucesso!"
+        url="/registros/novo"
+        callback={() => setSucesso(false)}
+        /> : null 
+      }
     </div>
   );
 

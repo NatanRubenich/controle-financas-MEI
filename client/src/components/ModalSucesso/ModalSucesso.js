@@ -3,15 +3,17 @@ import Modal from 'react-bootstrap/Modal';
 import { useHistory } from 'react-router-dom';
 
 
-const ModalSucesso = ({titulo}) => {
+const ModalSucesso = ({ titulo, texto, url, callback}) => {
   let historico = useHistory();
 
-  const redirecionarParaHomepage = () => {
+  const redirecionar = () => {
     setTimeout(() => {
-      historico.push('/');
+      historico.push(url);
+      if(callback) {
+        callback();
+      }
     }, 2000);
   }
-
 
   return (
     <>
@@ -28,11 +30,11 @@ const ModalSucesso = ({titulo}) => {
             <i className="fas fa-check-circle display-1 text-success"></i>
           </div>
           <div className="d-flex justify-content-center mt-3">
-            Redirecionando para a página inicial...
+            {texto}
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {redirecionarParaHomepage()}
+          {redirecionar()}
         </Modal.Footer>
       </Modal>
     </>

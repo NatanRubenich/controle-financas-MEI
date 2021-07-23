@@ -113,7 +113,12 @@ const FormCadastro = () => {
       <div class="col-0 p-4">
         <div className="row">
           { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
-          { sucesso ? <ModalSucesso titulo="Cadastro realizado com sucesso!"/> : null }
+          { sucesso ? <ModalSucesso 
+            titulo="Cadastro realizado com sucesso!" 
+            texto="Redirecionando para a página inicial..."
+            url="/"
+            /> : null 
+          }
           <button className="btn btn-primary btn-block py-3 mt-2">Cadastrar</button>
         </div>
       </div>

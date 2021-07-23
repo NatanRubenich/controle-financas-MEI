@@ -89,7 +89,11 @@ const PaginaLogin = () => {
 								</div>
             </form>
           </div>
-          {sucesso? <ModalSucesso titulo="Login realizado com sucesso!" /> : null }
+          {sucesso? <ModalSucesso   
+            titulo="Login realizado com sucesso!" 
+            texto="Redirecionando para a página inicial..."
+            url="/"
+            /> : null }
         </div>
       </div>
     </div>
