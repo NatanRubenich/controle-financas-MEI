@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../../axios/axios';
 
@@ -6,6 +6,10 @@ import ItemCrud from './ItemCrud/ItemCrud';
 
 const PaginaTabela = () => {
 
+  const [ dadosTabela, setDadosTabela ] = useState([]);
+  const [ renderizar, setRenderizar ] = useState(false);
+
+  // Requisição AXIOS
   const requisitarRegistros = async () => {
     if(localStorage.getItem("token")) {
       await axios({
@@ -15,8 +19,9 @@ const PaginaTabela = () => {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       })
-      .then(response => {
-        console.log(response);
+      .then(resposta => {
+        console.log('peguei do server', resposta);
+        setDadosTabela(resposta.data.items);
       })
       .catch(err => {
         console.log(err);
@@ -26,11 +31,28 @@ const PaginaTabela = () => {
     }
   }
 
-  requisitarRegistros();
+  // Use Effect
+  useEffect(() => {
+    requisitarRegistros();
+    console.log('renderizei');
+  }, [renderizar]);
+  
+
+  // Produz os elementos JSX 
+  const gerarTabela = () => {
+    let elementoReturn = null;
+
+    if(dadosTabela) {
+      elementoReturn = dadosTabela.map((e) => {
+        return <ItemCrud key={e._id} dados={e}/>;
+      });
+    }
+
+    return elementoReturn;
+  }
 
 
   return (
-
   <div className="col-11 col-md-10 mx-auto m-5 bg-light rounded justify-content-center align-items-center shadow-lg z-index2">
     <div className="container">
       <h4 className="text-center mt-4 mb-4 titulo text-uppercase">Registros</h4>
@@ -66,15 +88,9 @@ const PaginaTabela = () => {
                 </tr> 
               </thead>
               <tbody>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
-                <ItemCrud/>
+
+              {gerarTabela()}
+
               </tbody>
             </table>
           </div>      
@@ -83,9 +99,6 @@ const PaginaTabela = () => {
     </div>
   </div>
   );
-
-
-
 }
 
 export default PaginaTabela;

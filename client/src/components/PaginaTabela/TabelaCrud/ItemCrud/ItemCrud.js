@@ -1,19 +1,22 @@
 import React from 'react';
 
-const ItemCrud = ({dados}) => {
+const ItemCrud = ({ dados }) => {
+
+  const data = new Date(dados.dataVenda).toLocaleString('pt-BR').split(' ');
+  
 
 
   return (
     <tr className="td-registros">
-      <td>Marcos Silva Campos</td>
-      <td>Serviço</td>
-      <td>25/02/2021</td>
-      <td>695</td>
-      <td>69,50</td>
-      <td>Mmkmasdinenawen iuhadusdau dasuibadsbuasdui</td>
-      <td>5%</td>
-      <td>Sim</td>
-      <td>1250,00</td>
+      <td>{dados.nomeCliente}</td>
+      <td>{dados.tipoVenda}</td>
+      <td>{data[0]}</td>
+      <td>{dados.quantidade}</td>
+      <td>{dados.valorUnitario}</td>
+      <td>{dados.descricao}</td>
+      <td>{dados.desconto} %</td>
+      <td>{dados.notaFiscal ? "Sim" : "Não"}</td>
+      <td>{dados.valorFinal}</td>
 
       <td className="acoes">
         <div className="d-flex"> 
