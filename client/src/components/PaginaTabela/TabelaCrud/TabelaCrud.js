@@ -54,11 +54,16 @@ const PaginaTabela = () => {
               <thead className="bg-success text-white">
                 <tr>
                   <th scope="col">Nome</th>
-                  <th scope="col">CPF</th>
-                  <th scope="col">Valor</th>
+                  <th scope="col">Tipo de Venda</th>
                   <th scope="col">Data</th>
+                  <th scope="col">Quant.</th>
+                  <th scope="col">Valor Unit.</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">Desconto</th>
+                  <th scope="col">Nota Fiscal</th>
+                  <th scope="col">Valor Final</th>
                   <th scope="col">Ações</th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 <ItemCrud/>
