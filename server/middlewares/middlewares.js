@@ -11,16 +11,21 @@ export const authMiddleware = async (req, res, next) => {
   try {
     if(tokenRaw.length === 2) {
       const token = tokenRaw[1];
-      const resultado = await verificarJWT(token);
-      const usuarioAtual = await Usuario.findById(resultado.userId);
-      if(!usuarioAtual) {
-        return res.send({ erro: "Usuário não existe" });
+
+      try {
+        const resultado = await verificarJWT(token);
+        const usuarioAtual = await Usuario.findById(resultado.userId);
+        if(!usuarioAtual) {
+          return res.send({ erro: "Usuário não existe" });
+        }
+  
+        // Passando o User para a próxima função
+        res.locals.usuario = usuarioAtual;
+        next();
+
+      } catch (error) {
+        res.status(401).send({erro: message});
       }
-
-      // Passando o User para a próxima função
-      res.locals.usuario = usuarioAtual;
-
-      next();
 
     } else {
       res.send({erro: "Token mal formatado"});
