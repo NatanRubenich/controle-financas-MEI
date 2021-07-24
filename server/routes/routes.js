@@ -6,7 +6,8 @@ import {
 
 import { 
   getTabelaController,
-  postTabelaController
+  postTabelaController,
+  deleteTabelaController
 } from '../controllers/controllerTabela.js';
 
 import { authMiddleware } from '../middlewares/middlewares.js';
@@ -56,6 +57,17 @@ router.post('/registros/novo/enviar', async (req, res, next) => {
 router.post('/registros/novo/enviar', async (req, res) => {
   postTabelaController(req, res);
 });
+
+
+// Removendo registro
+router.delete('/registros/deletar', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.delete('/registros/deletar', async (req, res) => {
+  deleteTabelaController(req, res);
+});
+
 
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
+import ModalEscolha from '../../../ModelEscolha/ModelEscolha';
 
-const ItemCrud = ({ dados }) => {
+const ItemCrud = ({ dados, deletar }) => {
 
   const data = new Date(dados.dataVenda).toLocaleString('pt-BR').split(' ');
-  
   const formatarTipoVenda = () => {
     let resposta = dados.tipoVenda;
     if(resposta === 'servico') {
@@ -29,11 +29,11 @@ const ItemCrud = ({ dados }) => {
       <td>{dados.desconto} %</td>
       <td>{dados.notaFiscal ? "Sim" : "Não"}</td>
       <td>{formatarMoeda(dados.valorFinal)}</td>
-
+      
       <td className="acoes">
         <div className="d-flex"> 
           <button className="btn btn-success m-1"><i className="fas fa-pencil-alt"></i></button> 
-          <button className="btn btn-danger m-1"><i className="fas fa-trash"></i></button>
+          <ModalEscolha titulo="Deseja realmente excluir?" callback={() => console.log("EXCLUIR AE")} />
         </div>
       </td>
     </tr>

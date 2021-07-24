@@ -4,12 +4,13 @@ import axios from '../../../axios/axios';
 
 import ItemCrud from './ItemCrud/ItemCrud';
 
+
 const PaginaTabela = () => {
 
   const [ dadosTabela, setDadosTabela ] = useState([]);
   const [ renderizar, setRenderizar ] = useState(false);
 
-  // Requisição AXIOS
+  // Requisição AXIOS GET
   const requisitarRegistros = async () => {
     if(localStorage.getItem("token")) {
       await axios({
@@ -20,7 +21,7 @@ const PaginaTabela = () => {
         }
       })
       .then(resposta => {
-        console.log('peguei do server', resposta);
+        console.log('RENDERIZEI', resposta);
         setDadosTabela(resposta.data.items);
       })
       .catch(err => {
@@ -36,7 +37,6 @@ const PaginaTabela = () => {
   // Use Effect
   useEffect(() => {
     requisitarRegistros();
-    console.log('renderizei');
   }, [renderizar]);
   
 
@@ -46,13 +46,38 @@ const PaginaTabela = () => {
 
     if(dadosTabela) {
       elementoReturn = dadosTabela.map((e) => {
-        return <ItemCrud key={e._id} dados={e}/>;
+        return <ItemCrud key={e._id} dados={e} deletar={(id) => handleDeletar(id)} />;
       });
     }
 
     return elementoReturn;
   }
 
+
+  // Handle deletar items
+  const handleDeletar = async (id) => {
+    if(localStorage.getItem("token")) {
+      await axios({
+        method: 'delete',
+        data: {id},
+        url: '/registros/deletar',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then((res) => {
+        console.log('resposta', res);
+        setRenderizar(!renderizar);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      console.log('fiz a req');
+    } else {
+      console.log('Erro ao requisitar registros');
+    }
+    
+  }
 
   return (
   <div className="col-11 col-md-10 mx-auto m-5 bg-light rounded justify-content-center align-items-center shadow-lg z-index2">

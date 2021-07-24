@@ -51,4 +51,29 @@ export const postTabelaController = async (req, res) => {
   }
 };
 
+
+
+
 //////////        DELETAR ITEM           //////////
+export const deleteTabelaController = async (req, res) => {
+  if(res.locals.usuario) {
+    const objUsuario = res.locals.usuario;
+    try {
+      const item = await ItemTabela.findById(req.body.id);
+
+      try {
+        if( item.grupoTabela.toString() === objUsuario.grupoTabela.toString() ){
+          await item.delete(req.body.id);
+          res.status(200).send("ok");
+        }
+      } catch (error) {
+        res.status(500);
+      }
+
+    } catch (error) {
+      return res.send("Erro ao encontrar item");
+    }
+  } else {
+    res.status(500).send("Usuário não encontrado");
+  }
+};
