@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RotaPrivada from './components/RotaPrivada/RotaPrivada';
 import LoginProvider from './Context/LoginContext';
+import DadosEditarProvider from './Context/DadosEditar';
 import AtualizarStateUsuario from './components/AtualizarStateUsuario/AtualizarStateUsuario';
 
 import Header from './components/Header/Header';
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <LoginProvider>
+      <DadosEditarProvider>
       <div>
         <BrowserRouter>
           <AtualizarStateUsuario />
@@ -28,6 +30,7 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </div>
+      </DadosEditarProvider>
     </LoginProvider>
   );
 }

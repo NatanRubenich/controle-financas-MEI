@@ -28,12 +28,10 @@ const ModalEscolha = ({ titulo, texto, botao, callback }) => {
           <h3 className="mx-auto">{titulo && titulo}</h3>
         </Modal.Header>
         <Modal.Body>
-        <button className="btn btn-secondary" onClick={handleClose}>Não</button>
-          <button className="btn btn-danger" onClick={handleClickDelete}>Sim</button>
         </Modal.Body>
-        <Modal.Footer variant="outline-danger" class="mx-auto">
-          <button className="btn btn-secondary" onClick={handleClose}>Não</button>
-          <button className="btn btn-danger" onClick={handleClickDelete}>Sim</button>
+        <Modal.Footer variant="outline-danger" class="mx-auto mb-3">
+          <button className="btn btn-secondary m-2" onClick={handleClose}>Não</button>
+          <button className="btn btn-danger m-2" onClick={handleClickDelete}>Sim</button>
         </Modal.Footer>
       </Modal>
     </>

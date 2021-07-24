@@ -33,7 +33,7 @@ const ItemCrud = ({ dados, deletar }) => {
       <td className="acoes">
         <div className="d-flex"> 
           <button className="btn btn-success m-1"><i className="fas fa-pencil-alt"></i></button> 
-          <ModalEscolha titulo="Deseja realmente excluir?" callback={() => console.log("EXCLUIR AE")} />
+          <ModalEscolha titulo="Deseja realmente excluir?" callback={() => deletar(dados._id)} />
         </div>
       </td>
     </tr>
