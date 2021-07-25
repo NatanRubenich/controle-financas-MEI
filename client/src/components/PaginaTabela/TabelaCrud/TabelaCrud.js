@@ -138,7 +138,7 @@ const PaginaTabela = () => {
   }
 
   return (
-  <div className="col-11 col-md-10 mx-auto m-5 bg-light rounded justify-content-center align-items-center shadow-lg z-index2">
+  <div className="col-11 col-md-10 mx-auto m-5 p-2 bg-light rounded justify-content-center align-items-center shadow-lg z-index2 marginSetas position-relative">
     <div className="container">
       <h4 className="text-center mt-4 mb-4 titulo text-uppercase">Registros</h4>
       <div className="container p-0">
@@ -156,37 +156,19 @@ const PaginaTabela = () => {
             </button> 
           </div>
 
-          <div className="col-0">
-            <table className="table table-striped">
-              <thead className="bg-success text-white">
-                <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Tipo de Venda</th>
-                  <th scope="col">Data</th>
-                  <th scope="col">Quant.</th>
-                  <th scope="col">Valor Unit.</th>
-                  <th scope="col">Descrição</th>
-                  <th scope="col">Desconto</th>
-                  <th scope="col">Nota Fiscal</th>
-                  <th scope="col">Valor Final</th>
-                  <th scope="col">Ações</th>
-                </tr> 
-              </thead>
-              <tbody>
-
-              {gerarTabela()}
-
-              </tbody>
-            </table>
+          <div className="col-11 mx-auto">
+            {gerarTabela()}
           </div>
         </div>
       </div>
-      <div className="d-flex flex-row justify-content-center display-5">
-        { setaEsquerda() }
-        { setaDireita() }
-      </div>
-
     </div>
+    <div className="position-absolute top-100 start-50 translate-middle">
+      <div className="d-flex flex-row justify-content-center display-5 marginSetas">
+          { setaEsquerda() }
+          { setaDireita() }
+      </div>
+    </div>
+
   </div>
   );
 }
