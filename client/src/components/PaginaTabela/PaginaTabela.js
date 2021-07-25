@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
 import WrapperTabela from './WrapperTabela/WrapperTabela';
 import TabelaCrud from './TabelaCrud/TabelaCrud';
@@ -10,13 +10,15 @@ import EditarRegistro from './EditarRegistro/EditarRegistro';
 
 
 const PaginaTabela = () => {
-
+  // Paginação
+  const [ pagina, setPagina ] = useState(0);
 
   return (
     <WrapperTabela>
-      <Route path="/registros" exact component={TabelaCrud}></Route>
-      <Route path="/registros/novo" exact component={AdicionarRegistro}></Route>
-      <Route path="/registros/editar" exact component={EditarRegistro}></Route>
+      <Route exact path="/registros/lista/:page" component={TabelaCrud}></Route>
+      <Route exact path="/registros" render={() => (<Redirect to="/registros/lista/0" />)} />          
+      <Route exact path="/registros/novo" component={AdicionarRegistro}></Route>
+      <Route exact path="/registros/editar" component={EditarRegistro}></Route>
     </WrapperTabela>
   );
 

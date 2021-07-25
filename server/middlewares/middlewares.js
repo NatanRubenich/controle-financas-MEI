@@ -18,7 +18,7 @@ export const authMiddleware = async (req, res, next) => {
         if(!usuarioAtual) {
           return res.send({ erro: "Usuário não existe" });
         }
-  
+
         // Passando o User para a próxima função
         res.locals.usuario = usuarioAtual;
         next();

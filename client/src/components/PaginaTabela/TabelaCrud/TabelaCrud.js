@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import axios from '../../../axios/axios';
 
 import ItemCrud from './ItemCrud/ItemCrud';
@@ -10,19 +10,42 @@ const PaginaTabela = () => {
   const [ dadosTabela, setDadosTabela ] = useState([]);
   const [ renderizar, setRenderizar ] = useState(false);
 
+  // Localização url e histórico
+  const parametros = useParams();
+  const historico = useHistory();
+
+  // Botoes pagina esquerda e direita
+  const [ setas, setSetas ] = useState({ direita: false, esquerda: false });
+
+  // Redirecionando URL
+  const verificarNumPagina = () => {
+    const num = parseInt(parametros.page)
+    if(num < 0) {
+      historico.push('/registros/0');
+    }
+    // Adicionando seta de página para esquerda
+    if(num > 0) {
+      setSetas({ ...setas, esquerda: true });
+    }
+    return num;
+  }
+
+
   // Requisição AXIOS GET
   const requisitarRegistros = async () => {
-    if(localStorage.getItem("token")) {
+    const numPagina = verificarNumPagina();
+
+    if(localStorage.getItem("token") && numPagina >= 0) {
       await axios({
         method: 'get',
-        url: '/registros',
+        url: `/registros/lista/${numPagina}`,
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       })
       .then(resposta => {
         console.log('RENDERIZEI', resposta);
-        setDadosTabela(resposta.data.items);
+        verificarPaginacao(resposta.data.query)
       })
       .catch(err => {
         console.log(err);
@@ -32,7 +55,16 @@ const PaginaTabela = () => {
     }
   }
 
-  // Deletar Entrada
+  // Verificar Paginação - número de páginas
+  const verificarPaginacao = (registros) => {
+    if(registros[10]) {
+      setSetas({ ...setas, direita: true });
+    }
+    delete registros[10];
+
+    setDadosTabela(registros);
+  }
+
 
   // Use Effect
   useEffect(() => {
@@ -49,9 +81,9 @@ const PaginaTabela = () => {
         return <ItemCrud key={e._id} dados={e} deletar={(id) => handleDeletar(id)} />;
       });
     }
-
     return elementoReturn;
   }
+
 
 
   // Handle deletar items
@@ -121,9 +153,11 @@ const PaginaTabela = () => {
 
               </tbody>
             </table>
-          </div>      
+          </div>
         </div>
       </div>
+      {setas.esquerda && '<<<<' }
+      {setas.direita && '>>>>'}
     </div>
   </div>
   );

@@ -3,14 +3,21 @@ import GrupoTabela from '../models/grupotabela.js';
 import ItemTabela from '../models/itemtabela.js';
 
 //////////    LISTAR REGISTROS DO USUARIO        //////////
+
+
 export const getTabelaController = async (req, res) => {
   if(res.locals.usuario) {
     try {
       // Buscando lista de items
       const objUsuario = res.locals.usuario;
-      const { items } = await GrupoTabela.findById(objUsuario.grupoTabela._id).populate(['items']);
+      const query = await ItemTabela
+        .find({ grupoTabela: objUsuario.grupoTabela._id })
+        .sort('-createdAt')
+        .limit(11)
+        .skip(10 * req.params.pagina );
+
       
-      return res.send({ items });
+      return res.send({query});
 
     } catch (error) {
       res.send("Não foi possível receber dados")
@@ -19,6 +26,8 @@ export const getTabelaController = async (req, res) => {
 
   return res.send("Usuário não encontrado");
 };
+
+
 
 
 //////////        CRIAR NOVA ENTRADA           //////////
@@ -36,7 +45,8 @@ export const postTabelaController = async (req, res) => {
         const novoItemTabela = await ItemTabela.create({ ...req.body, grupoTabela: idTabela});
         await tabela.items.push(novoItemTabela);
         await tabela.save();
-        res.send({ tabela });
+
+        res.send(tabela);
 
       } catch (error) {
         res.send("Erro ao criar novo item de registro");

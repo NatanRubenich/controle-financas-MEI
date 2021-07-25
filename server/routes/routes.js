@@ -33,11 +33,11 @@ router.post('/login/enviar', async (req, res) => {
 ////////////////////////////
 /////     CRUD      ////////
 // Listando registros
-router.get('/registros', async (req, res, next) => {
+router.get('/registros/lista/:pagina', async (req, res, next) => {
   authMiddleware(req, res, next);
 });
 
-router.get('/registros', async (req, res) => {
+router.get('/registros/lista/:pagina', async (req, res) => {
   getTabelaController(req, res);
 });
 
