@@ -1,8 +1,25 @@
 import React from 'react';
 import ModalEscolha from '../../../ModelEscolha/ModelEscolha';
+import { useDadosEditar } from '../../../../Context/DadosEditar';
+import { useHistory } from 'react-router-dom';
+
 
 const ItemCrud = ({ dados, deletar }) => {
 
+
+  // Hook - dados para editar
+  const { dadosEditar, setDadosEditar } = useDadosEditar();
+
+  // Redirecionador
+  const historico = useHistory();
+
+  const handleEditarDados = () => {
+    setDadosEditar(dados);
+    historico.push('/registros/editar');
+  }
+
+
+  /// FORMATAÇÃO DE DADOS
   const data = new Date(dados.dataVenda).toLocaleString('pt-BR').split(' ');
   const formatarTipoVenda = () => {
     let resposta = dados.tipoVenda;
@@ -32,7 +49,7 @@ const ItemCrud = ({ dados, deletar }) => {
       
       <td className="acoes">
         <div className="d-flex"> 
-          <button className="btn btn-success m-1"><i className="fas fa-pencil-alt"></i></button> 
+          <button className="btn btn-success m-1" onClick={handleEditarDados}><i className="fas fa-pencil-alt"></i></button> 
           <ModalEscolha titulo="Deseja realmente excluir?" callback={() => deletar(dados._id)} />
         </div>
       </td>

@@ -71,6 +71,7 @@ const PaginaTabela = () => {
       })
       .catch(err => {
         console.log(err);
+        console.log('erro AQUI', err);
       });
       console.log('fiz a req');
     } else {

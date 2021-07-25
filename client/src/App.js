@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RotaPrivada from './components/RotaPrivada/RotaPrivada';
 import LoginProvider from './Context/LoginContext';
 import DadosEditarProvider from './Context/DadosEditar';
-import AtualizarStateUsuario from './components/AtualizarStateUsuario/AtualizarStateUsuario';
 
+import AtualizarStateLogin from './components/AtualizarStateLogin/AtualizarStateLogin';
 import Header from './components/Header/Header';
 import PaginaLogin from './components/PaginaLogin/PaginaLogin';
 import TelaInicial from './components/TelaInicial/TelaInicial';
@@ -17,9 +17,9 @@ const App = () => {
   return (
     <LoginProvider>
       <DadosEditarProvider>
+        <AtualizarStateLogin/>
       <div>
         <BrowserRouter>
-          <AtualizarStateUsuario />
           <Header/>
           <Switch>
             <Route path="/" component={TelaInicial} exact/>

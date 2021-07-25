@@ -4,7 +4,7 @@ const EditarContext = createContext();
 
 // PROVIDER
 export default function DadosEditarProvider({ children }) {
-  const [dadosEditar, setDadosEditar] = useState([]);
+  const [dadosEditar, setDadosEditar] = useState({});
 
   return (
     <EditarContext.Provider

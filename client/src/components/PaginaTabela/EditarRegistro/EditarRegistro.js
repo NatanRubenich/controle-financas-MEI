@@ -3,16 +3,33 @@ import axios from '../../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
+import { useDadosEditar } from '../../../Context/DadosEditar';
 
 import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 
 
-const EditarRegistro = ({ dadosOriginais }) => {
+
+
+const EditarRegistro = () => {
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(addRegistroSchema)
   });
+
+  // Hook - dados para editar
+  const { dadosEditar, setDadosEditar } = useDadosEditar();
+
+
+  const formatarData = (data) => {
+    const d = new Date(data);
+    function pad (n){
+      return n<10 ? '0'+n : n
+    }
+    return d.getFullYear()+'-'
+         + pad(d.getMonth()+1)+'-'
+         + pad(d.getDate());
+  }
 
   // Sucesso 
   const [ sucesso, setSucesso ] = useState(false);
@@ -34,28 +51,8 @@ const EditarRegistro = ({ dadosOriginais }) => {
   // Enviando ao server
   const handleDadosValidados = async (dados) => {
     const formFinal = calcularValorFinal(dados);
-
-    if(localStorage.getItem("token")) {
-      await axios({
-        method: 'put',
-        url: '/registros/editar',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-        data: formFinal
-      })
-      .then(response => {
-        console.log(response);
-        setSucesso(true);
-        document.getElementById("formRegistro").reset();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    } else {
-      console.log('Erro ao editar registro');
-    }
   }
+ 
 
   // JSX
   return (
@@ -75,7 +72,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="nomeCliente"
                 className="form-control" 
                 id="nomeCliente"
-                defaultValue={dadosOriginais.nomeCliente}
+                defaultValue={dadosEditar.nomeCliente}
                 {...register("nomeCliente")}
               />
               <span className="text-danger">{errors.nomeCliente && `${errors.nomeCliente.message}`}</span>
@@ -89,6 +86,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="tipoVenda"
                 className="form-control" 
                 id="tipoVenda"
+                defaultValue={dadosEditar.tipoVenda}
                 {...register("tipoVenda")}
               >
                 <option value="produto" defaultValue>Produto</option>
@@ -105,6 +103,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="dataVenda"
                 className="form-control" 
                 id="dataVenda"
+                defaultValue={formatarData(dadosEditar.dataVenda)}
                 {...register("dataVenda")}
               />
               <span className="text-danger">{errors.dataVenda && `${errors.dataVenda.message}`}</span>
@@ -118,6 +117,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="quantidade"
                 className="form-control" 
                 id="quantidade"
+                defaultValue={dadosEditar.quantidade}
                 {...register("quantidade")}
               />
               <span className="text-danger">{errors.quantidade && `${errors.quantidade.message}`}</span>
@@ -130,6 +130,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="valorUnitario"
                 className="form-control" 
                 id="valorUnitario"
+                defaultValue={dadosEditar.valorUnitario}
                 {...register("valorUnitario")}
               />
               <span className="text-danger">{errors.valorUnitario && `${errors.valorUnitario.message}`}</span>
@@ -142,6 +143,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                 name="descricao"
                 className="form-control" 
                 id="descricao"
+                defaultValue={dadosEditar.descricao}
                 {...register("descricao")}
               />
               <span className="text-danger">{errors.descricao && `${errors.descricao.message}`}</span>
@@ -156,7 +158,7 @@ const EditarRegistro = ({ dadosOriginais }) => {
                   name="desconto"
                   className="form-control" 
                   id="desconto"
-                  defaultValue={0}
+                  defaultValue={dadosEditar.desconto}
                   {...register("desconto")}
                 />
                 <span className="input-group-text">%</span>

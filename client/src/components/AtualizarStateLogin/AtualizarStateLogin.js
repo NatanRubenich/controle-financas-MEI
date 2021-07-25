@@ -7,7 +7,6 @@ const AtualizarStateLogin = () => {
   useEffect(() => {
     if(localStorage.getItem("token")) {
       setLogado(true);
-      console.log('logado', true);
     }
   }, [logado]);
 
