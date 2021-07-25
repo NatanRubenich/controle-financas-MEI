@@ -80,3 +80,19 @@ export const deleteTabelaController = async (req, res) => {
 
 
 //////////        EDITAR ITEM            //////////
+//////////        CRIAR NOVA ENTRADA           //////////
+export const editarTabelaController = async (req, res) => {
+  if(res.locals.usuario) {
+    const objUsuario = res.locals.usuario;
+    try {
+      const itemTabela = await ItemTabela.findByIdAndUpdate(req.body.id, req.body.form);
+      res.send(itemTabela);
+
+    } catch (error) {
+      return res.send("Erro ao acessar tabela");
+    }
+
+    
+    return res.send({ usuarioReq: objUsuario, body: req.body });
+  }
+};

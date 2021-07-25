@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
 import { useDadosEditar } from '../../../Context/DadosEditar';
+import { useHistory } from 'react-router-dom';
 
 import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 
@@ -20,6 +21,12 @@ const EditarRegistro = () => {
   // Hook - dados para editar
   const { dadosEditar, setDadosEditar } = useDadosEditar();
 
+  // Redirecionador
+  const historico = useHistory();
+  if(Object.getOwnPropertyNames(dadosEditar).length === 0) {
+    historico.push('/registros');
+  }
+  
 
   const formatarData = (data) => {
     const d = new Date(data);
@@ -51,6 +58,28 @@ const EditarRegistro = () => {
   // Enviando ao server
   const handleDadosValidados = async (dados) => {
     const formFinal = calcularValorFinal(dados);
+    if(localStorage.getItem("token")) {
+      await axios({
+        method: 'put',
+        url: 'registros/editar/enviar',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
+        data: {
+          form: formFinal,
+          id: dadosEditar._id
+        }
+      })
+      .then(response => {
+        setSucesso(true);
+        document.getElementById("formEditar").reset();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      console.log('Erro ao criar um novo registro');
+    }
   }
  
 
@@ -63,7 +92,7 @@ const EditarRegistro = () => {
           <div className="row">
             <div className="col-0">
 
-            <form className="row g-3" id="formRegistro" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
+            <form className="row g-3" id="formEditar" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
 
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
@@ -203,7 +232,6 @@ const EditarRegistro = () => {
   );
 
 }
-
 
 
 export default EditarRegistro;

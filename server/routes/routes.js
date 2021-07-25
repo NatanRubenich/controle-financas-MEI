@@ -7,7 +7,8 @@ import {
 import { 
   getTabelaController,
   postTabelaController,
-  deleteTabelaController
+  deleteTabelaController,
+  editarTabelaController
 } from '../controllers/controllerTabela.js';
 
 import { authMiddleware } from '../middlewares/middlewares.js';
@@ -40,8 +41,6 @@ router.get('/registros', async (req, res) => {
   getTabelaController(req, res);
 });
 
-
-
 // Criando registro
 router.post('/registros/novo/enviar', async (req, res, next) => {
   authMiddleware(req, res, next);
@@ -61,6 +60,14 @@ router.delete('/registros/deletar', async (req, res) => {
   deleteTabelaController(req, res);
 });
 
+// Editando registro
+router.put('/registros/editar/enviar', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.put('/registros/editar/enviar', async (req, res) => {
+  editarTabelaController(req, res);
+});
 
 
 
