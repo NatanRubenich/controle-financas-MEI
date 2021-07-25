@@ -14,27 +14,21 @@ const PaginaTabela = () => {
   const parametros = useParams();
   const historico = useHistory();
 
-  // Botoes pagina esquerda e direita
-  const [ setas, setSetas ] = useState({ direita: false, esquerda: false });
 
   // Redirecionando URL
   const verificarNumPagina = () => {
     const num = parseInt(parametros.page)
     if(num < 0) {
-      historico.push('/registros/0');
-    }
-    // Adicionando seta de página para esquerda
-    if(num > 0) {
-      setSetas({ ...setas, esquerda: true });
+      historico.push('/registros/lista/0');
     }
     return num;
   }
+  const numPagina = verificarNumPagina();
+ 
 
 
   // Requisição AXIOS GET
   const requisitarRegistros = async () => {
-    const numPagina = verificarNumPagina();
-
     if(localStorage.getItem("token") && numPagina >= 0) {
       await axios({
         method: 'get',
@@ -45,7 +39,7 @@ const PaginaTabela = () => {
       })
       .then(resposta => {
         console.log('RENDERIZEI', resposta);
-        verificarPaginacao(resposta.data.query)
+        setDadosTabela(resposta.data.query)
       })
       .catch(err => {
         console.log(err);
@@ -55,15 +49,6 @@ const PaginaTabela = () => {
     }
   }
 
-  // Verificar Paginação - número de páginas
-  const verificarPaginacao = (registros) => {
-    if(registros[10]) {
-      setSetas({ ...setas, direita: true });
-    }
-    delete registros[10];
-
-    setDadosTabela(registros);
-  }
 
 
   // Use Effect
@@ -83,6 +68,46 @@ const PaginaTabela = () => {
     }
     return elementoReturn;
   }
+
+  // Setas
+  const setaDireita = () => {
+    if(dadosTabela[10]) {
+      return (
+        <Link to={'/registros/lista/' + (numPagina + 1)}>
+          <div className="mx-3">
+            <i className="fas fa-arrow-right" onClick={() => setRenderizar(!renderizar)}></i>
+          </div>
+        </Link>
+      )
+    } else {
+      return (
+        <div className="mx-3">
+          <i className="fas fa-arrow-right text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
+        </div>
+      )
+    }
+
+  }
+ 
+
+  const setaEsquerda = () => {
+    if(numPagina > 0) {
+      return (
+        <Link to={'/registros/lista/' + (numPagina - 1)}>
+          <div className="mx-3">
+            <i className="fas fa-arrow-left" onClick={() => setRenderizar(!renderizar)}></i>
+          </div>
+        </Link>
+      )
+    } else {
+      return (
+        <div className="mx-3">
+          <i className="fas fa-arrow-left text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
+        </div>
+      )
+    }
+  }
+
 
 
 
@@ -156,8 +181,11 @@ const PaginaTabela = () => {
           </div>
         </div>
       </div>
-      {setas.esquerda && '<<<<' }
-      {setas.direita && '>>>>'}
+      <div className="d-flex flex-row justify-content-center display-5">
+        { setaEsquerda() }
+        { setaDireita() }
+      </div>
+
     </div>
   </div>
   );
