@@ -69,47 +69,6 @@ const PaginaTabela = () => {
     return elementoReturn;
   }
 
-  // Setas
-  const setaDireita = () => {
-    if(dadosTabela[10]) {
-      return (
-        <Link to={'/registros/lista/' + (numPagina + 1)}>
-          <div className="mx-3">
-            <i className="fas fa-arrow-right" onClick={() => setRenderizar(!renderizar)}></i>
-          </div>
-        </Link>
-      )
-    } else {
-      return (
-        <div className="mx-3">
-          <i className="fas fa-arrow-right text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
-        </div>
-      )
-    }
-
-  }
- 
-
-  const setaEsquerda = () => {
-    if(numPagina > 0) {
-      return (
-        <Link to={'/registros/lista/' + (numPagina - 1)}>
-          <div className="mx-3">
-            <i className="fas fa-arrow-left" onClick={() => setRenderizar(!renderizar)}></i>
-          </div>
-        </Link>
-      )
-    } else {
-      return (
-        <div className="mx-3">
-          <i className="fas fa-arrow-left text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
-        </div>
-      )
-    }
-  }
-
-
-
 
   // Handle deletar items
   const handleDeletar = async (id) => {
@@ -134,8 +93,48 @@ const PaginaTabela = () => {
     } else {
       console.log('Erro ao requisitar registros');
     }
-    
   }
+
+
+
+    // Seta Direita
+    const setaDireita = () => {
+      if(dadosTabela[10]) {
+        return (
+          <Link to={'/registros/lista/' + (numPagina + 1)}>
+            <div className="mx-3">
+              <i className="fas fa-arrow-right" onClick={() => setRenderizar(!renderizar)}></i>
+            </div>
+          </Link>
+        )
+      } else {
+        return (
+          <div className="mx-3">
+            <i className="fas fa-arrow-right text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
+          </div>
+        )
+      }
+  
+    }
+   
+    // Seta Esquerda
+    const setaEsquerda = () => {
+      if(numPagina > 0) {
+        return (
+          <Link to={'/registros/lista/' + (numPagina - 1)}>
+            <div className="mx-3">
+              <i className="fas fa-arrow-left" onClick={() => setRenderizar(!renderizar)}></i>
+            </div>
+          </Link>
+        )
+      } else {
+        return (
+          <div className="mx-3">
+            <i className="fas fa-arrow-left text-secondary" onClick={() => setRenderizar(!renderizar)}></i>
+          </div>
+        )
+      }
+    }
 
   return (
   <div className="col-12 col-md-10 mx-auto m-5 p-2 bg-light rounded justify-content-center align-items-center shadow-lg z-index2 position-relative">

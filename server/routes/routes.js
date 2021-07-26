@@ -1,7 +1,8 @@
 import express from 'express';
 import { 
   cadastroController, 
-  loginController
+  loginController,
+  authController
 } from '../controllers/controllerAuth.js';
 
 import { 
@@ -70,8 +71,14 @@ router.put('/registros/editar/enviar', async (req, res) => {
 });
 
 
+// Verificando auth 
+router.get('/auth', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
 
-
+router.get('/auth', async (req, res, next) => {
+  authController(req, res);
+});
 
 
 

@@ -24,11 +24,11 @@ export const authMiddleware = async (req, res, next) => {
         next();
 
       } catch (error) {
-        res.status(401).send({erro: message});
+        res.status(401).send({ erro: message });
       }
 
     } else {
-      res.send({erro: "Token mal formatado"});
+      res.send({ erro: "Token mal formatado" });
     }
 
   } catch (error) {

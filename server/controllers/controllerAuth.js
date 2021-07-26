@@ -38,18 +38,22 @@ export const cadastroController = async (req, res) => {
         return res.send({ erros: erros });
       } else {
         // Enviando schema ao servidor
-        const novoUsuario = await Usuario.create(req.body);
-        const novoGrupoTabela = await GrupoTabela.create({ usuario: novoUsuario._id });
-        
-      
+        const novoUsuario = new Usuario(req.body);
+        const novoGrupoTabela = new GrupoTabela({ usuario: novoUsuario._id });
+    
+        // Adicionando a tabela no usuario
         await novoUsuario.set({ grupoTabela: novoGrupoTabela });
+        
+        // Salvando
         await novoUsuario.save();
+        await novoGrupoTabela.save();
 
-        // Apagando senha do schema
+        // Removendo a senha do model
         novoUsuario.senha = undefined;
 
         // Gerando JWT 
         const token = await loginJWT(novoUsuario.id);
+
         //Retornando o usuário + jwt
         return res.send({ novoUsuario, token });
       }
@@ -75,12 +79,7 @@ export const loginController = async (req, res) => {
     try {
       // Procurando informações preexistentes
       const usuario = await Usuario.findOne({ email }).select('+senha');
-      
-      // Verificando se existe
-      if(!usuario){
-        return res.send({ erro: "Usuário não encontrado"});
-      }
-
+ 
       // Verificando se a senha corresponde
       if (!await bcrypt.compare(senha, usuario.senha)) {
         return res.send({ erro: "Senha incorreta"});
@@ -91,8 +90,8 @@ export const loginController = async (req, res) => {
 
       // Gerando JWT 
       const token = await loginJWT(usuario.id);
-
       res.send({ usuario, token });
+
 
     } 
     catch(err) {
@@ -105,7 +104,20 @@ export const loginController = async (req, res) => {
   }
 }
 
+/// Retornar auth
+export const authController = async (req, res) => {
+  if(res.locals.usuario) {
+    try {     
+      const usuario = await Usuario.findById(res.locals.usuario._id);
+      return res.status(200).send({usuario});
 
+    } catch (error) {
+      res.status(401).send("Usuário não está logado")
+    }
+  }
+
+  return res.send("Usuário não encontrado");
+};
 
 
 

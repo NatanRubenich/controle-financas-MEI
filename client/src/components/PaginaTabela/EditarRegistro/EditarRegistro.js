@@ -213,7 +213,7 @@ const EditarRegistro = () => {
             </div>
               <div className="col-0 p-4">
                 <div className="row">
-                  <button className="btn btn-primary btn-block py-3">Cadastrar</button>
+                  <button className="btn btn-primary btn-block py-3">Enviar</button>
                 </div>
               </div>
             </form>
@@ -225,7 +225,7 @@ const EditarRegistro = () => {
         titulo="" 
         texto="Registro editado com sucesso!"
         url="/registros"
-        callback={() => setSucesso(false)}
+        callback={() => { setSucesso(false); setDadosEditar({});}}
         /> : null 
       }
     </div>

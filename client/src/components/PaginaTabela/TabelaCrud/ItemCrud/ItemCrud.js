@@ -126,25 +126,4 @@ const ItemCrud = ({ dados, deletar }) => {
   );
 }
 
-
-/*
-    <tr className="td-registros">
-      <td>{dados.nomeCliente}</td>
-      <td>{formatarTipoVenda()}</td>
-      <td>{data[0]}</td>
-      <td>{dados.quantidade}</td>
-      <td>{formatarMoeda(dados.valorUnitario)}</td>
-      <td>{dados.descricao}</td>
-      <td>{dados.desconto} %</td>
-      <td>{dados.notaFiscal ? "Sim" : "Não"}</td>
-      <td>{formatarMoeda(dados.valorFinal)}</td>
-      
-      <td className="acoes">
-        <div className="d-flex"> 
-          <button className="btn btn-success m-1" onClick={handleEditarDados}><i className="fas fa-pencil-alt"></i></button> 
-          <ModalEscolha titulo="Deseja realmente excluir?" callback={() => deletar(dados._id)} />
-        </div>
-      </td>
-    </tr>
-    */
 export default ItemCrud;
