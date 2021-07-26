@@ -138,19 +138,18 @@ const PaginaTabela = () => {
   }
 
   return (
-  <div className="col-11 col-md-10 mx-auto m-5 p-2 bg-light rounded justify-content-center align-items-center shadow-lg z-index2 marginSetas position-relative">
-    <div className="container">
+  <div className="col-12 col-md-10 mx-auto m-5 p-2 bg-light rounded justify-content-center align-items-center shadow-lg z-index2 position-relative">
       <h4 className="text-center mt-4 mb-4 titulo text-uppercase">Registros</h4>
       <div className="container p-0">
-        <div className="row">
-          <div className="d-flex flex-row-reverse px-2 pb-2">
+        <div className="d-flex flex-column p-0">
+          <div className="d-flex flex-row-reverse mx-2 me-lg-5">
             <Link to="/registros/novo">
-              <button className="btn btn-success m-1 d-flex align-items-center">
+              <button className="btn btn-success md-1 d-flex align-items-center">
                 <i className="fas fa-plus"></i>
                 <span className="ps-2 text-white">Adicionar Registro</span>
               </button>
             </Link> 
-            <button className="btn btn-warning m-1 d-flex align-items-center">
+            <button className="btn btn-warning me-1 d-flex align-items-center">
               <i className="fas fa-calculator"></i>
               <span className="ps-2">Gerar Extrato Mensal</span>
             </button> 
@@ -161,9 +160,8 @@ const PaginaTabela = () => {
           </div>
         </div>
       </div>
-    </div>
-    <div className="position-absolute top-100 start-50 translate-middle">
-      <div className="d-flex flex-row justify-content-center display-5 marginSetas">
+    <div className="">
+      <div className="d-flex flex-row justify-content-center display-5 mt-5 mb-3 position-relative">
           { setaEsquerda() }
           { setaDireita() }
       </div>
