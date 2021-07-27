@@ -1,4 +1,5 @@
 import React from 'react';
+import GraficoPizza from './GraficoPizza/GraficoPizza';
 
 const card = (titulo, icone) => {
   return (
@@ -31,7 +32,7 @@ const Dashboard = () => {
       <div className="col-0 m-0 ps-5 border">
         <h1 className="pt-4 ps-md-3 display-3">Dashboard</h1>
       </div>
-      <div className="col-0 col-lg-8 p-0 ">
+      <div className="col-0 col-lg-8 p-0 borderblack">
         <div className="row m-0">
             {card("Vendas", "dollar-sign")}
             {card("Clientes", "users")}
@@ -39,8 +40,13 @@ const Dashboard = () => {
             {card("Rendimentos do ano", "chart-line")}
         </div>
       </div>
-      <div className="col border">
-        
+      <div className="col-4 borderblack p-2">
+        <div className="container bg-light rounded py-3 text-center">
+          <span className="fs-5 text-primary">Tipos de Venda</span>
+          <div className="card-body px-0">
+            <GraficoPizza />
+          </div>
+        </div>
       </div>
       <div className="col-0 border"></div>
     </div>
