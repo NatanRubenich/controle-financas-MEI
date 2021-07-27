@@ -58,11 +58,11 @@ const ItemCrud = ({ dados, deletar }) => {
         </div>
 
         <div className="row my-auto d-flex d-md-none">
-          <div className="col-7 my-auto">
+          <div className="col-8 my-auto ps-3">
             <span className="display fs-5 text-uppercase">{dados.nomeCliente}</span>
           </div>
 
-          <div className="col-5 my-auto">
+          <div className="col-4 my-auto">
             <div className="row">
               <div className="col-6 my-auto">
                 <span>{data[0]}</span>

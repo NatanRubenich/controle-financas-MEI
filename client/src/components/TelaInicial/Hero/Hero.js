@@ -8,7 +8,7 @@ const BotaoLogado = () => {
   return (
     <>
       <div className="d-flex flex-column flex-md-row gap-2 justify-content-start mb-4">
-        <Link to="/dashboard"><button className="btn btn bg-darkblue text-white p-3 me-md-2 fs-5" type="button">Acessar Dashboard</button></Link>
+        <a href="#dashboard"><button className="btn btn bg-darkblue text-white p-3 me-md-2 fs-5" type="button">Acessar Dashboard</button></a>
       </div>
     </>
   )
