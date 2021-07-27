@@ -11,7 +11,7 @@ const TelaInicial = () => {
   const { logado, setLogado } = useLogin();
 
   return (
-    <div className="row">
+    <div className="row m-0">
       {logado ? <SideBar/> : null}
       <div className="col p-0">
         <Hero/>

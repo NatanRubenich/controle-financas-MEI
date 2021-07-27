@@ -6,10 +6,6 @@
   font-family: Bahnschrift;
   src: url("http://fonts.cdnfonts.com/css/bahnschrift");
 }
-body {
-  overflow-x: hidden;
-}
-
 .secFont {
   font-family: Bahnschrift;
 }
@@ -82,6 +78,10 @@ a {
 
 .blind-hero {
   opacity: 0.6;
+}
+
+.bg-cinzaclaro {
+  background-color: #eeeeee;
 }
 
 @-webkit-keyframes desaparecer {

@@ -33,7 +33,7 @@ const Dashboard = () => {
         </div>
       </div>
       
-      <div className="d-flex d-md-none col-5 mx-auto my-5 p-0">
+      <div className="d-flex d-md-none col-10 mx-auto my-5 p-0">
         <button className="btn btn-warning mx-auto py-3 px-4 fs-5 d-flex justify-content-center align-items-center">
           <i className="fas fa-calculator"></i>
           <span className="ps-2">Gerar Extrato Mensal</span>
