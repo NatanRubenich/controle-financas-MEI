@@ -6,6 +6,10 @@
   font-family: Bahnschrift;
   src: url("http://fonts.cdnfonts.com/css/bahnschrift");
 }
+body {
+  overflow-x: hidden;
+}
+
 .secFont {
   font-family: Bahnschrift;
 }
@@ -35,6 +39,10 @@
 
 a {
   text-decoration: none;
+}
+
+.bg-darkblue {
+  background-color: #144169;
 }
 
 .ui.menu.header-menu {
@@ -76,6 +84,23 @@ a {
   opacity: 0.6;
 }
 
+@-webkit-keyframes desaparecer {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes desaparecer {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .card-login {
   width: 22em;
 }
@@ -129,4 +154,15 @@ th {
   background-color: black;
   position: absolute;
   top: 0;
+}
+
+.sidebar {
+  background-color: #12623e;
+  font-size: 1.13em;
+}
+.sidebar .sidebar-item {
+  color: white;
+}
+.sidebar .sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.103);
 }/*# sourceMappingURL=main.css.map */

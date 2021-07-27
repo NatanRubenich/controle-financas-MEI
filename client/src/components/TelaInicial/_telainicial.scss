@@ -22,3 +22,13 @@
   @extend .blind;
   opacity: 0.6;
 }
+
+
+@keyframes desaparecer {
+  from {
+    opacity: 100
+  }
+  to {
+    opacity: 0
+  }
+}

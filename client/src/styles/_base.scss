@@ -1,3 +1,4 @@
+
 ///FONTES
 @font-face {
   font-family: Slenco;
@@ -7,6 +8,11 @@
 @font-face {
   font-family: Bahnschrift;
   src: url('http://fonts.cdnfonts.com/css/bahnschrift');
+}
+
+
+body {
+  overflow-x: hidden;
 }
 
 .secFont {
@@ -41,4 +47,11 @@
 
 a {
   text-decoration: none;
+}
+
+
+
+// Background
+.bg-darkblue {
+  background-color: rgb(20 65 105);
 }
