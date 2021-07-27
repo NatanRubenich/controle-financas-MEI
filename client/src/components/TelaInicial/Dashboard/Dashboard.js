@@ -1,27 +1,48 @@
 import React from 'react';
 
+const card = (titulo, icone) => {
+  return (
+    <div className="col-0 col-md-6 p-2">
+      <div className="card bg-light rounded shadow-lg">
+        <div className="d-flex flex-row g-0">
+          <div className="col d-flex flex-row">
+            <div className="card-body">
+              <span className="fs-5 text-primary">{titulo}</span>
+              <h3>265</h3>
+            </div>
+
+
+            <div className="col-3 d-flex justify-content-center align-items-center fs-1 text-primary m-2">
+              <i class={`fas fa-${icone}`}></i>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  );
+}
+
 
 
 const Dashboard = () => {
 
   return (
-    <div className="row vh-100">
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                      Earnings (Monthly)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
+    <div className="row m-0 p-3 p-md-5 min-vh-100 bg-primary">
+      <div className="col-0 m-0 ps-5 border">
+        <h1 className="pt-4 ps-md-3 display-3">Dashboard</h1>
+      </div>
+      <div className="col-0 col-lg-8 p-0 ">
+        <div className="row m-0">
+            {card("Vendas", "dollar-sign")}
+            {card("Clientes", "users")}
+            {card("Rendimento do mês", "calendar-alt")}
+            {card("Rendimentos do ano", "chart-line")}
         </div>
       </div>
+      <div className="col border">
+        
+      </div>
+      <div className="col-0 border"></div>
     </div>
   )
 

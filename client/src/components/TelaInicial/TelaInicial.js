@@ -13,7 +13,10 @@ const TelaInicial = () => {
   return (
     <div className="row">
       {logado ? <SideBar/> : null}
-      <Hero/>
+      <div className="col p-0">
+        <Hero/>
+        <Dashboard/>
+      </div>
     </div>
   );
 }

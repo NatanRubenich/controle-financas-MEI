@@ -29,7 +29,7 @@ const Hero = () => {
   const { logado, setLogado } = useLogin();
 
   return (
-    <div className="col p-0">
+
       <div className="row m-0 min-vh-100 hero-image align-items-center position-relative">
         <div className="blind-hero"></div>
         <div className="col-1 d-none d-md-flex"></div>
@@ -39,7 +39,7 @@ const Hero = () => {
           { logado ? BotaoLogado() : BotaoDeslogado() }
         </div>
       </div>
-    </div>
+
   );
 }
 

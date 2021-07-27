@@ -13,7 +13,6 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow z-index2">
       <div className="container-fluid">
         <NavLink to="/"><div className="navbar-brand ms-2"><img className="logo" src={logo} /></div></NavLink>
-        <BemVindo />
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSandwich" aria-controls="navbarSandwich" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
