@@ -8,6 +8,7 @@ import {
 import { 
   getTabelaController,
   getDashboardMes,
+  getDashboardAno,
   postTabelaController,
   deleteTabelaController,
   editarTabelaController
@@ -83,6 +84,17 @@ router.get('/dashboard/mes', async (req, res, next) => {
 router.get('/dashboard/mes', async (req, res) => {
   getDashboardMes(req, res);
 });
+
+
+// Dashboard ANO
+router.get('/dashboard/ano', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/dashboard/ano', async (req, res) => {
+  getDashboardAno(req, res);
+});
+
 
 
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2'
 
 const GraficoPizza  = ({dado}) => {
-
+  console.log('dado que chega', dado)
   const [dados, setDados] = useState({
     labels: [
       'Produtos',

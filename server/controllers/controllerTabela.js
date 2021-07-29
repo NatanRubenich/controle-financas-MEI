@@ -109,6 +109,84 @@ export const getDashboardMes = async (req, res) => {
 };
 
 
+///////////////////////////////////////
+///              ANO
+export const getDashboardAno = async (req, res) => {
+  if(res.locals.usuario) {
+    try {
+      // Buscando lista de items
+      const objUsuario = res.locals.usuario;
+
+      // Datas
+      const data = new Date();
+      const anoAtualInicio = new Date(data.getFullYear(), 0, 1);
+      const anoAtualFinal = new Date(data.getFullYear() + 1, 0, 1);
+
+
+      // Query de clientes - ANO
+      const clientesAno = await ItemTabela.find({
+        grupoTabela: objUsuario.grupoTabela._id,
+        dataVenda: {
+          $gte: anoAtualInicio,
+          $lt: anoAtualFinal
+         }
+       });
+
+      // Clientes únicos - ANO
+      const clientesUnicos = await ItemTabela
+        .find({
+        grupoTabela: objUsuario.grupoTabela._id,
+        dataVenda: {
+          $gte: anoAtualInicio,
+          $lt: anoAtualFinal
+         }
+       })
+        .distinct('nomeCliente');
+      
+      const quantClientesUnicos = clientesUnicos.length;
+
+      // Número de vendas realizadas - ANO
+      const vendasAno = clientesAno.length;
+
+      // Cálculos de rendimento - ANO
+      const valoresAno = clientesAno.map(e => e.valorFinal);
+      const rendimentoAno = valoresAno.reduce((a, b) => a + b, 0);
+
+      // Média de valor - ANO
+      const media = Math.round(rendimentoAno / vendasAno);
+
+      // Tipo de venda
+      const tipoVenda = {
+        servico: 0,
+        produto: 0
+      }
+      const tipoVendaElemento = clientesAno.map(e => e.tipoVenda);
+      tipoVendaElemento.map((e) => {
+        if(e === 'produto') {
+          tipoVenda.produto = tipoVenda.produto + 1;
+        }
+        if(e === 'servico') {
+          tipoVenda.servico = tipoVenda.servico + 1;
+        }
+      });
+
+      return res.send({ 
+        vendas: vendasAno, 
+        clientesUnicos: quantClientesUnicos, 
+        rendimento: rendimentoAno, 
+        media,
+        tipoVenda
+      });
+
+    } catch (error) {
+      res.status(500).send("Não foi possível receber dados")
+    }
+  }
+
+  return res.send("Usuário não encontrado");
+};
+
+
 
 
 //////////        CRIAR NOVA ENTRADA           //////////

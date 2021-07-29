@@ -7,21 +7,21 @@ const Dashboard = () => {
 
   const [tabAtiva, setTabAtiva] = useState("mes");
 
-  const [dadosMes, setDadosMes] = useState({});
+  const [dados, setdados] = useState({});
   
 
-  const getDashboardMes = async (id) => {
+  const getDashboard = async () => {
     if(localStorage.getItem("token")) {
       await axios({
         method: 'get',
-        data: {id},
-        url: '/dashboard/mes',
+        url: `/dashboard/${tabAtiva}`,
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       })
       .then((res) => {
-        setDadosMes(res);
+        console.log(res)
+        setdados(res);
       })
       .catch(err => {
         console.log(err);
@@ -33,11 +33,14 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if(tabAtiva === "mes") {
-      getDashboardMes();
-    }
+    getDashboard();
   }, [tabAtiva]);
   
+
+  const handleBotaoData = (data) => {
+    setTabAtiva(data);
+    setdados({});
+  }
 
 
   return (
@@ -56,37 +59,29 @@ const Dashboard = () => {
 
         <div className="row m-0 p-0">
             <div className="col-0">
-              <button className={`btn btn-outline-primary m-1 ${tabAtiva === "mes" && "bg-primary text-white"}`} onClick={() => setTabAtiva("mes")} >Mês</button>
-              <button className={`btn btn-outline-primary m-1 ${tabAtiva === "ano" && "bg-primary text-white"}`} onClick={() => setTabAtiva("ano")} >Ano</button>
+              <button className={`btn btn-outline-primary m-1 ${tabAtiva === "mes" && "bg-primary text-white"}`} onClick={() => handleBotaoData("mes")} >Mês</button>
+              <button className={`btn btn-outline-primary m-1 ${tabAtiva === "ano" && "bg-primary text-white"}`} onClick={() => handleBotaoData("ano")} >Ano</button>
             </div>
 
-          { tabAtiva === "mes" && 
-            <>
-              <Card titulo="Vendas" icone="chart-line" dado={dadosMes.data && dadosMes.data.vendas}/>
-              <Card titulo="Clientes" icone="users" dado={dadosMes.data && dadosMes.data.clientesUnicos}/>
-              <Card titulo="Rendimento do mês" icone="calendar-alt" dado={dadosMes.data && dadosMes.data.rendimento.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
-              <Card titulo="Média de cada venda" icone="dollar-sign" dado={dadosMes.data && dadosMes.data.media.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
-            </>
-          }
+              <Card titulo="Vendas" icone="chart-line" dado={dados.data && dados.data.vendas}/>
+              <Card titulo="Clientes" icone="users" dado={dados.data && dados.data.clientesUnicos}/>
+              <Card titulo="Rendimento" icone="calendar-alt" dado={dados.data && dados.data.rendimento.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
+              <Card titulo="Média de cada venda" icone="dollar-sign" dado={dados.data && dados.data.media.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
 
-          { tabAtiva === "ano" &&
-            <>
-              Dashboard Ano
-            </>
-          }
             
         
         </div>
       </div>
       <div className="col-11 col-md-8 col-lg-4 p-0 p-md-2 mx-auto shadow">
-        { tabAtiva === "mes" &&
+
+
           <div className="container bg-light rounded py-3 text-center">
             <span className="fs-5 text-primary">Tipos de Venda</span>
             <div className="card-body px-0">
-              { dadosMes.data && <GraficoPizza dado={dadosMes.data.tipoVenda}/> }
+              { dados.data && tabAtiva === "mes" && <GraficoPizza dado={dados.data.tipoVenda}/> }
+              { dados.data && tabAtiva === "ano" && <GraficoPizza dado={dados.data.tipoVenda}/> }
             </div>
           </div>
-        }
 
       </div>
       
