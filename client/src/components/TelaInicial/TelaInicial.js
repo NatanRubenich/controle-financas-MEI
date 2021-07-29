@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useLogin } from '../../Context/LoginContext';
 
 import SideBar from './SideBar/SideBar';
@@ -12,10 +11,10 @@ const TelaInicial = () => {
 
   return (
     <div className="row m-0">
-      {logado ? <SideBar/> : null}
+      {logado && <SideBar/>}
       <div className="col p-0">
         <Hero/>
-        <Dashboard/>
+        {logado && <Dashboard />}
       </div>
     </div>
   );

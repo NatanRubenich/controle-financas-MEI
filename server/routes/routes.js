@@ -7,6 +7,7 @@ import {
 
 import { 
   getTabelaController,
+  getDashboardMes,
   postTabelaController,
   deleteTabelaController,
   editarTabelaController
@@ -69,6 +70,20 @@ router.put('/registros/editar/enviar', async (req, res, next) => {
 router.put('/registros/editar/enviar', async (req, res) => {
   editarTabelaController(req, res);
 });
+
+
+
+//// DASHBOARD
+
+// Dashboard MÊS
+router.get('/dashboard/mes', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/dashboard/mes', async (req, res) => {
+  getDashboardMes(req, res);
+});
+
 
 
 // Verificando auth 

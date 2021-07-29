@@ -3,8 +3,6 @@ import GrupoTabela from '../models/grupotabela.js';
 import ItemTabela from '../models/itemtabela.js';
 
 //////////    LISTAR REGISTROS DO USUARIO        //////////
-
-
 export const getTabelaController = async (req, res) => {
   if(res.locals.usuario) {
     try {
@@ -28,6 +26,89 @@ export const getTabelaController = async (req, res) => {
 };
 
 
+///////////            DASHBOARD           ///////////////
+
+export const getDashboardMes = async (req, res) => {
+  if(res.locals.usuario) {
+    try {
+      // Buscando lista de items
+      const objUsuario = res.locals.usuario;
+
+      // Datas
+      const data = new Date();
+      const diaInicialMes = new Date(data.getFullYear(), data.getMonth(), 1);
+      const diaFinalMes  = new Date(data.getFullYear(), data.getMonth() + 1, 0);
+      const anoAtualInicio = new Date(data.getFullYear(), 0, 1);
+      const anoAtualFinal = new Date(data.getFullYear() + 1, 0, 1);
+      
+                  
+      ///////////////////////////////////////
+      ///              MÊS 
+
+      // Query de clientes - MÊS
+      const clientesMes = await ItemTabela.find({
+        grupoTabela: objUsuario.grupoTabela._id,
+        dataVenda: {
+          $gte: diaInicialMes,
+          $lt: diaFinalMes
+         }
+       });
+
+      // Clientes únicos - MÊS
+      const clientesUnicos = await ItemTabela
+        .find({
+        grupoTabela: objUsuario.grupoTabela._id,
+        dataVenda: {
+          $gte: diaInicialMes,
+          $lt: diaFinalMes
+         }
+       })
+        .distinct('nomeCliente');
+      
+      const quantClientesUnicos = clientesUnicos.length;
+
+      // Número de vendas realizadas - MÊS
+      const vendasMes = clientesMes.length;
+
+      // Cálculos de rendimento - MÊS
+      const valoresMes = clientesMes.map(e => e.valorFinal);
+      const rendimentoMes = valoresMes.reduce((a, b) => a + b, 0);
+
+      // Média de valor - MÊS
+      const media = Math.round(rendimentoMes / vendasMes);
+
+      // Tipo de venda
+      const tipoVenda = {
+        servico: 0,
+        produto: 0
+      }
+      const tipoVendaElemento = clientesMes.map(e => e.tipoVenda);
+      tipoVendaElemento.map((e) => {
+        if(e === 'produto') {
+          tipoVenda.produto = tipoVenda.produto + 1;
+        }
+        if(e === 'servico') {
+          tipoVenda.servico = tipoVenda.servico + 1;
+        }
+      });
+
+      return res.send({ 
+        vendas: vendasMes, 
+        clientesUnicos: quantClientesUnicos, 
+        rendimento: rendimentoMes, 
+        media,
+        tipoVenda
+      });
+
+    } catch (error) {
+      res.status(500).send("Não foi possível receber dados")
+    }
+  }
+
+  return res.send("Usuário não encontrado");
+};
+
+
 
 
 //////////        CRIAR NOVA ENTRADA           //////////
@@ -39,17 +120,23 @@ export const postTabelaController = async (req, res) => {
 
       try {
         // Encontrando a tabela do usuário
-        const idTabela = tabela._id;
+        const idTabela = await tabela._id;
 
         // Criando o item novo com o req.body
         const novoItemTabela = await ItemTabela.create({ ...req.body, grupoTabela: idTabela});
-        await tabela.items.push(novoItemTabela);
-        await tabela.save();
-
-        res.send(tabela);
+        
+        try {
+          await tabela.items.push(novoItemTabela);
+          await tabela.save();
+  
+          res.send(tabela);
+        }
+        catch (error) {
+          res.send("Erro ao salvar item");
+        }
 
       } catch (error) {
-        res.send("Erro ao criar novo item de registro");
+        res.send("Erro ao criar tabela");
       }
 
     } catch (error) {

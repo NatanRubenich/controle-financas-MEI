@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Doughnut } from 'react-chartjs-2'
 
-const GraficoPizza  = () => {
+const GraficoPizza  = ({dado}) => {
 
   const [dados, setDados] = useState({
     labels: [
@@ -10,7 +10,7 @@ const GraficoPizza  = () => {
     ],
     datasets: [{
       label: 'Tipos de Venda',
-      data: [30, 70],
+      data: [dado.produto, dado.servico],
       cutout: "80%",
       backgroundColor: [
         'rgb(255, 99, 0)',

@@ -165,4 +165,8 @@ th {
 }
 .sidebar .sidebar-item:hover {
   background-color: rgba(255, 255, 255, 0.103);
+}
+
+#dashboard .botaoNav:hover {
+  background-color: gray;
 }/*# sourceMappingURL=main.css.map */

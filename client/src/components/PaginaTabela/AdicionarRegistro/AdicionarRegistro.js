@@ -34,7 +34,6 @@ const AdicionarRegistro = () => {
   // Enviando ao server
   const handleDadosValidados = async (dados) => {
     const formFinal = calcularValorFinal(dados);
-
     if(localStorage.getItem("token")) {
       await axios({
         method: 'post',
