@@ -109,7 +109,8 @@ export const authController = async (req, res) => {
   if(res.locals.usuario) {
     try {     
       const usuario = await Usuario.findById(res.locals.usuario._id);
-      return res.status(200).send({usuario});
+      const usuarioFinal = res.locals.usuario;
+      return res.status(200).send({usuario: usuarioFinal});
 
     } catch (error) {
       res.status(401).send("Usuário não está logado")

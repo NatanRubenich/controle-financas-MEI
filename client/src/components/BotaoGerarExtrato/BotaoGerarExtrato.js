@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLogin } from '../../Context/LoginContext';
+import axios from '../../axios/axios';
+
 import Dropdown from 'react-bootstrap/Dropdown';
 
-
 const BotaoGerarExtrato = () => {
+  const { logado, setLogado } = useLogin();
+  const [ meses, setMeses ] = useState([]);
+
+  const requisitarMeses = async () => {
+    if(logado) {
+      axios({
+        method: 'get',
+        url: '/extrato/meses',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then(response => {
+        console.log(response);
+        setMeses(response.data.mesesDisponiveis);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      console.log('Erro ao buscar meses');
+    }
+  }
+
+  useEffect( () => {
+    requisitarMeses();
+  }, [logado]);
+
+  const elementosMeses = () => {
+    if(!logado) return null;
+
+    const elementos = meses.map((e) => {
+      const dataMes = e.substring(3);
+      return <button key={e} className="dropdown-item text-center">{dataMes}</button>
+    });
+
+    return elementos;
+  }
 
   return (
     <>
@@ -12,7 +52,7 @@ const BotaoGerarExtrato = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <button className="dropdown-item">Action</button>
+          {elementosMeses()}
         </Dropdown.Menu>
       </Dropdown>
     </>

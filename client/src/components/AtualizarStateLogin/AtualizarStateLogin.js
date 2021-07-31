@@ -15,12 +15,13 @@ const AtualizarStateLogin = () => {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
           }
         })
-        .then(() => {
-          console.log('Logado')
+        .then((res) => {
+          console.log('resposta', res);
           setLogado(true);
         })
         .catch(err => {
           console.log(err)
+          setLogado(false);
         });
       } else {
         localStorage.clear();
