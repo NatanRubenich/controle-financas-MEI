@@ -14,6 +14,10 @@ import {
   editarTabelaController
 } from '../controllers/controllerTabela.js';
 
+import {
+  getExtratosDisponiveis
+} from '../controllers/controllerExtrato.js';
+
 import { authMiddleware } from '../middlewares/middlewares.js';
 
 const router = express.Router();
@@ -96,11 +100,20 @@ router.get('/dashboard/ano', async (req, res) => {
 });
 
 
+// Gerando Extratos
+router.get('/extrato/meses', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/extrato/meses', async (req, res) => {
+  getExtratosDisponiveis(req, res); 
+});
+
 
 
 // Verificando auth 
 router.get('/auth', async (req, res, next) => {
-  authMiddleware(req, res, next);
+  await authMiddleware(req, res, next);
 });
 
 router.get('/auth', async (req, res, next) => {

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../../../axios/axios'
+import axios from '../../../axios/axios';
+
 import GraficoPizza from './GraficoPizza/GraficoPizza';
 import Card from './Card/Card';
+import BotaoGerarExtrato from '../../BotaoGerarExtrato/BotaoGerarExtrato';
 
 const Dashboard = () => {
 
@@ -49,10 +51,7 @@ const Dashboard = () => {
         Dashboard
       </div>
       <div className="col-4 d-none d-md-flex align-items-center ">
-        <button className="btn btn-warning mx-auto py-3 px-4 d-flex justify-content-center align-items-center">
-          <i className="fas fa-calculator"></i>
-          <span className="ps-2">Gerar Extrato Mensal</span>
-        </button> 
+        <BotaoGerarExtrato/>
       </div>
 
       <div className="col-0 col-lg-8 p-0">
@@ -62,14 +61,10 @@ const Dashboard = () => {
               <button className={`btn btn-outline-primary m-1 ${tabAtiva === "mes" && "bg-primary text-white"}`} onClick={() => handleBotaoData("mes")} >Mês</button>
               <button className={`btn btn-outline-primary m-1 ${tabAtiva === "ano" && "bg-primary text-white"}`} onClick={() => handleBotaoData("ano")} >Ano</button>
             </div>
-
               <Card titulo="Vendas" icone="chart-line" dado={dados.data && dados.data.vendas}/>
               <Card titulo="Clientes" icone="users" dado={dados.data && dados.data.clientesUnicos}/>
               <Card titulo="Rendimento" icone="calendar-alt" dado={dados.data && dados.data.rendimento.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
               <Card titulo="Média de cada venda" icone="dollar-sign" dado={dados.data && dados.data.media.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
-
-            
-        
         </div>
       </div>
       <div className="col-11 col-md-8 col-lg-4 p-0 p-md-2 mx-auto shadow">
