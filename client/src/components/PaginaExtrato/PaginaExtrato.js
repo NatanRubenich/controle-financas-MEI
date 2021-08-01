@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const SideNav = () => {
+const PaginaExtrato = () => {
 
   return (
     <div className="row">
@@ -12,4 +12,4 @@ const SideNav = () => {
 
 
 
-export default SideNav;
+export default PaginaExtrato;

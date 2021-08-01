@@ -64,9 +64,7 @@ const AdicionarRegistro = () => {
         <div className="container p-0">
           <div className="row">
             <div className="col-0">
-
             <form className="row g-3" id="formRegistro" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
-
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
               <input 
@@ -79,7 +77,6 @@ const AdicionarRegistro = () => {
               <span className="text-danger">{errors.nomeCliente && `${errors.nomeCliente.message}`}</span>
             </div>
 
-
             <div className="col-6 col-md-4">
               <label htmlFor="tipoVenda" className="form-label mt-2">Tipo de Venda</label>
               <select 
@@ -89,12 +86,12 @@ const AdicionarRegistro = () => {
                 id="tipoVenda"
                 {...register("tipoVenda")}
               >
-                <option value="produto" defaultValue>Produto</option>
+                <option value="produto" defaultValue>Produto Industrializado</option>
                 <option value="servico">Serviço</option>
+                <option value="revenda">Revenda de Mercadoria</option>
               </select>
               <span className="text-danger">{errors.tipoVenda && `${errors.tipoVenda.message}`}</span>
             </div>
-
 
             <div className="col-6 col-md-4">
               <label htmlFor="dataVenda" class="form-label mt-2">Data da Venda</label>
@@ -107,7 +104,6 @@ const AdicionarRegistro = () => {
               />
               <span className="text-danger">{errors.dataVenda && `${errors.dataVenda.message}`}</span>
             </div>
-
 
             <div className="col-6 col-md-4">
               <label htmlFor="quantidade" class="form-label mt-2">Quantidade</label>

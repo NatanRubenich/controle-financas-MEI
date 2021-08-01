@@ -80,7 +80,8 @@ export const getDashboardMes = async (req, res) => {
       // Tipo de venda
       const tipoVenda = {
         servico: 0,
-        produto: 0
+        produto: 0,
+        revenda: 0
       }
       const tipoVendaElemento = clientesMes.map(e => e.tipoVenda);
       tipoVendaElemento.map((e) => {
@@ -90,8 +91,11 @@ export const getDashboardMes = async (req, res) => {
         if(e === 'servico') {
           tipoVenda.servico = tipoVenda.servico + 1;
         }
+        if(e === 'revenda') {
+          tipoVenda.revenda = tipoVenda.revenda + 1;
+        }
       });
-
+      
       return res.send({ 
         vendas: vendasMes, 
         clientesUnicos: quantClientesUnicos, 
@@ -158,7 +162,8 @@ export const getDashboardAno = async (req, res) => {
       // Tipo de venda
       const tipoVenda = {
         servico: 0,
-        produto: 0
+        produto: 0,
+        revenda: 0
       }
       const tipoVendaElemento = clientesAno.map(e => e.tipoVenda);
       tipoVendaElemento.map((e) => {
@@ -167,6 +172,9 @@ export const getDashboardAno = async (req, res) => {
         }
         if(e === 'servico') {
           tipoVenda.servico = tipoVenda.servico + 1;
+        }
+        if(e === 'revenda') {
+          tipoVenda.revenda = tipoVenda.revenda + 1;
         }
       });
 

@@ -23,12 +23,24 @@ const ItemCrud = ({ dados, deletar }) => {
 
   /// FORMATAÇÃO DE DADOS
   const data = new Date(dados.dataVenda).toLocaleString('pt-BR').split(' ');
+
   const formatarTipoVenda = () => {
     let resposta = dados.tipoVenda;
-    if(resposta === 'servico') {
-      return resposta = 'Serviço';
-    } else if (resposta === 'produto') {
-      return resposta = 'Produto';
+    switch (resposta) {
+      case 'servico':
+        resposta = 'Serviço';
+        break;
+
+      case 'produto':
+        resposta = 'Produto Industrializado';
+        break;
+        
+      case 'revenda':
+        resposta = 'Revenda de Mercadoria';
+        break;
+    
+      default: resposta = ""; 
+        break;
     }
     return resposta;
   }

@@ -120,6 +120,7 @@ const EditarRegistro = () => {
               >
                 <option value="produto" defaultValue>Produto</option>
                 <option value="servico">Serviço</option>
+                <option value="revenda">Revenda de Mercadoria</option>
               </select>
               <span className="text-danger">{errors.tipoVenda && `${errors.tipoVenda.message}`}</span>
             </div>
