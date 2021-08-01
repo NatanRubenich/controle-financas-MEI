@@ -62,8 +62,8 @@ const Dashboard = () => {
             </div>
               <Card titulo="Vendas" icone="chart-line" dado={dados.data && dados.data.vendas}/>
               <Card titulo="Clientes" icone="users" dado={dados.data && dados.data.clientesUnicos}/>
-              <Card titulo="Rendimento" icone="calendar-alt" dado={dados.data && dados.data.rendimento.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
-              <Card titulo="Média de cada venda" icone="dollar-sign" dado={dados.data && dados.data.media.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
+              <Card titulo="Rendimento" icone="calendar-alt" dado={dados.data && dados.data.rendimento && dados.data.rendimento.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
+              <Card titulo="Média de cada venda" icone="dollar-sign" dado={dados.data && dados.data.rendimento && dados.data.media.toLocaleString('pt-BR',{ style: 'currency', currency: 'BRL' })}/>
         </div>
       </div>
       <div className="col-11 col-md-8 col-lg-4 p-0 p-md-2 mx-auto shadow">

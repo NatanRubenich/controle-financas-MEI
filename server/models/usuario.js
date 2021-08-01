@@ -18,6 +18,11 @@ const UsuarioSchema = new mongoose.Schema({
     require: true,
     trim: true
   },
+  cidade: {
+    type: String,
+    require: true,
+    trim: true
+  },
   cnpj: {
     type: String,
     require: true,
