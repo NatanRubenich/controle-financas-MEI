@@ -22,7 +22,6 @@ const Dashboard = () => {
         }
       })
       .then((res) => {
-        console.log('resposta', res)
         setdados(res);
       })
       .catch(err => {

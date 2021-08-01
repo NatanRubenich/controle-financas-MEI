@@ -187,7 +187,7 @@ export const getDashboardAno = async (req, res) => {
       });
 
     } catch (error) {
-      res.status(500).send("Não foi possível receber dados")
+      res.status(500).send("Não foi possível receber dados");
     }
   }
 

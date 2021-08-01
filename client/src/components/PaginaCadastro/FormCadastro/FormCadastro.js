@@ -13,6 +13,7 @@ const elementos = [
   {nome: "nome", titulo: "Nome", tipo: "text", classe: "col-md-6", erro: "Insira um nome válido"},
   {nome: "sobrenome", titulo: "Sobrenome", tipo: "text", classe: "col-md-6", erro: "Insira um sobrenome válido"},
   {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-7", erro: "Insira um nome de empresa válido"},
+  {nome: "cidade", titulo: "Cidade", tipo: "text", classe: "col-md-7", erro: "Insira um nome de empresa válido"},
   {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-5", erro: "Insira um CNPJ válido"},
   {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
   {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-5", erro: "Insira um telefone válido"},

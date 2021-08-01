@@ -11,6 +11,7 @@ import TelaInicial from './components/TelaInicial/TelaInicial';
 import PaginaCadastro from './components/PaginaCadastro/PaginaCadastro';
 import PaginaTabela from './components/PaginaTabela/PaginaTabela';
 import MinhaConta from './components/MinhaConta/MinhaConta';
+import PaginaExtrato from './components/PaginaExtrato/PaginaExtrato';
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/" component={TelaInicial} exact/>
             <Route path="/login" component={PaginaLogin} exact/>
             <Route path="/cadastro" component={PaginaCadastro} exact/>
+            <Route path="/extrato" component={PaginaExtrato} exact/>
             <RotaPrivada path="/registros" component={PaginaTabela}/>
             <RotaPrivada path="/minhaconta" component={MinhaConta}/>
           </Switch>
