@@ -13,6 +13,10 @@ export const usuarioSchema = yup.object().shape({
     .string()
     .required("Campo incompleto"),
 
+  cidade: yup
+    .string()
+    .required("Campo incompleto"),
+
   cnpj: yup
     .string()
     .required("Campo incompleto")
@@ -45,6 +49,5 @@ export const usuarioSchema = yup.object().shape({
     .string()
     .required("Campo incompleto")
     .oneOf([yup.ref('senha'), null], 'Senhas não correspondem')
-
 })
 
