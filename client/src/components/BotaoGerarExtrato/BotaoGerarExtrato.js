@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLogin } from '../../Context/LoginContext';
 import axios from '../../axios/axios';
+import { Link } from 'react-router-dom';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 
@@ -38,7 +39,8 @@ const BotaoGerarExtrato = () => {
 
     const elementos = meses.map((e) => {
       const dataMes = e.substring(3);
-      return <button key={e} className="dropdown-item text-center">{dataMes}</button>
+      const url = dataMes.replace('/', '-');
+      return <Link to={`/extrato/${url}`}><button key={e} className="dropdown-item text-center">{dataMes}</button></Link>;
     });
 
     return elementos;

@@ -65,7 +65,7 @@ export const getExtratoMensal = async (req, res) => {
       const resultado = {
         cnpj: objUsuario.cnpj,
         empreendedor: `${objUsuario.nome} ${objUsuario.sobrenome} ${objUsuario.cpf}`,
-        periodo: `${mes - 1}/${ano}`,
+        periodo: `${mes}/${ano}`,
         produto: {
           nota: 0,
           semNota: 0

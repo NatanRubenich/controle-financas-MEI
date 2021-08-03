@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import axios from '../../../axios/axios';
 
+import BotaoGerarExtrato from '../../BotaoGerarExtrato/BotaoGerarExtrato';
 import ItemCrud from './ItemCrud/ItemCrud';
 
 
@@ -143,15 +144,12 @@ const PaginaTabela = () => {
         <div className="d-flex flex-column p-0">
           <div className="d-flex flex-row-reverse mx-2 me-lg-5">
             <Link to="/registros/novo">
-              <button className="btn btn-success md-1 d-flex align-items-center">
+              <button className="btn btn-success mx-1 d-flex align-items-center">
                 <i className="fas fa-plus"></i>
                 <span className="ps-2 text-white">Adicionar Registro</span>
               </button>
             </Link> 
-            <button className="btn btn-warning me-1 d-flex align-items-center">
-              <i className="fas fa-calculator"></i>
-              <span className="ps-2">Gerar Extrato Mensal</span>
-            </button> 
+            <BotaoGerarExtrato /> 
           </div>
 
           <div className="col-11 mx-auto">
