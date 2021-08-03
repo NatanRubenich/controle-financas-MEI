@@ -167,6 +167,12 @@ th {
   background-color: rgba(255, 255, 255, 0.103);
 }
 
-#dashboard .botaoNav:hover {
-  background-color: gray;
+@media print {
+  .fontTNR {
+    font-family: "Times New Roman", Times, serif;
+  }
+}
+
+.font-small {
+  font-size: 0.8em;
 }/*# sourceMappingURL=main.css.map */

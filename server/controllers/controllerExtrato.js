@@ -106,7 +106,7 @@ export const getExtratoMensal = async (req, res) => {
           resultado.cidadeEData = `${objUsuario.cidade} - ${dataAtual}`;
 
 
-          res.send({objUsuario, dataInicio, mes, ano, dataFinal, resultado});
+          res.send({resultado});
 
 
 
