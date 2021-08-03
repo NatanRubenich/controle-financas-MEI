@@ -25,6 +25,14 @@ export const usuarioSchema = yup.object().shape({
       return valorNovo.length === 14;
     }),
 
+  cpf: yup
+  .string()
+  .required("Campo incompleto")
+  .test('tamanho-cpf', function (value) {
+    const valorNovo = value.replace(/\D/g,'');
+    return valorNovo.length === 11;
+  }),
+
   email: yup
     .string()
     .email("Insira um email válido")
