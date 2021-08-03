@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLogin } from '../../Context/LoginContext';
+import { useLocation } from "react-router-dom";
+import axios from '../../axios/axios';
+
+
 import WrapperTabela from '../PaginaTabela/WrapperTabela/WrapperTabela';
 
 
 const PaginaExtrato = () => {
+  const { logado, setLogado } = useLogin();
+  const location = useLocation();
+
+  const requisitarMeses = async () => {
+    if(logado) {
+      axios({
+        method: 'get',
+        url: location.pathname,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then(response => {
+        console.log('resposta', response);
+        console.log('local', location);
+       
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      console.log('Erro ao buscar meses');
+    }
+  }
+
+  useEffect( () => {
+    requisitarMeses();
+  }, [logado]);
+
 
   return (
     <div className="row m-0">

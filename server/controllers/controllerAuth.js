@@ -53,7 +53,7 @@ export const cadastroController = async (req, res) => {
 
         // Gerando JWT 
         const token = await loginJWT(novoUsuario.id);
-
+        console.log(novoUsuario, req.body);
         //Retornando o usuário + jwt
         return res.send({ novoUsuario, token });
       }
@@ -109,8 +109,8 @@ export const authController = async (req, res) => {
   if(res.locals.usuario) {
     try {     
       const usuario = await Usuario.findById(res.locals.usuario._id);
-      const usuarioFinal = res.locals.usuario;
-      return res.status(200).send({usuario: usuarioFinal});
+      
+      return res.status(200).send({usuario: usuario});
 
     } catch (error) {
       res.status(401).send("Usuário não está logado")

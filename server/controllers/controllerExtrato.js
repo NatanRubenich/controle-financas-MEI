@@ -45,3 +45,73 @@ export const getExtratosDisponiveis = async (req, res) => {
 
   return res.send("Usuário não encontrado");
 };
+
+
+
+// Criando Extrato Mensal
+export const getExtratoMensal = async (req, res) => {
+  if(res.locals.usuario) {
+    try {
+      // Buscando lista de items
+      const objUsuario = res.locals.usuario;
+      const data = req.params.mes;
+      let [mes, ano] = data.split('-');
+      mes = Number(mes);
+      ano = Number(ano);
+      const dataInicio = new Date(ano, mes - 1, 1);
+      const dataFinal = new Date(ano, mes, 1);
+
+      // Objeto 
+      const resultado = {
+        cnpj: objUsuario.cnpj,
+        nomeCompleto: ` `,
+        periodo: `${mes - 1}/${ano}`,
+        produto: {
+          nota: 0,
+          semNota: 0
+        },
+        servico: {
+          nota: 0,
+          semNota: 0
+        },
+        revenda: {
+          nota: 0,
+          semNota: 0
+        }
+      }
+
+      try {
+        const clientesMes = await ItemTabela.find({
+          grupoTabela: objUsuario.grupoTabela._id,
+          dataVenda: {
+            $gte: dataInicio,
+            $lt: dataFinal
+           }
+          });
+
+          clientesMes.map((e) => {
+            e.notaFiscal 
+            ? resultado[e.tipoVenda].nota = resultado[e.tipoVenda].nota + e.valorFinal
+            : resultado[e.tipoVenda].semNota = resultado[e.tipoVenda].semNota + e.valorFinal;
+          });
+
+          resultado.produto.total = resultado.produto.nota + resultado.produto.semNota;
+          resultado.servico.total = resultado.servico.nota + resultado.servico.semNota;
+          resultado.revenda.total = resultado.revenda.nota + resultado.revenda.semNota;
+
+          res.send({objUsuario, dataInicio, mes, ano, dataFinal, resultado});
+
+
+
+
+      } catch (error) {
+        res.status(500).send("Meses mal formatados ou inexistentes");
+      }
+      
+    } catch (error) {
+      res.status(404).send("Meses não encontrados");
+    }
+  }
+
+  return res.send("Usuário não encontrado");
+};

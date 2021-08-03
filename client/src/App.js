@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/" component={TelaInicial} exact/>
             <Route path="/login" component={PaginaLogin} exact/>
             <Route path="/cadastro" component={PaginaCadastro} exact/>
-            <Route path="/extrato" component={PaginaExtrato} exact/>
+            <Route path="/extrato" component={PaginaExtrato}/>
             <RotaPrivada path="/registros" component={PaginaTabela}/>
             <RotaPrivada path="/minhaconta" component={MinhaConta}/>
           </Switch>

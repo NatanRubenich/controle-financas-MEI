@@ -12,7 +12,7 @@ const BotaoGerarExtrato = () => {
     if(logado) {
       axios({
         method: 'get',
-        url: '/extrato/meses',
+        url: '/verificar-extrato',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
