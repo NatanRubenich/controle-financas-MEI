@@ -64,7 +64,7 @@ export const getExtratoMensal = async (req, res) => {
       // Objeto 
       const resultado = {
         cnpj: objUsuario.cnpj,
-        nomeCompleto: ` `,
+        empreendedor: `${objUsuario.nome} ${objUsuario.sobrenome} ${objUsuario.cpf}`,
         periodo: `${mes - 1}/${ano}`,
         produto: {
           nota: 0,
@@ -95,9 +95,16 @@ export const getExtratoMensal = async (req, res) => {
             : resultado[e.tipoVenda].semNota = resultado[e.tipoVenda].semNota + e.valorFinal;
           });
 
+          // Cálculo de valores finais
           resultado.produto.total = resultado.produto.nota + resultado.produto.semNota;
           resultado.servico.total = resultado.servico.nota + resultado.servico.semNota;
           resultado.revenda.total = resultado.revenda.nota + resultado.revenda.semNota;
+
+
+          // Formatação de cidade e data atual
+          const dataAtual = new Date().toLocaleDateString("pt-BR");
+          resultado.cidadeEData = `${objUsuario.cidade} - ${dataAtual}`;
+
 
           res.send({objUsuario, dataInicio, mes, ano, dataFinal, resultado});
 
