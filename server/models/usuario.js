@@ -26,7 +26,11 @@ const UsuarioSchema = new mongoose.Schema({
   cnpj: {
     type: String,
     require: true,
-    unique: true,
+    unique: true
+  },
+  cpf: {
+    type: String,
+    require: true
   },
   email: {
     type: String,

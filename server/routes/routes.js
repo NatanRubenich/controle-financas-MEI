@@ -15,7 +15,8 @@ import {
 } from '../controllers/controllerTabela.js';
 
 import {
-  getExtratosDisponiveis
+  getExtratosDisponiveis,
+  getExtratoMensal
 } from '../controllers/controllerExtrato.js';
 
 import { authMiddleware } from '../middlewares/middlewares.js';
@@ -100,13 +101,25 @@ router.get('/dashboard/ano', async (req, res) => {
 });
 
 
-// Gerando Extratos
-router.get('/extrato/meses', async (req, res, next) => {
+//// EXTRATOS
+
+// Gerando Meses Disponíveis para Extratos
+router.get('/verificar-extrato', async (req, res, next) => {
   authMiddleware(req, res, next);
 });
 
-router.get('/extrato/meses', async (req, res) => {
+router.get('/verificar-extrato', async (req, res) => {
   getExtratosDisponiveis(req, res); 
+});
+
+
+// Gerando extrato mensal
+router.get('/extrato/:mes', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/extrato/:mes', async (req, res) => {
+  getExtratoMensal(req, res); 
 });
 
 

@@ -12,9 +12,10 @@ import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 const elementos = [
   {nome: "nome", titulo: "Nome", tipo: "text", classe: "col-md-6", erro: "Insira um nome válido"},
   {nome: "sobrenome", titulo: "Sobrenome", tipo: "text", classe: "col-md-6", erro: "Insira um sobrenome válido"},
-  {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-4", erro: "Insira um nome de empresa válido"},
-  {nome: "cidade", titulo: "Cidade", tipo: "text", classe: "col-md-4", erro: "Insira uma cidade válida"},
-  {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-4", erro: "Insira um CNPJ válido"},
+  {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-6", erro: "Insira um nome de empresa válido"},
+  {nome: "cidade", titulo: "Cidade", tipo: "text", classe: "col-md-6", erro: "Insira uma cidade válida"},
+  {nome: "cpf", titulo: "CPF", tipo: "text", classe: "col-md-6", erro: "Insira um CPF válido"},
+  {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-6", erro: "Insira um CNPJ válido"},
   {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
   {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-5", erro: "Insira um telefone válido"},
   {nome: "senha", titulo: "Senha", tipo: "password", classe: "col-md-6", erro: "Insira uma senha válida"},
@@ -32,7 +33,8 @@ const limparSimbolos = (form) => {
   const formFiltrado = {
     ...form, 
     telefone: filtro(form.telefone),
-    cnpj: filtro(form.cnpj)
+    cnpj: filtro(form.cnpj),
+    cpf: filtro(form.cpf)
   }
   // Removendo a confirmação de senha
   delete formFiltrado.senhaConf;
