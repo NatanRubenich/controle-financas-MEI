@@ -12,8 +12,9 @@ import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 const elementos = [
   {nome: "nome", titulo: "Nome", tipo: "text", classe: "col-md-6", erro: "Insira um nome válido"},
   {nome: "sobrenome", titulo: "Sobrenome", tipo: "text", classe: "col-md-6", erro: "Insira um sobrenome válido"},
-  {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-7", erro: "Insira um nome de empresa válido"},
-  {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-5", erro: "Insira um CNPJ válido"},
+  {nome: "nomeEmpresa", titulo: "Nome da Empresa", tipo: "text", classe: "col-md-4", erro: "Insira um nome de empresa válido"},
+  {nome: "cidade", titulo: "Cidade", tipo: "text", classe: "col-md-4", erro: "Insira uma cidade válida"},
+  {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-4", erro: "Insira um CNPJ válido"},
   {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
   {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-5", erro: "Insira um telefone válido"},
   {nome: "senha", titulo: "Senha", tipo: "password", classe: "col-md-6", erro: "Insira uma senha válida"},
@@ -75,6 +76,7 @@ const FormCadastro = () => {
         localStorage.setItem("usuario", res.data.novoUsuario.nome);
         setLogado(true);
         setSucesso(true);
+        console.log(res.data.novoUsuario);
       }
       if(res.data.erros) {
         console.log('ERROS', res.data.erros);
@@ -82,7 +84,7 @@ const FormCadastro = () => {
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log("Erro ao cadastrar");
     }); 
   }
 
@@ -112,7 +114,12 @@ const FormCadastro = () => {
       <div class="col-0 p-4">
         <div className="row">
           { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
-          { sucesso ? <ModalSucesso titulo="Cadastro realizado com sucesso!"/> : null }
+          { sucesso ? <ModalSucesso 
+            titulo="Cadastro realizado com sucesso!" 
+            texto="Redirecionando para a página inicial..."
+            url="/"
+            /> : null 
+          }
           <button className="btn btn-primary btn-block py-3 mt-2">Cadastrar</button>
         </div>
       </div>

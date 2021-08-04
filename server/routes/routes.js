@@ -1,12 +1,22 @@
 import express from 'express';
 import { 
   cadastroController, 
-  loginController
+  loginController,
+  authController
 } from '../controllers/controllerAuth.js';
 
 import { 
-  getTabelaController
+  getTabelaController,
+  getDashboardMes,
+  getDashboardAno,
+  postTabelaController,
+  deleteTabelaController,
+  editarTabelaController
 } from '../controllers/controllerTabela.js';
+
+import {
+  getExtratosDisponiveis
+} from '../controllers/controllerExtrato.js';
 
 import { authMiddleware } from '../middlewares/middlewares.js';
 
@@ -26,36 +36,89 @@ router.post('/login/enviar', async (req, res) => {
   loginController(req, res);
 });
 
-// Verificando se está logado
-router.get('/auth', async (req, res, next) => {
-  authMiddleware(req, res, next);
-});
-
-
 
 ////////////////////////////
 /////     CRUD      ////////
-
 // Listando registros
-router.get('/registros', async (req, res, next) => {
+router.get('/registros/lista/:pagina', async (req, res, next) => {
   authMiddleware(req, res, next);
 });
 
-router.get('/registros', async (req, res, next) => {
+router.get('/registros/lista/:pagina', async (req, res) => {
   getTabelaController(req, res);
 });
-
-
 
 // Criando registro
 router.post('/registros/novo/enviar', async (req, res, next) => {
   authMiddleware(req, res, next);
-  getTabelaController(req, res);
+});
+
+router.post('/registros/novo/enviar', async (req, res) => {
+  postTabelaController(req, res);
+});
+
+
+// Removendo registro
+router.delete('/registros/deletar', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.delete('/registros/deletar', async (req, res) => {
+  deleteTabelaController(req, res);
+});
+
+// Editando registro
+router.put('/registros/editar/enviar', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.put('/registros/editar/enviar', async (req, res) => {
+  editarTabelaController(req, res);
 });
 
 
 
+//// DASHBOARD
 
+// Dashboard MÊS
+router.get('/dashboard/mes', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/dashboard/mes', async (req, res) => {
+  getDashboardMes(req, res);
+});
+
+
+// Dashboard ANO
+router.get('/dashboard/ano', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/dashboard/ano', async (req, res) => {
+  getDashboardAno(req, res);
+});
+
+
+// Gerando Extratos
+router.get('/extrato/meses', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.get('/extrato/meses', async (req, res) => {
+  getExtratosDisponiveis(req, res); 
+});
+
+
+
+// Verificando auth 
+router.get('/auth', async (req, res, next) => {
+  await authMiddleware(req, res, next);
+});
+
+router.get('/auth', async (req, res, next) => {
+  authController(req, res);
+});
 
 
 

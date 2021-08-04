@@ -16,6 +16,5 @@ export const loginJWT = async (idUsuario) => {
 
 export const verificarJWT = async (token) => {
   const resultado = jwt.verify( token, process.env.SECRET_JWT);
-
   return resultado;
 }

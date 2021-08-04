@@ -22,3 +22,17 @@
   @extend .blind;
   opacity: 0.6;
 }
+
+.bg-cinzaclaro {
+  background-color: rgb(238, 238, 238);
+}
+
+
+@keyframes desaparecer {
+  from {
+    opacity: 100
+  }
+  to {
+    opacity: 0
+  }
+}

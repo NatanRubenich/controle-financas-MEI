@@ -3,16 +3,40 @@ import axios from '../../../axios/axios';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addRegistroSchema } from '../../Validations/ValidacaoAddRegistro';
+import { useDadosEditar } from '../../../Context/DadosEditar';
+import { useHistory } from 'react-router-dom';
 
 import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 
 
-const AdicionarRegistro = () => {
+
+
+const EditarRegistro = () => {
 
   // React hook form
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(addRegistroSchema)
   });
+
+  // Hook - dados para editar
+  const { dadosEditar, setDadosEditar } = useDadosEditar();
+
+  // Redirecionador
+  const historico = useHistory();
+  if(Object.getOwnPropertyNames(dadosEditar).length === 0) {
+    historico.push('/registros');
+  }
+  
+
+  const formatarData = (data) => {
+    const d = new Date(data);
+    function pad (n){
+      return n<10 ? '0'+n : n
+    }
+    return d.getFullYear()+'-'
+         + pad(d.getMonth()+1)+'-'
+         + pad(d.getDate());
+  }
 
   // Sucesso 
   const [ sucesso, setSucesso ] = useState(false);
@@ -36,17 +60,19 @@ const AdicionarRegistro = () => {
     const formFinal = calcularValorFinal(dados);
     if(localStorage.getItem("token")) {
       await axios({
-        method: 'post',
-        url: '/registros/novo/enviar',
+        method: 'put',
+        url: 'registros/editar/enviar',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         },
-        data: formFinal
+        data: {
+          form: formFinal,
+          id: dadosEditar._id
+        }
       })
       .then(response => {
-        console.log(response);
         setSucesso(true);
-        document.getElementById("formRegistro").reset();
+        document.getElementById("formEditar").reset();
       })
       .catch(err => {
         console.log(err);
@@ -55,16 +81,19 @@ const AdicionarRegistro = () => {
       console.log('Erro ao criar um novo registro');
     }
   }
+ 
 
   // JSX
   return (
     <div className="col-11 col-md-10 col-lg-6 mx-auto m-5 bg-light rounded justify-content-center align-items-center position-relative shadow-lg z-index2">
       <div className="container p-0 p-md-4">
-        <h4 className="text-center mt-4 mb-4 titulo">Novo Registro</h4>
+        <h4 className="text-center mt-4 mb-4 titulo">Editar Registro</h4>
         <div className="container p-0">
           <div className="row">
             <div className="col-0">
-            <form className="row g-3" id="formRegistro" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
+
+            <form className="row g-3" id="formEditar" onSubmit={handleSubmit((e) => handleDadosValidados(e))}>
+
             <div className="col-md-8">
               <label htmlFor="nomeCliente" class="form-label mt-2">Nome do Cliente</label>
               <input 
@@ -72,10 +101,12 @@ const AdicionarRegistro = () => {
                 name="nomeCliente"
                 className="form-control" 
                 id="nomeCliente"
+                defaultValue={dadosEditar.nomeCliente}
                 {...register("nomeCliente")}
               />
               <span className="text-danger">{errors.nomeCliente && `${errors.nomeCliente.message}`}</span>
             </div>
+
 
             <div className="col-6 col-md-4">
               <label htmlFor="tipoVenda" className="form-label mt-2">Tipo de Venda</label>
@@ -84,14 +115,16 @@ const AdicionarRegistro = () => {
                 name="tipoVenda"
                 className="form-control" 
                 id="tipoVenda"
+                defaultValue={dadosEditar.tipoVenda}
                 {...register("tipoVenda")}
               >
-                <option value="produto" defaultValue>Produto Industrializado</option>
+                <option value="produto" defaultValue>Produto</option>
                 <option value="servico">Serviço</option>
                 <option value="revenda">Revenda de Mercadoria</option>
               </select>
               <span className="text-danger">{errors.tipoVenda && `${errors.tipoVenda.message}`}</span>
             </div>
+
 
             <div className="col-6 col-md-4">
               <label htmlFor="dataVenda" class="form-label mt-2">Data da Venda</label>
@@ -100,10 +133,12 @@ const AdicionarRegistro = () => {
                 name="dataVenda"
                 className="form-control" 
                 id="dataVenda"
+                defaultValue={formatarData(dadosEditar.dataVenda)}
                 {...register("dataVenda")}
               />
               <span className="text-danger">{errors.dataVenda && `${errors.dataVenda.message}`}</span>
             </div>
+
 
             <div className="col-6 col-md-4">
               <label htmlFor="quantidade" class="form-label mt-2">Quantidade</label>
@@ -112,6 +147,7 @@ const AdicionarRegistro = () => {
                 name="quantidade"
                 className="form-control" 
                 id="quantidade"
+                defaultValue={dadosEditar.quantidade}
                 {...register("quantidade")}
               />
               <span className="text-danger">{errors.quantidade && `${errors.quantidade.message}`}</span>
@@ -124,6 +160,7 @@ const AdicionarRegistro = () => {
                 name="valorUnitario"
                 className="form-control" 
                 id="valorUnitario"
+                defaultValue={dadosEditar.valorUnitario}
                 {...register("valorUnitario")}
               />
               <span className="text-danger">{errors.valorUnitario && `${errors.valorUnitario.message}`}</span>
@@ -136,6 +173,7 @@ const AdicionarRegistro = () => {
                 name="descricao"
                 className="form-control" 
                 id="descricao"
+                defaultValue={dadosEditar.descricao}
                 {...register("descricao")}
               />
               <span className="text-danger">{errors.descricao && `${errors.descricao.message}`}</span>
@@ -150,7 +188,7 @@ const AdicionarRegistro = () => {
                   name="desconto"
                   className="form-control" 
                   id="desconto"
-                  defaultValue={0}
+                  defaultValue={dadosEditar.desconto}
                   {...register("desconto")}
                 />
                 <span className="input-group-text">%</span>
@@ -176,7 +214,7 @@ const AdicionarRegistro = () => {
             </div>
               <div className="col-0 p-4">
                 <div className="row">
-                  <button className="btn btn-primary btn-block py-3">Cadastrar</button>
+                  <button className="btn btn-primary btn-block py-3">Enviar</button>
                 </div>
               </div>
             </form>
@@ -186,9 +224,9 @@ const AdicionarRegistro = () => {
       </div>
       { sucesso ? <ModalSucesso 
         titulo="" 
-        texto="Registro adicionado com sucesso!"
-        url="/registros/novo"
-        callback={() => setSucesso(false)}
+        texto="Registro editado com sucesso!"
+        url="/registros"
+        callback={() => { setSucesso(false); setDadosEditar({});}}
         /> : null 
       }
     </div>
@@ -197,5 +235,4 @@ const AdicionarRegistro = () => {
 }
 
 
-
-export default AdicionarRegistro;
+export default EditarRegistro;

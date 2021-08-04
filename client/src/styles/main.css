@@ -2,6 +2,19 @@
   font-family: Slenco;
   src: url(../fonts/Slenco-Black.otf);
 }
+@font-face {
+  font-family: Bahnschrift;
+  src: url("http://fonts.cdnfonts.com/css/bahnschrift");
+}
+.secFont {
+  font-family: Bahnschrift;
+}
+
+.selecionavel:hover {
+  background-color: rgba(155, 155, 155, 0.609);
+  cursor: pointer;
+}
+
 .borderblack {
   border: 1px solid black;
 }
@@ -22,6 +35,10 @@
 
 a {
   text-decoration: none;
+}
+
+.bg-darkblue {
+  background-color: #144169;
 }
 
 .ui.menu.header-menu {
@@ -63,6 +80,27 @@ a {
   opacity: 0.6;
 }
 
+.bg-cinzaclaro {
+  background-color: #eeeeee;
+}
+
+@-webkit-keyframes desaparecer {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes desaparecer {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .card-login {
   width: 22em;
 }
@@ -96,10 +134,39 @@ th {
   width: 10%;
 }
 
+.smoothTransition {
+  transition: all 1s ease-in-out;
+}
+
+.itemCrud {
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  max-height: 1000px !important;
+}
+
+.marginSetas {
+  margin-bottom: 2em;
+}
+
 .modal-blind {
   height: 100%;
   width: 100%;
   background-color: black;
   position: absolute;
   top: 0;
+}
+
+.sidebar {
+  background-color: #12623e;
+  font-size: 1.13em;
+}
+.sidebar .sidebar-item {
+  color: white;
+}
+.sidebar .sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.103);
+}
+
+#dashboard .botaoNav:hover {
+  background-color: gray;
 }/*# sourceMappingURL=main.css.map */

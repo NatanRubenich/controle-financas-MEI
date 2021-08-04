@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import Usuario from './usuario.js';
 
-const TabelaSchema = new mongoose.Schema({
+const ItemTabelaSchema = new mongoose.Schema({
   nomeCliente: {
     type: String,
     require: true,
@@ -41,15 +40,15 @@ const TabelaSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
-  usuario: {
+  grupoTabela: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'GrupoTabela',
     require: true
   }
 }, {
   timestamps: true
 });
 
-const Tabela = mongoose.model('Tabela', TabelaSchema);
+const ItemTabela = mongoose.model('ItemTabela', ItemTabelaSchema);
 
-export default Tabela;
+export default ItemTabela;

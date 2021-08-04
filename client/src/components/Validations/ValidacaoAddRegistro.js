@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+
 export const addRegistroSchema = yup.object().shape({
   nomeCliente: yup
     .string()
@@ -26,6 +27,7 @@ export const addRegistroSchema = yup.object().shape({
 
   valorUnitario: yup
     .number()
+    .transform((o, v) => parseFloat(v.replace(/,/, '.')))
     .typeError("Insira um número")
     .min(0.1)
     .required("Campo incompleto"),
