@@ -32,12 +32,7 @@ export const usuarioSchema = yup.object().shape({
     const valorNovo = value.replace(/\D/g,'');
     return valorNovo.length === 11;
   }),
-
-  email: yup
-    .string()
-    .email("Insira um email válido")
-    .required("Campo incompleto"),
-
+  
   telefone: yup
     .string()
     .required("Campo incompleto")

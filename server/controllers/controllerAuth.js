@@ -125,15 +125,19 @@ export const authController = async (req, res) => {
 //////////////////////////////////////////////////////////
 //////////          LÓGICA DE UPDATE            //////////
 export const updateUsuarioController = async (req, res) => {
+  if(res.locals.usuario) {
+    const objUsuario = res.locals.usuario;
     try {
-      res.send(req.body);
+      const _id = objUsuario._id;
+      await Usuario.findOneAndUpdate({_id}, { $set: req.body }, { upsert: true, new: true });
 
-
+      res.status(200).send("certo");
 
     }
     catch(err) {
-      res.send({ message: err.message });
+      res.status(500).send({ message: err.message });
     }
+  }
 }
 
 

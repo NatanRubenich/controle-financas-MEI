@@ -38,9 +38,14 @@ router.post('/login/enviar', async (req, res) => {
   loginController(req, res);
 });
 
+
 // Editar conta
-router.put('/minha-conta/enviar', async (req, res) => {
-  cadastroController(req, res);
+router.patch('/minha-conta/editar/enviar', async (req, res, next) => {
+  authMiddleware(req, res, next);
+});
+
+router.patch('/minha-conta/editar/enviar', async (req, res) => {
+  updateUsuarioController(req, res);
 });
 
 

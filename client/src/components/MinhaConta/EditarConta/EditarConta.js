@@ -17,8 +17,7 @@ const elementos = [
   {nome: "cidade", titulo: "Cidade", tipo: "text", classe: "col-md-6", erro: "Insira uma cidade válida"},
   {nome: "cpf", titulo: "CPF", tipo: "text", classe: "col-md-6", erro: "Insira um CPF válido"},
   {nome: "cnpj", titulo: "CNPJ", tipo: "text", classe: "col-md-6", erro: "Insira um CNPJ válido"},
-  {nome: "email", titulo: "Email", tipo: "text", classe: "col-md-7", erro: "Insira um email válido"},
-  {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-5", erro: "Insira um telefone válido"}
+  {nome: "telefone", titulo: "Telefone", tipo: "text", classe: "col-md-6", erro: "Insira um telefone válido"}
 ];
 
 
@@ -35,8 +34,7 @@ const limparSimbolos = (form) => {
     cnpj: filtro(form.cnpj),
     cpf: filtro(form.cpf)
   }
-  // Removendo a confirmação de senha
-  delete formFiltrado.senhaConf;
+
   return formFiltrado;
 }
 
@@ -68,27 +66,26 @@ const DadosConta = ({usuario}) => {
   // DADOS PÓS VALIDAÇÃO DO YUP
   const handleDadosValidados = (form) => {
     const formFiltrado = limparSimbolos(form);
-    //requisicaoPost(formFiltrado);
-    console.log('form', form);
+    requisicaoPost(formFiltrado);
   }
 
   // POST REQUEST
   const requisicaoPost = (form) => {
     setErrosCadastro([]);
     axios({
-      method: 'post',
-      url: '/cadastro/enviar',
-      data: form
+      method: 'patch',
+      url: '/minha-conta/editar/enviar',
+      data: form,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
     })
     .then((res) => {
-      if(res.data.novoUsuario) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("usuario", res.data.novoUsuario.nome);
-        setLogado(true);
+      if(res.status) {
+        console.log(res.status === 200)
         setSucesso(true);
-        console.log(res.data.novoUsuario);
       }
-      if(res.data.erros) { 
+      if(res.asdas) { 
         console.log('ERROS', res.data.erros);
         setErrosCadastro(res.data.erros);
       }
@@ -130,8 +127,8 @@ const DadosConta = ({usuario}) => {
           { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
           { sucesso ? <ModalSucesso 
             titulo="Atualização realizada com sucesso!" 
-            texto="Redirecionando para a página inicial..."
-            url="/"
+            texto="Redirecionando..."
+            url="/minha-conta"
             /> : null 
           }
           <div className="d-flex flex-row">
