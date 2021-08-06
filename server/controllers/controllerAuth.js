@@ -122,7 +122,18 @@ export const authController = async (req, res) => {
 
 
 
+//////////////////////////////////////////////////////////
+//////////          LÓGICA DE UPDATE            //////////
+export const updateUsuarioController = async (req, res) => {
+    try {
+      res.send(req.body);
 
 
+
+    }
+    catch(err) {
+      res.send({ message: err.message });
+    }
+}
 
 

@@ -2,6 +2,7 @@ import express from 'express';
 import { 
   cadastroController, 
   loginController,
+  updateUsuarioController,
   authController
 } from '../controllers/controllerAuth.js';
 
@@ -35,6 +36,11 @@ router.post('/cadastro/enviar', async (req, res) => {
 // Login
 router.post('/login/enviar', async (req, res) => {
   loginController(req, res);
+});
+
+// Editar conta
+router.put('/minha-conta/enviar', async (req, res) => {
+  cadastroController(req, res);
 });
 
 

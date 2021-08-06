@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLogin } from '../../../Context/LoginContext';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from '../../../axios/axios';
+import { useHistory } from 'react-router';
 
 
-import { usuarioSchema } from '../../Validations/ValidacaoCadastro';
+import { usuarioSchema } from '../../Validations/ValidacaoEditarUsuario';
 
 import ModalSucesso from '../../ModalSucesso/ModalSucesso';
 
@@ -41,6 +42,9 @@ const limparSimbolos = (form) => {
 
 const DadosConta = ({usuario}) => {
 
+  // Historico
+  const historico = useHistory();
+
   // Erros
   const [ errosCadastro, setErrosCadastro ] = useState([]);
 
@@ -56,10 +60,16 @@ const DadosConta = ({usuario}) => {
   });
 
 
+  useEffect(() => {
+    console.log('renderizado', usuario, usuario ? true : false)
+  }, [usuario])
+
+
   // DADOS PÓS VALIDAÇÃO DO YUP
   const handleDadosValidados = (form) => {
     const formFiltrado = limparSimbolos(form);
-    requisicaoPost(formFiltrado);
+    //requisicaoPost(formFiltrado);
+    console.log('form', form);
   }
 
   // POST REQUEST
@@ -78,7 +88,7 @@ const DadosConta = ({usuario}) => {
         setSucesso(true);
         console.log(res.data.novoUsuario);
       }
-      if(res.data.erros) {
+      if(res.data.erros) { 
         console.log('ERROS', res.data.erros);
         setErrosCadastro(res.data.erros);
       }
@@ -88,10 +98,10 @@ const DadosConta = ({usuario}) => {
     }); 
   }
 
+
   // Gerar elementos JSX
   const gerarElementosInput = () => {
     const resultadoElementos = elementos.map((item) => {
-      console.log(usuario && usuario[item.nome] && usuario[item.nome]);
       return (
         <div className={item.classe}>
           <label htmlFor={item.nome} class="form-label mt-2">{item.titulo}</label>
@@ -99,7 +109,7 @@ const DadosConta = ({usuario}) => {
             type={item.tipo} 
             className="form-control" 
             id={item.nome} 
-            defaultValue={usuario && usuario[item.nome] && usuario[item.nome]}
+            defaultValue={usuario[item.nome]}
             {...register(item.nome)}
           />
           <span className="text-danger">{errors[item.nome] && `${errors[item.nome].message}`}</span>
@@ -109,10 +119,12 @@ const DadosConta = ({usuario}) => {
     return resultadoElementos;
   }
 
+
+
   // JSX
   return (            
     <form class="row" onSubmit={handleSubmit((form) => handleDadosValidados(form))}>
-      {gerarElementosInput()}
+      {usuario ? gerarElementosInput() : null}
       <div class="col-0 p-4">
         <div className="row">
           { errosCadastro.map( e => <span className="text-danger">{e}</span>) }
@@ -122,7 +134,10 @@ const DadosConta = ({usuario}) => {
             url="/"
             /> : null 
           }
-          <button className="btn btn-primary btn-block py-3 mt-2">Enviar</button>
+          <div className="d-flex flex-row">
+            <button className="mx-1 w-50 btn btn-secondary py-3 mt-2" onClick={() => historico.push('/minha-conta')}>Cancelar</button>
+            <button className="mx-1 w-50 btn btn-primary py-3 mt-2" type="submit">Enviar</button>
+          </div>
         </div>
       </div>
 

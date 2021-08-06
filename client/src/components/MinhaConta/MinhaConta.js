@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from '../../axios/axios';
 import { useLogin } from '../../Context/LoginContext';
+import { Route } from 'react-router-dom';
 
 import PagPadrao from '../PagPadrao/PagPadrao';
-import DadosConta from './DadosConta.js/DadosConta';
+import EditarConta from './EditarConta/EditarConta';
+import VerConta from './VerConta/VerConta';
 
 const PaginaLogin = () => {
   const [usuario, setUsuario] = useState();
@@ -34,7 +36,13 @@ const PaginaLogin = () => {
 
   return (
     <PagPadrao titulo="Minha Conta" background="login-imagem">
-      <DadosConta usuario={usuario}/>
+      <Route exact path="/minha-conta">
+        <VerConta usuario={usuario}/>
+      </Route>
+
+      <Route exact path="/minha-conta/editar">
+        <EditarConta usuario={usuario}/>
+      </Route>
     </PagPadrao>
   );
 
