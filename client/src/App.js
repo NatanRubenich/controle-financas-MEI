@@ -28,7 +28,7 @@ const App = () => {
             <Route path="/cadastro" component={PaginaCadastro} exact/>
             <Route path="/extrato" component={PaginaExtrato}/>
             <RotaPrivada path="/registros" component={PaginaTabela}/>
-            <RotaPrivada path="/minhaconta" component={MinhaConta}/>
+            <RotaPrivada path="/minha-conta" component={MinhaConta}/>
           </Switch>
         </BrowserRouter>
       </div>

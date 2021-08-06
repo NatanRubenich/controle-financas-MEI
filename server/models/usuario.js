@@ -39,7 +39,7 @@ const UsuarioSchema = new mongoose.Schema({
     trim: true
   },
   telefone: {
-    type: Number,
+    type: String,
     require: true,
   },
   senha: {

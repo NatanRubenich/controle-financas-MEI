@@ -19,7 +19,6 @@ const BotaoGerarExtrato = () => {
         }
       })
       .then(response => {
-        console.log(response);
         setMeses(response.data.mesesDisponiveis);
       })
       .catch(err => {
@@ -40,7 +39,7 @@ const BotaoGerarExtrato = () => {
     const elementos = meses.map((e) => {
       const dataMes = e.substring(3);
       const url = dataMes.replace('/', '-');
-      return <Link to={`/extrato/${url}`}><button key={e} className="dropdown-item text-center">{dataMes}</button></Link>;
+      return <Link key={e} to={`/extrato/${url}`}><button className="dropdown-item text-center">{dataMes}</button></Link>;
     });
 
     return elementos;
@@ -62,12 +61,7 @@ const BotaoGerarExtrato = () => {
 
 
 }
-/* 
-        <button className="btn btn-warning mx-auto py-3 px-4 fs-5 d-flex justify-content-center align-items-center">
-          <i className="fas fa-calculator"></i>
-          <span className="ps-2">Gerar Extrato Mensal</span>
-        </button> 
-  */
+
 
 
 export default BotaoGerarExtrato;
