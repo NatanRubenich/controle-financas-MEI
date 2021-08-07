@@ -38,7 +38,7 @@ const limparSimbolos = (form) => {
   return formFiltrado;
 }
 
-const DadosConta = ({usuario}) => {
+const DadosConta = ({usuario, rerender}) => {
 
   // Historico
   const historico = useHistory();
@@ -84,6 +84,7 @@ const DadosConta = ({usuario}) => {
       if(res.status) {
         console.log(res.status === 200)
         setSucesso(true);
+        rerender()
       }
       if(res.asdas) { 
         console.log('ERROS', res.data.erros);

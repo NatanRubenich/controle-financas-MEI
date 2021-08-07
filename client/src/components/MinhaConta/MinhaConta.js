@@ -10,6 +10,7 @@ import VerConta from './VerConta/VerConta';
 const PaginaLogin = () => {
   const [usuario, setUsuario] = useState();
   const {logado, setLogado} = useLogin();
+  const [rerender, setRerender] = useState(false);
 
   const verificarLogin = async () => {
     if(localStorage.getItem("token")) {
@@ -31,7 +32,11 @@ const PaginaLogin = () => {
 
   useEffect(() => {
     verificarLogin();
-  }, [logado]);
+  }, [logado, rerender]);
+
+  const handleRerender = () => {
+    setRerender(!rerender);
+  }
 
 
   return (
@@ -41,7 +46,7 @@ const PaginaLogin = () => {
       </Route>
 
       <Route exact path="/minha-conta/editar">
-        <EditarConta usuario={usuario}/>
+        <EditarConta usuario={usuario} rerender={handleRerender}/>
       </Route>
     </PagPadrao>
   );

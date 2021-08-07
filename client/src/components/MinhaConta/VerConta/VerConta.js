@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const VerConta = ({usuario}) => {
 
   return (
-    <div className="row fs-6">
+    <div className="row fs-6 py-2">
       <div className="row g-0 ps-3 ps-md-5">
         <div className="col-0 col-md-6 my-3">Nome: {usuario && usuario.nome}</div>
         <div className="col-0 col-md-6 my-3">Sobrenome: {usuario && usuario.sobrenome}</div>
