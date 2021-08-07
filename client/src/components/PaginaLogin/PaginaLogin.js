@@ -72,9 +72,7 @@ const PaginaLogin = () => {
                     <label for="senha" className="form-label d-flex">Senha</label>
                   </div>
                   <div className="col">
-                    <a href="#">
-                      Esqueceu a senha?
-                    </a>
+                    <Link to="/esqueci-senha">Esqueceu sua senha?</Link>
                   </div>
                 </div>
                 <input type="password" name="senha" className="form-control" id="senha" {...register("senha")}/>

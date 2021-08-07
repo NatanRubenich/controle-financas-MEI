@@ -3,7 +3,6 @@ import Usuario from '../models/usuario.js';
 import GrupoTabela from '../models/grupotabela.js';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import path from 'path';
 
 import { loginJWT } from '../jwt/jwt.js'
 import mailer from '../modules/mailer.js'
@@ -219,7 +218,7 @@ export const resetarSenhaController = async (req, res) => {
 
     usuario.senha = senha;
     usuario.save();
-    
+
     res.send("Senha atualizada!")
 
 
