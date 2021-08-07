@@ -202,19 +202,19 @@ export const resetarSenhaController = async (req, res) => {
   const { email, token, senha } = req.body;
 
   try {
-    const usuario = await Usuario.findOne({ email }).select('+tokenResetSenha expiracaoTokenResetSenha');
+    const usuario = await Usuario.findOne({ email }).select('+tokenResetSenha +expiracaoTokenResetSenha');
 
     try {
       if(!usuario) {
-        return res.status(400).send("Usuário não encontrado");
+        return res.status(400).send({erro:"Usuário não encontrado"});
       }
   
       if(token !== usuario.tokenResetSenha) {
-        return res.status(401).send("Token Inválido");
+        return res.status(401).send({erro: "Código Inválido"});
       }
   
       if(new Date() > usuario.expiracaoTokenResetSenha) {
-        return res.status(401).send("Token Expirado");
+        return res.status(402).send({erro: "Código Expirado"});
       }
   
       usuario.senha = senha;
@@ -226,7 +226,7 @@ export const resetarSenhaController = async (req, res) => {
       console.log(err);
     }
 
-    res.status(200);
+    res.status(200).send("Senha alterada com sucesso!D");
 
   } catch (err) {
     res.status(500).send("Erro ao encontrar usuario");

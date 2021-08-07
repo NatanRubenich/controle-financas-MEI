@@ -47,11 +47,20 @@ const PaginaExtrato = () => {
   return (
     <div className="row m-0">
         <WrapperTabela>
-          <div className="z-index2">
-            <h2 className="text-center mt-3">{dadosTabela.periodo ? dadosTabela.periodo.padStart(7, '0') : null}</h2>
+          <div className="col-12 col-md-10 mx-auto d-flex flex-row g-0 z-index2 position-relative">
+            <div className="col-3 mx-auto">
+              <h2 className="text-center mt-3">{dadosTabela.periodo ? dadosTabela.periodo.padStart(7, '0') : null}</h2>
+            </div>
+            <div className="col-auto d-print-none d-flex flex-row position-absolute end-0 mt-3" onClick={window.print}>
+              <button className="btn btn-success align-end px-3">
+                <i className="fas fa-print fs-4 me-2"></i>
+                Imprimir
+              </button>
+            </div>
           </div>
+
           <div className="col-12 col-md-10 mx-auto mt-2 mb-5 p-2 bg-light rounded d-flex justify-content-center shadow-lg z-index2 position-relative">
-            <div className="row g-0 borderblack fontTNR">
+            <div className="row g-0 m-0 borderblack fontTNR">
               <div className="row g-0">
                 <h5 className="text-center borderblack m-0 p-2">RELATÓRIO MENSAL DAS RECEITAS BRUTAS</h5>
 

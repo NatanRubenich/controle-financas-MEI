@@ -28,6 +28,7 @@ const PaginaLogin = () => {
       }
     })
     .then((res) => {
+      console.log(res);
       setErro("");
       setSucesso("Senha alterada com sucesso!");
       setTimeout(() => {
@@ -36,6 +37,7 @@ const PaginaLogin = () => {
     })
     .catch(err => {
       setErro("Erro. Confira as informações");
+      console.log(err);
     });
   }
 
