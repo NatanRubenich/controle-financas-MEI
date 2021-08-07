@@ -144,7 +144,7 @@ export const updateUsuarioController = async (req, res) => {
 
 
 //////////////////////////////////////////////////////////
-//////////          RECUPERAR SENHA            //////////
+//////////    ENVIAR EMAIL DE REC SENHA           //////////
 export const esqueciSenhaController = async (req, res) => {
   const { email } = req.body;
   try {
@@ -204,29 +204,33 @@ export const resetarSenhaController = async (req, res) => {
   try {
     const usuario = await Usuario.findOne({ email }).select('+tokenResetSenha expiracaoTokenResetSenha');
 
-    if(!usuario) {
-      res.status(400).send("Usuário não encontrado");
+    try {
+      if(!usuario) {
+        return res.status(400).send("Usuário não encontrado");
+      }
+  
+      if(token !== usuario.tokenResetSenha) {
+        return res.status(401).send("Token Inválido");
+      }
+  
+      if(new Date() > usuario.expiracaoTokenResetSenha) {
+        return res.status(401).send("Token Expirado");
+      }
+  
+      usuario.senha = senha;
+      usuario.tokenResetSenha = undefined;
+      usuario.expiracaoTokenResetSenha = undefined;
+      await usuario.save();
+
+    } catch(err) {
+      console.log(err);
     }
 
-    if(token !== usuario.tokenResetSenha) {
-      res.status(401).send("Token Inválido");
-    }
-
-    if(new Date() > usuario.expiracaoTokenResetSenha) {
-      res.status(401).send("Token Expirado");
-    }
-
-    usuario.senha = senha;
-    usuario.save();
-
-    res.send("Senha atualizada!")
-
-
-
-
+    res.status(200);
 
   } catch (err) {
-    res.status(500).send("Erro ao resetar senha");
+    res.status(500).send("Erro ao encontrar usuario");
+    console.log(err)
   }
 
 
