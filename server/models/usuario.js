@@ -50,6 +50,14 @@ const UsuarioSchema = new mongoose.Schema({
   grupoTabela: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GrupoTabela'
+  },
+  tokenResetSenha: {
+    type: String,
+    select: false
+  },
+  expiracaoTokenResetSenha: {
+    type: Date,
+    select: false
   }
 }, {
   timestamps: true

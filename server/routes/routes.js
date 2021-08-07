@@ -3,7 +3,8 @@ import {
   cadastroController, 
   loginController,
   updateUsuarioController,
-  authController
+  authController,
+  esqueciSenhaController
 } from '../controllers/controllerAuth.js';
 
 import { 
@@ -46,6 +47,12 @@ router.patch('/minha-conta/editar/enviar', async (req, res, next) => {
 
 router.patch('/minha-conta/editar/enviar', async (req, res) => {
   updateUsuarioController(req, res);
+});
+
+
+// Resetar senha
+router.post('/esqueci-senha', async (req, res) => {
+  esqueciSenhaController(req, res);
 });
 
 

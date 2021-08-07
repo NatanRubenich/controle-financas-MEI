@@ -2,8 +2,11 @@ import express from 'express';
 import Usuario from '../models/usuario.js';
 import GrupoTabela from '../models/grupotabela.js';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import path from 'path';
 
 import { loginJWT } from '../jwt/jwt.js'
+import mailer from '../modules/mailer.js'
 
 //////////////////////////////////////////////////////////
 //////////        LÓGICA DE CADASTRO           //////////
@@ -139,5 +142,61 @@ export const updateUsuarioController = async (req, res) => {
     }
   }
 }
+
+
+//////////////////////////////////////////////////////////
+//////////          RECUPERAR SENHA            //////////
+export const esqueciSenhaController = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const usuario = await Usuario.findOne({ email })
+
+    if(!usuario) {
+      res.status(400).send("Usuário não encontrado");
+    }
+
+    /////////////////////////
+    // Criando token
+    const token = crypto.randomBytes(20).toString('hex');
+    
+    // Criando horário de expiração
+    const agora = new Date();
+    agora.setHours(agora.getHours() + 1);
+
+    await Usuario.findByIdAndUpdate(usuario._id, {
+      '$set': {
+        tokenResetSenha: token,
+        expiracaoTokenResetSenha: agora
+      }
+    });
+
+
+    try {
+        mailer.sendMail({
+          to: email,
+          from: 'email@email.com',
+          subject: 'Recuperação de Senha - MEI Controle',
+          template: 'recuperarSenha',
+          context: { token },
+        }, (erro) => {
+          if(erro) return res.status(400).send("erro ao enviar email");
+        });
+      
+        return res.send("Email enviado");
+    }
+    catch(error) {
+      res.status(400).send("Erro ao atualizar o usuario");
+      console.log(error);
+    }
+  }
+
+  catch(error) {
+    res.status(400).send('Erro em esqueci senha');
+  }
+
+
+}
+
+
 
 
