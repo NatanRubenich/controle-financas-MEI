@@ -10,11 +10,11 @@ import path from 'path';
   }
 
   const transport = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io', //process.env.MAILER_HOST,
-    port: 2525, //process.env.MAILER_PORT,
+    host: process.env.MAILER_HOST,
+    port: process.env.MAILER_PORT,
     auth: {
-      user: '8ec28e2743cdfe', //process.env.MAILER_USER,
-      pass: '3bf3fda930c039' //process.env.MAILER_PASS
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASS
     }
   });
 

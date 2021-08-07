@@ -163,6 +163,7 @@ export const esqueciSenhaController = async (req, res) => {
     const agora = new Date();
     agora.setHours(agora.getHours() + 1);
 
+    // Inserindo token e data de exp no DB
     await Usuario.findByIdAndUpdate(usuario._id, {
       '$set': {
         tokenResetSenha: token,
@@ -170,7 +171,7 @@ export const esqueciSenhaController = async (req, res) => {
       }
     });
 
-
+    // Nodemailer
     try {
         mailer.sendMail({
           to: email,
@@ -193,10 +194,46 @@ export const esqueciSenhaController = async (req, res) => {
   catch(error) {
     res.status(400).send('Erro em esqueci senha');
   }
-
-
 }
 
 
+///////////////////////////////////////////////////////
+///////////        RESETAR SENHA     /////////////////
+export const resetarSenhaController = async (req, res) => {
+  const { email, token, senha } = req.body;
+
+  try {
+    const usuario = await Usuario.findOne({ email }).select('+tokenResetSenha expiracaoTokenResetSenha');
+
+    if(!usuario) {
+      res.status(400).send("Usuário não encontrado");
+    }
+
+    if(token !== usuario.tokenResetSenha) {
+      res.status(401).send("Token Inválido");
+    }
+
+    if(new Date() > usuario.expiracaoTokenResetSenha) {
+      res.status(401).send("Token Expirado");
+    }
+
+    usuario.senha = senha;
+    usuario.save();
+    
+    res.send("Senha atualizada!")
+
+
+
+
+
+  } catch (err) {
+    res.status(500).send("Erro ao resetar senha");
+  }
+
+
+
+
+
+}
 
 
