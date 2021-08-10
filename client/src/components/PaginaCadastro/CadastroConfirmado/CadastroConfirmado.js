@@ -27,7 +27,10 @@ const CadastroConfirmado = () => {
       });
   }
 
-  confirmar();
+  useEffect(() => {
+    confirmar();
+  }, []);
+  
 
   return(
     <PagPadrao background="login-imagem">

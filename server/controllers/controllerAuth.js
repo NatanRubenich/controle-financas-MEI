@@ -98,17 +98,35 @@ export const confirmarCadastroController = async (req, res) => {
   try{
     const token = req.body.token;
 
-    const user = await Usuario.findOneAndUpdate({ tokenCadastro: token }, {
-      '$set': {
-        tokenCadastro: 'ativo'
-      }
-    }).select('+tokenCadastro');
+    const user = await Usuario.findOne({ tokenCadastro: token }).select('+tokenCadastro');
 
-    if(!user) {
+    if(user === null) {
+      res.status(404).send({erro: "Usuário não encontrado"});
+    }
+
+    try {
+      
+      await Usuario.findOneAndUpdate({ tokenCadastro: token }, {
+        '$set': {
+          tokenCadastro: 'ativo'
+        }
+      }).select('+tokenCadastro');
+      
+      res.send("Conta ativada com sucesso!");
+  
+
+    }
+    catch(err) {
       res.status(404);
     }
 
-    res.send(user);
+
+
+    if(user.tokenCadastro === 'ativo') {
+      res.send("Conta já foi ativada!");
+    }
+
+    res.send({user: user});
 
     
   } catch (err) {
