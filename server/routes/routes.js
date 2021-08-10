@@ -1,6 +1,7 @@
 import express from 'express';
 import { 
   cadastroController, 
+  confirmarCadastroController,
   loginController,
   updateUsuarioController,
   authController,
@@ -34,6 +35,12 @@ const router = express.Router();
 router.post('/cadastro/enviar', async (req, res) => {
   cadastroController(req, res);
 });
+
+// Confirmar Cadastro
+router.get('/cadastro/confirmar/:token', async (req, res) => {
+  confirmarCadastroController(req, res);
+});
+
 
 // Login
 router.post('/login/enviar', async (req, res) => {

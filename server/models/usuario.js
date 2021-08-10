@@ -51,6 +51,10 @@ const UsuarioSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GrupoTabela'
   },
+  tokenCadastro: {
+    type: String,
+    select: false
+  },
   tokenResetSenha: {
     type: String,
     select: false

@@ -3,6 +3,7 @@ import Usuario from '../models/usuario.js';
 import GrupoTabela from '../models/grupotabela.js';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import { baseUrl } from '../config.js';
 
 import { loginJWT } from '../jwt/jwt.js'
 import mailer from '../modules/mailer.js'
@@ -40,7 +41,10 @@ export const cadastroController = async (req, res) => {
         return res.send({ erros: erros });
       } else {
         // Enviando schema ao servidor
-        const novoUsuario = new Usuario(req.body);
+        const tokenCadastro = crypto.randomBytes(20).toString('hex');
+        const objUsuario = {...req.body, tokenCadastro}
+
+        const novoUsuario = new Usuario(objUsuario);
         const novoGrupoTabela = new GrupoTabela({ usuario: novoUsuario._id });
     
         // Adicionando a tabela no usuario
@@ -53,13 +57,28 @@ export const cadastroController = async (req, res) => {
         // Removendo a senha do model
         novoUsuario.senha = undefined;
 
-        // Gerando JWT 
-        const token = await loginJWT(novoUsuario.id);
-        console.log(novoUsuario, req.body);
-        //Retornando o usuário + jwt
-        return res.send({ novoUsuario, token });
-      }
 
+
+        // Nodemailer
+        const linkConfirmacao = `http://${baseurl}/cadastro/confirmar/${tokenCadastro}`;
+        try {
+          mailer.sendMail({
+            to: email,
+            from: 'email@email.com',
+            subject: 'Confirmação de Cadastro - MEI Controle',
+            template: 'confirmarCadastro',
+            context: { linkConfirmacao },
+          }, (erro) => {
+            if(erro) return res.status(400).send("erro ao enviar email");
+          });
+        
+          return res.status(`Email enviado para ${email}! Cheque sua caixa de entrada.`);
+        }
+        catch(error) {
+          res.status(400).send("Erro ao atualizar o usuario");
+          console.log(error);
+        }
+      }
     } 
     catch(err) {
       res.send({ message: err.message });
@@ -72,6 +91,36 @@ export const cadastroController = async (req, res) => {
 }
 
 
+///////////////////////////////////////////////////////////
+////////////     CONFIRMANDO CADASTRO      ////////////////
+
+export const confirmarCadastroController = async (req, res) => {
+  try{
+    if(!typeof req.params.token === String) res.status(500);
+
+    const usuario = await Usuario.findOne({
+      tokenCadastro: req.params.token
+    });
+
+    if(!usuario) {
+      res.send({erro: "Usuário não existe"});
+    }
+
+    usuario.tokenCadastro = true;
+    usuario.save();
+
+    res.send({usuario});
+
+  } catch (err) {
+    res.status(404);
+  }
+
+}
+
+
+
+
+
 //////////////////////////////////////////////////////////
 //////////          LÓGICA DE LOGIN            //////////
 export const loginController = async (req, res) => {
@@ -80,8 +129,13 @@ export const loginController = async (req, res) => {
 
     try {
       // Procurando informações preexistentes
-      const usuario = await Usuario.findOne({ email }).select('+senha');
+      const usuario = await Usuario.findOne({ email }).select('+senha +tokenCadastro');
  
+      // Verificando se está confirmado
+      if (usuario.tokenCadastro !== true) {
+        return res.send({ erro: "Conta não confirmada" });
+      }
+
       // Verificando se a senha corresponde
       if (!await bcrypt.compare(senha, usuario.senha)) {
         return res.send({ erro: "Senha incorreta"});
@@ -105,6 +159,7 @@ export const loginController = async (req, res) => {
     return res.status(400).send({ erro: "Registro falhou" });
   }
 }
+
 
 /// Retornar auth
 export const authController = async (req, res) => {

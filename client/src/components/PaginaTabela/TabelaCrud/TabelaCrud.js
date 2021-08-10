@@ -150,6 +150,12 @@ const PaginaTabela = () => {
               </button>
             </Link> 
             <BotaoGerarExtrato /> 
+            <a 
+              href="http://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATSPO/pgmei.app/Identificacao"
+              className="btn btn-primary mx-1 d-flex align-items-center"
+            >
+               Gerador de DAS
+            </a>
           </div>
 
           <div className="col-11 mx-auto">
