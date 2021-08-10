@@ -6,7 +6,8 @@ import {
   updateUsuarioController,
   authController,
   esqueciSenhaController,
-  resetarSenhaController
+  resetarSenhaController,
+  user
 } from '../controllers/controllerAuth.js';
 
 import { 
@@ -37,8 +38,13 @@ router.post('/cadastro/enviar', async (req, res) => {
 });
 
 // Confirmar Cadastro
-router.get('/cadastro/confirmar/:token', async (req, res) => {
+router.patch('/cadastro/confirmar', async (req, res) => {
   confirmarCadastroController(req, res);
+});
+
+// verificar user
+router.get('/user/:email', async (req, res) => {
+  user(req, res);
 });
 
 

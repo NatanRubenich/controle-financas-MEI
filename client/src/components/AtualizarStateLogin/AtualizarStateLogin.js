@@ -16,11 +16,9 @@ const AtualizarStateLogin = () => {
           }
         })
         .then((res) => {
-          console.log('resposta', res);
           setLogado(true);
         })
         .catch(err => {
-          console.log(err)
           setLogado(false);
         });
       } else {

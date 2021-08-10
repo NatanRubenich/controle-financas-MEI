@@ -73,16 +73,11 @@ const FormCadastro = () => {
       data: form
     })
     .then((res) => {
-      if(res.data.novoUsuario) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("usuario", res.data.novoUsuario.nome);
-        setLogado(true);
-        setSucesso(true);
-        console.log(res.data.novoUsuario);
-      }
       if(res.data.erros) {
         console.log('ERROS', res.data.erros);
         setErrosCadastro(res.data.erros);
+      } else {
+        setSucesso(true);
       }
     })
     .catch((err) => {

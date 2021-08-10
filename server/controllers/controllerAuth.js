@@ -3,7 +3,7 @@ import Usuario from '../models/usuario.js';
 import GrupoTabela from '../models/grupotabela.js';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import { baseUrl } from '../config.js';
+import { appBaseUrl } from '../config.js';
 
 import { loginJWT } from '../jwt/jwt.js'
 import mailer from '../modules/mailer.js'
@@ -60,7 +60,7 @@ export const cadastroController = async (req, res) => {
 
 
         // Nodemailer
-        const linkConfirmacao = `http://${baseurl}/cadastro/confirmar/${tokenCadastro}`;
+        const linkConfirmacao = `${appBaseUrl}/cadastro/confirmar/${tokenCadastro}`;
         try {
           mailer.sendMail({
             to: email,
@@ -72,7 +72,7 @@ export const cadastroController = async (req, res) => {
             if(erro) return res.status(400).send("erro ao enviar email");
           });
         
-          return res.status(`Email enviado para ${email}! Cheque sua caixa de entrada.`);
+          return res.send(`Email enviado para ${email}! Cheque sua caixa de entrada.`);
         }
         catch(error) {
           res.status(400).send("Erro ao atualizar o usuario");
@@ -96,26 +96,45 @@ export const cadastroController = async (req, res) => {
 
 export const confirmarCadastroController = async (req, res) => {
   try{
-    if(!typeof req.params.token === String) res.status(500);
+    const token = req.body.token;
 
-    const usuario = await Usuario.findOne({
-      tokenCadastro: req.params.token
-    });
+    const user = await Usuario.findOneAndUpdate({ tokenCadastro: token }, {
+      '$set': {
+        tokenCadastro: 'ativo'
+      }
+    }).select('+tokenCadastro');
 
-    if(!usuario) {
-      res.send({erro: "Usuário não existe"});
+    if(!user) {
+      res.status(404);
     }
 
-    usuario.tokenCadastro = true;
-    usuario.save();
+    res.send(user);
 
-    res.send({usuario});
-
+    
   } catch (err) {
     res.status(404);
   }
 
 }
+
+
+
+
+export const user = async (req, res) => {
+  try{
+    const email = req.params.email;
+
+    const usuario = await Usuario.findOne({email}).select('+tokenCadastro');
+
+    res.send({usuario})
+
+
+  } catch (err) {
+    console.log(err)
+  }
+
+}
+
 
 
 
@@ -130,27 +149,30 @@ export const loginController = async (req, res) => {
     try {
       // Procurando informações preexistentes
       const usuario = await Usuario.findOne({ email }).select('+senha +tokenCadastro');
- 
-      // Verificando se está confirmado
-      if (usuario.tokenCadastro !== true) {
-        return res.send({ erro: "Conta não confirmada" });
-      }
+
 
       // Verificando se a senha corresponde
       if (!await bcrypt.compare(senha, usuario.senha)) {
         return res.send({ erro: "Senha incorreta"});
       }
 
+      // Verificando foi verificado
+      if (usuario.tokenCadastro !== 'ativo') {
+        return res.send({erro: "Email não confirmado"});
+      }
+
+
       // Limpando a senha do schema
       usuario.senha = undefined;
 
       // Gerando JWT 
       const token = await loginJWT(usuario.id);
-      res.send({ usuario, token });
 
+      res.send({ usuario, token });
 
     } 
     catch(err) {
+      console.log(err)
       res.send({ message: err.message });
     }
 
